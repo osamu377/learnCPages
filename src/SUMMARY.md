@@ -6,7 +6,7 @@
 - [条件分岐](./part_1_chapter_04.md)
 - [ループ](./part_1_chapter_05.md)
 - [関数](./part_1_chapter_06.md)
-- [ファイル入出力](./part_1_chapter_08.md)
+- [ファイル入出力](./part_1_chapter_07.md)
 - [ポインタ](./part_2_chapter_01.md)
 - [構造体](./part_2_chapter_02.md)
 - [引数の参照渡し](./part_2_chapter_03.md)
