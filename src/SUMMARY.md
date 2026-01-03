@@ -1,5 +1,6 @@
 # Summary
 
+- [イントロダクション](./part_0_chapter_00.md)
 - [第1部 基礎編](./part_1_chapter_00.md)
     - [はじめの一歩](./part_1_chapter_01.md)
     - [演算子](./part_1_chapter_02.md)
