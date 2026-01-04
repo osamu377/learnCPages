@@ -1,0 +1,428 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>条件分岐 - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="条件分岐"><a class="header" href="#条件分岐">条件分岐</a></h1>
+<p><img src="img/p1c4.png" alt="C言語の条件分岐ガイド"></p>
+<h2 id="イントロダクション"><a class="header" href="#イントロダクション">イントロダクション</a></h2>
+<p>この章での学習の目的は、プログラムの動作を制御するための根幹技術である条件分岐の基礎を完全に理解することです。条件分岐は、特定の状況に応じてプログラムの振る舞いを変化させるための仕組みであり、あらゆるソフトウェア開発において不可欠なスキルです。この資料を通じて、その基本構文と応用テクニックを体系的に学んでいきましょう。</p>
+<hr>
+<h2 id="1-はじめにプログラムにおける意思決定"><a class="header" href="#1-はじめにプログラムにおける意思決定">1. はじめに：プログラムにおける意思決定</a></h2>
+<p>このセクションでは、プログラミングにおける「意思決定」の概念を解説します。これは、私たちが日常生活で行う意思決定と非常によく似ています。状況に応じて最適な行動を選択するように、プログラムもまた、与えられた条件に応じて最適な処理を選択する必要があります。この能力こそが、単なる計算機だったプログラムに、状況に応じて判断し、動的に振る舞う「知性」を与えるのです。</p>
+<p>私たちの人生において、常に何らかの意思決定が求められるように、プログラムもさまざまな選択肢の中から判断を下す必要があります。例えば、「もし特定の条件が満たされたならば、この処理を実行する」といった具合です。C言語では、このような意思決定の構造を非常にシンプルに記述できます。</p>
+<pre><code>int target = 10;
+if (target == 10) {
+    printf("Target is equal to 10");
+}
+</code></pre>
+<p>このコードは、変数targetの値が10と等しいかどうかを「判断」し、もし等しければメッセージを出力します。これが、プログラムにおける意思決定の核心です。</p>
+<p>次のセクションでは、この判断の基礎となる最も基本的な構文、if文について詳しく学んでいきます。</p>
+<h2 id="2-基本的な条件分岐if文"><a class="header" href="#2-基本的な条件分岐if文">2. 基本的な条件分岐：if文</a></h2>
+<p>プログラムに「プランB」を持たせたいとき、どうすればよいでしょうか？ if文は、まさにそのためのツールです。これはプログラムの流れを制御するための最も基本的かつ不可欠な構成要素であり、あらゆる条件分岐ロジックの出発点となります。</p>
+<p>if文のコア機能は、指定された式が真（true）か偽（false）かを評価し、その結果が真であった場合にのみ、特定のコードブロックを実行するというものです。言い換えれば、「もし〜ならば、〜を実行する」というロジックをプログラム上で実現します。</p>
+<p>先の例if (target == 10)で見たように、2つの変数が等しいかどうかを評価するためには、==（イコール2つ）という比較演算子を使用します。</p>
+<p>注意： C言語で最もよくある間違いの一つが、比較の==と代入の=を混同することです。if (target = 10)と書いてしまうと、targetに10が代入され、その代入式の結果（この場合は10、C言語では非ゼロなので真と評価される）が条件となってしまいます。常に比較には==（イコール2つ）を使用することを徹底してください。</p>
+<p>もちろん、等しいかどうかだけでなく、大小関係を評価することも可能です。不等号演算子（&lt;や&gt;）を用いることで、値の比較に基づいた条件分岐を実装できます。</p>
+<pre><code>int foo = 1;
+int bar = 2;
+
+if (foo &lt; bar) {
+    printf("foo is smaller than bar.");
+}
+
+if (foo &gt; bar) {
+    printf("foo is greater than bar.");
+}
+</code></pre>
+<p>上記のコードでは、最初のif文でfoo &lt; bar（1は2より小さい）が評価されます。この式は真であるため、「foo is smaller than bar.」というメッセージが出力されます。一方、2番目のif文のfoo &gt; bar（1は2より大きい）は偽であるため、その中のprintf文は実行されません。</p>
+<p>しかし、if文だけでは「条件が満たされなかった場合」に何をするかを明示的に定義できません。この課題を解決するのが、次にご紹介するif-else文です。</p>
+<h2 id="3-条件が偽の場合の処理if-else文"><a class="header" href="#3-条件が偽の場合の処理if-else文">3. 条件が偽の場合の処理：if-else文</a></h2>
+<p>プランAがうまくいかなかった時のために、「プランB」が必要になることはありませんか？ if文はプランAを提供しますが、その条件が満たされなかった場合に何が起こるでしょうか。そこでelseが、より堅牢なプログラムを作成するための不可欠なツールとして登場します。</p>
+<p>elseキーワードは、if文の式が偽（false）と評価されたときに実行されるコードブロックを定義するために使用されます。これにより、「もし条件Aが真ならば処理Xを、さもなければ処理Yを実行する」という明確な二者択一のロジックを構築できます。</p>
+<pre><code>int foo = 1;
+int bar = 2;
+
+if (foo &lt; bar) {
+    printf("foo is smaller than bar.");
+} else {
+    printf("foo is greater than bar.");
+}
+</code></pre>
+<p>この例では、foo &lt; barが真であるため、ifブロック内のprintf文が実行され、elseブロックは無視されます。もしfooの値が3であれば、foo &lt; barは偽となり、elseブロック内のprintf文が実行されることになります。この構造により、プログラムは必ずどちらか一方の道を確実に選択するようになります。</p>
+<p>しかし、現実世界の選択肢は常に二者択一とは限りません。3つ以上の選択肢から1つを選ぶ必要がある場合はどうすればよいでしょうか。その答えが、次のelse if文にあります。</p>
+<h2 id="4-複数の選択肢を扱うelse-if文"><a class="header" href="#4-複数の選択肢を扱うelse-if文">4. 複数の選択肢を扱う：else if文</a></h2>
+<p>このセクションでは、3つ以上の選択肢から1つを選ぶような、より複雑な意思決定をプログラムで実現するためのelse if文を学びます。これにより、条件分岐の表現力が飛躍的に向上します。</p>
+<p>複数のifとelseを「連鎖させる（chaining）」ことで、多岐にわたる条件分岐を体系的に構築できます。これがelse if文の役割です。この構造を使うことで、「もしAならばXを、そうでなくもしBならばYを、それ以外ならばZを」といった多段階のロジックを記述できます。</p>
+<p>変数fooとbarの比較を例に、「より小さい」「等しい」「より大きい」という3つの状態を評価してみましょう。</p>
+<pre><code>int foo = 1;
+int bar = 2;
+
+if (foo &lt; bar) {
+    printf("foo is smaller than bar.");
+} else if (foo == bar) {
+    printf("foo is equal to bar.");
+} else {
+    printf("foo is greater than bar.");
+}
+</code></pre>
+<p>この構造の最も重要な特性は、効率性と排他性です。条件は上から順に評価され、一つでも真と評価されたブロックが実行されると、後続のelse ifやelseは完全に無視されます。これにより、不要な評価をスキップできるだけでなく、複数の条件が同時に真になりうる場合でも、必ず一つの処理だけが実行されることが保証されます。</p>
+<p>さらに複雑なロジックを構築するためには、条件の入れ子（ネスト）や論理演算子といった応用テクニックがあります。次のセクションで、これらの強力な手法を見ていきましょう。</p>
+<h2 id="5-特定の値に基づいた効率的な分岐switch-case文"><a class="header" href="#5-特定の値に基づいた効率的な分岐switch-case文">5. 特定の値に基づいた効率的な分岐：switch-case文</a></h2>
+<p>これまで学んだ <code>else if</code> 文は非常に強力ですが、もしチェックしたい条件が「1つの変数の値が何であるか」という点に集中している場合、コードが少し読みづらく（冗長に）なってしまうことがあります。</p>
+<p>例えば、サイコロの目（1〜6）に応じて処理を変えたい場合、<code>else if</code> を5回も書くのは大変です。このような「特定の値による多方向への分岐」を、よりスッキリと、かつ効率的に記述するために用意されているのが <strong>switch-case文</strong> です。</p>
+<p><code>switch</code> 文は、1つの変数の値を評価し、その値に一致する <code>case</code> ラベルへ「ジャンプ」する仕組みです。</p>
+<h3 id="基本的な構文"><a class="header" href="#基本的な構文">基本的な構文</a></h3>
+<pre><code class="language-c">int dice = 2;
+
+switch (dice) {
+    case 1:
+        printf("1が出ました。\n");
+        break;
+    case 2:
+        printf("2が出ました。\n");
+        break;
+    case 3:
+        printf("3が出ました。\n");
+        break;
+    default:
+        printf("4以上の目が出ました。\n");
+        break;
+}
+
+</code></pre>
+<p>このコードの動きを分解してみましょう。</p>
+<h4 id="a-case-ラベル"><a class="header" href="#a-case-ラベル">A. <code>case</code> ラベル</a></h4>
+<p><code>switch</code> の後ろのカッコ内の値（この場合は <code>dice</code>）が、<code>case</code> の後ろに書かれた定数と一致するかをチェックします。一致すれば、そこからプログラムの実行が始まります。</p>
+<h4 id="b-break-文重要"><a class="header" href="#b-break-文重要">B. <code>break</code> 文（重要！）</a></h4>
+<p>各 <code>case</code> ブロックの最後にある <code>break</code> は、「スイッチから抜け出す」ための命令です。
+<strong>もし <code>break</code> を書き忘れると、次の <code>case</code> の中身まで連続して実行されてしまいます。</strong> これを「フォールスルー（Fall-through）」と呼びます。意図的に使うこともありますが、初心者のうちは「<code>case</code> と <code>break</code> はセット」と覚えておくのが安全です。</p>
+<h4 id="c-default-ラベル"><a class="header" href="#c-default-ラベル">C. <code>default</code> ラベル</a></h4>
+<p>どの <code>case</code> にも一致しなかった場合に実行される場所です。これは <code>if-else</code> 文における最後の <code>else</code> と同じ役割を果たします。いわば、プログラムの「セーフティネット」です。</p>
+<h3 id="switch-文が適している場面"><a class="header" href="#switch-文が適している場面"><code>switch</code> 文が適している場面</a></h3>
+<p><code>switch</code> 文は非常に便利ですが、どんな条件分岐にも使えるわけではありません。以下の特徴を理解しておきましょう。</p>
+<ul>
+<li><strong>整数または文字の比較に限定</strong>: C言語の <code>switch</code> 文は、基本的に <code>int</code> 型（整数）や <code>char</code> 型（文字）の「一致（==）」しか判定できません。「10より大きいか」といった<strong>範囲の判定は <code>if</code> 文の領分</strong>です。</li>
+<li><strong>可読性の向上</strong>: 選択肢が4つ、5つと増えていく場合、<code>else if</code> を並べるよりも <code>switch</code> を使ったほうが、「何に基づいて分岐しているのか」がひと目で分かるようになります。</li>
+</ul>
+<hr>
+<p>これで、C言語における条件分岐の主要な道具がすべて揃いました。状況に応じて <code>if-else</code> と <code>switch-case</code> を使い分けることが、美しくバグの少ないプログラムへの第一歩です。</p>
+<h2 id="6-応用的な条件分岐のテクニック"><a class="header" href="#6-応用的な条件分岐のテクニック">6. 応用的な条件分岐のテクニック</a></h2>
+<p>ここまでのセクションで学んだif, if-else, else ifという基本構造を組み合わせることで、より現実的で精緻なプログラムロジックを構築できます。このセクションでは、そのための応用テクニックを2つ紹介します。</p>
+<h3 id="61-条件の入れ子ネスト構造"><a class="header" href="#61-条件の入れ子ネスト構造">6.1. 条件の入れ子（ネスト）構造</a></h3>
+<p>if-else文の中に、さらにif-else文を配置することを「ネスト（入れ子）」と呼びます。これにより、ある条件が満たされた後、さらに詳細な条件で処理を分岐させることが可能になります。</p>
+<p>以下のコードは、「ピーナッツの瓶」を例にしたネスト構造です。</p>
+<pre><code>int peanuts_eaten = 22;
+int peanuts_in_jar = 100;
+int max_peanut_limit = 50;
+
+if (peanuts_in_jar &gt; 80) {
+    if (peanuts_eaten &lt; max_peanut_limit) {
+        printf("Take as many peanuts as you want!\n");
+    }
+} else {
+    if (peanuts_eaten &gt; peanuts_in_jar) {
+        printf("You can't have anymore peanuts!\n");
+    } else {
+        printf("Alright, just one more peanut.\n");
+    }
+}
+</code></pre>
+<p>このロジックをステップバイステップで分析してみましょう。</p>
+<ol>
+<li>外側のif: まずpeanuts_in_jar &gt; 80（瓶の中のピーナッツは80個より多いか？）が評価されます。100 &gt; 80なので、この条件は真です。</li>
+<li>内側のif: 次に、外側のifブロックの中にあるpeanuts_eaten &lt; max_peanut_limit（食べた数は上限より少ないか？）が評価されます。22 &lt; 50なので、この条件も真です。</li>
+<li>最終出力: 結果として、「Take as many peanuts as you want!」が出力されます。</li>
+</ol>
+<p>もし最初の条件（peanuts_in_jar &gt; 80）が偽であったなら、プログラムはelseブロックに進み、そこにある内側のif-else構造で次の判断を行っていたでしょう。</p>
+<p>このように、ネスト構造は条件の依存関係を表現するために不可欠です。「瓶に十分なピーナッツがある」という親条件が満たされて初めて、「食べたピーナッツの上限数」という子条件を評価する意味が生まれます。この階層的な判断こそが、複雑で現実的なロジックを構築する鍵となります。</p>
+<h3 id="62-論理演算子による複数条件の評価"><a class="header" href="#62-論理演算子による複数条件の評価">6.2. 論理演算子による複数条件の評価</a></h3>
+<p>2つ以上の式を組み合わせて、より複雑な単一の条件を評価したい場合があります。その際に役立つのが論理演算子です。</p>
+<ul>
+<li>AND演算子 (&amp;&amp;)
+<ul>
+<li>機能: A &amp;&amp; Bのように使い、AとBの両方の式が真の場合にのみ、全体が真と評価されます。</li>
+<li>典型的な利用シーン: ユーザー名とパスワードが両方とも正しいか検証する、年齢が18歳以上かつ65歳未満であるかを確認するなど、複数の条件が同時に満たされる必要がある厳格なシナリオで使用します。</li>
+<li>例:</li>
+</ul>
+</li>
+<li>OR演算子 (||)
+<ul>
+<li>機能: A || Bのように使い、AとBのいずれか一方、または両方の式が真の場合に、全体が真と評価されます。</li>
+<li>典型的な利用シーン: ユーザーが「管理者」または「スーパーユーザー」の権限を持っているか確認する、入力された値が「y」または「Y」であるかを判定するなど、複数の条件のうち少なくとも一つが満たされれば良い、より柔軟なシナリオで使用します。</li>
+<li>例:</li>
+</ul>
+</li>
+<li>NOT演算子 (!)
+<ul>
+<li>機能: 式の結果を反転させます。真は偽に、偽は真になります。特によく使われるのが!=で、「等しくない」ことを評価します。</li>
+<li>典型的な利用シーン: ファイルが存在しない場合にエラー処理を行う、ユーザーが特定のグループに所属していないことを確認するなど、条件の不成立をトリガーにしたい場合に使用します。</li>
+<li>例:</li>
+</ul>
+</li>
+</ul>
+<p>これらの応用テクニックを駆使することで、プログラムの意思決定能力は格段に向上します。次のセクションでは、ここまでに学んだ知識を実践的な演習で確認してみましょう。</p>
+<h2 id="7-実践演習知識の応用"><a class="header" href="#7-実践演習知識の応用">7. 実践演習：知識の応用</a></h2>
+<p>理論的な知識を確かなスキルに変えるためには、実際に自分の手でコードを書く実践が不可欠です。この演習を通じて、if, else if, elseの知識を応用し、具体的な問題を解決する力を養いましょう。</p>
+<p>演習目標: guessNumber関数内に、与えられた数値guessが555と等しいか、それより大きいか、小さいかを判断するif-else if-else文を構築してください。</p>
+<p>要件: 以下の3つの条件に基づいて、指定されたメッセージを出力するようにしてください。</p>
+<ul>
+<li>guessが555と等しい場合、「Correct. You guessed it!」と出力する。</li>
+<li>guessが555より小さい場合、「Your guess is too low.」と出力する。</li>
+<li>guessが555より大きい場合、「Your guess is too high.」と出力する。</li>
+</ul>
+<p><strong>重要事項: printf文の末尾に、必ず改行文字\nを追加することを忘れないでください。</strong></p>
+<p>以下のスターターコードには、main関数内に3つのguessNumber呼び出しが含まれています。あなたのロジックが、低い場合・高い場合・正しい場合の3つのシナリオすべてで正しく動作するかをテストするためのものです。</p>
+<p><strong>スターターコード:</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+
+void guessNumber(int guess) {
+    // TODO: ここにコードを記述してください
+}
+
+int main() {
+    guessNumber(500);
+    guessNumber(600);
+    guessNumber(555);
+}
+</code></pre>
+<h2 id="8-まとめ条件分岐の未来"><a class="header" href="#8-まとめ条件分岐の未来">8. まとめ：条件分岐の未来</a></h2>
+<p>この研修資料を通じて、C言語における条件分岐の基礎を学びました。最後に、主要な概念を振り返りましょう。</p>
+<ul>
+<li>if文: 条件が真の場合にコードを実行する基本構造。</li>
+<li>if-else文: 条件が真の場合と偽の場合で処理を分ける二者択一の構造。</li>
+<li>else if文: 3つ以上の選択肢から1つを選ぶための多段階の構造。</li>
+<li>ネスト構造: 条件分岐の中にさらに条件分岐を配置する応用テクニック。</li>
+<li>論理演算子 (&amp;&amp;, ||, !): 複数の条件を組み合わせて複雑な評価を行うためのツール。</li>
+</ul>
+<p>条件分岐は、C言語プログラミングにおける単なる一機能ではありません。それはアルゴリズムの根幹をなし、ゲーム、OS、業務アプリケーションといった、あらゆる複雑なソフトウェアの動作を支える基盤技術です。</p>
+<p>今回学んだ知識は、皆さんのプログラミングにおける「語彙」を飛躍的に増やしました。これからは、現実世界の問題を「もし〜ならば」という条件の連続として捉え、それをコードに翻訳する訓練を積んでください。その実践こそが、優れたソフトウェア開発者への最短の道です。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_1_chapter_03.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_1_chapter_05.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_1_chapter_03.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_1_chapter_05.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,4 +1,6 @@
 [book]
 title = "Learning C Language"
 authors = ["Osamu377"]
-language = "en"
+language = "jp"
+[build]
+build-dir = "docs"

@@ -1,0 +1,491 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ポインタのポインタ - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="ポインタのポインタ"><a class="header" href="#ポインタのポインタ">ポインタのポインタ</a></h1>
+<h2 id="イントロダクションなぜポインタはc言語の最初の壁であり最強の武器なのか"><a class="header" href="#イントロダクションなぜポインタはc言語の最初の壁であり最強の武器なのか">イントロダクション：なぜポインタはC言語の「最初の壁」であり「最強の武器」なのか</a></h2>
+<p>本章は、C言語学習における最大の難関の一つである「ポインタのポインタ(<code>char **</code>)」の概念を体系的に解き明かすことを目的としています。多くの初学者にとって、ポインタは抽象的で理解が難しい「最初の壁」として立ちはだかります。それが「ポインタのポインタ」となると、より難解に見えるでしょう。しかし、その壁を乗り越え、マスターすれば、メモリを直接操作できるというC言語の強力な機能を最大限に引き出す「最強の武器」を手に入れることができます。</p>
+<p>このガイドを通じて、みなさんは以下の2つのステップで、ポインタの本質的な理解を深めていきます。</p>
+<ol>
+<li>ポインタのポインタの直感的なモデル： 最も難解な char ** を「縦横の移動」というシンプルなモデルで攻略します。</li>
+<li>実践的なコードでの応用： 抽象的なモデルが、実際のプログラムでどのように機能するかを体験します。</li>
+</ol>
+<p>ここで重要なのは、二次元配列、すなわち「配列の配列」がエクセルの1シートのような表のイメージで理解できるのと同様、<strong>ポインタのポインタも縦横に移動できる表のイメージで、直感的に理解できる</strong> 点です。</p>
+<p>それでは解説を始めましょう。</p>
+<h2 id="1-最重要概念char-ppポインタのポインタの完全攻略"><a class="header" href="#1-最重要概念char-ppポインタのポインタの完全攻略">1. 最重要概念：char **pp（ポインタのポインタ）の完全攻略</a></h2>
+<p><code>char **pp</code>（ポインタのポインタ）は、C言語初学者が直面する最大の難関の一つです。これは、ポインタが指す先が「値」ではなく「別のポインタ」であるため、概念の階層が一つ増え、混乱を招きやすいためです。</p>
+<p>前の章で、<code>array + 1</code> が「要素のサイズ」分だけ移動することを確立しましたね。では、その「要素」自体がポインタだったらどうなるでしょうか？ これこそが <code>char **pp</code> の謎を解く鍵です。この難関を乗り越えるため、ここでは専門的なメモリの話を一旦脇に置き、直感的な思考モデルを導入します。</p>
+<p>直感的な思考モデル：「単語帳」と「現在地を指す指」</p>
+<p><code>char **pp</code> を理解するために、以下のような「単語のリスト（単語帳）」を想像してください。</p>
+<ul>
+<li>cat</li>
+<li>dog</li>
+<li>bird</li>
+</ul>
+<p><code>char **pp</code> とは、このリストの <strong>「現在地」を指しているあなたの「指」</strong> だと考えます。最初は一番上の “cat” を指しています。</p>
+<p><img src="p2c6-2-指.png" alt="指す指のイメージ"></p>
+<p>このモデルを使うと、複雑なポインタ演算は2つのシンプルな動きに集約できます。</p>
+<p>ズバリ一言で言うと</p>
+<ul>
+<li><code>(pp + 1)</code> は、 「次の単語へ」進む（縦の移動）
+<img src="p2c6-3-縦移動.png" alt="縦移動"></li>
+<li><code>(*pp + 1)</code> は、 「今の単語の次の文字へ」進む（横の移動）
+<img src="p2c6-4-横移動.png" alt="横移動"></li>
+</ul>
+<p><strong>図解：縦移動と横移動</strong></p>
+<p>この「縦」と「横」の動きの違いを視覚的に整理しましょう。pp が指しているのは、「単語の先頭」です。</p>
+<p><strong>1. <code>(pp + 1)</code> の分析：縦の移動</strong></p>
+<p><img src="p2c6-5-pp.png" alt="ppが指すもの"></p>
+<ul>
+<li>操作: pp + 1 は、「指」そのものを1つ進める操作です。</li>
+<li>結果: “cat” という単語全体をスキップし、指は次の単語 “dog” の先頭を指すようになります。</li>
+<li>結論: これは、単語帳を縦に1行下りる動きです。</li>
+</ul>
+<p><img src="p2c6-6-pp1.png" alt="pp+1が指すもの"></p>
+<p><strong>2. <code>(*pp + 1)</code> の分析：横の移動</strong></p>
+<p><img src="p2c6-7-astpp.png" alt="*ppが指すもの"></p>
+<ul>
+<li>操作: *pp でまず「指が指している先の中身」、つまり “cat” という単語そのものを取り出します。その結果に対して +1 をします。</li>
+<li>結果: “cat” という単語の中で、先頭の ‘c’ から隣の ‘a’ に移動します。</li>
+<li>結論: これは、今見ている単語の中で横に1文字ズレる動きです。</li>
+</ul>
+<p><img src="p2c6-8-astpp1.png" alt="(*pp+1)が指すもの"></p>
+<p><strong>なぜそうなるのか？：データ型の観点から</strong></p>
+<p>この「縦横モデル」は、データ型に基づいた厳密なルールに裏付けられています。</p>
+<ul>
+<li>ppの正体： pp は char ** 型、つまり char * 型（文字列のアドレス）を指すポインタです。したがって、pp + 1 は sizeof(char *) 分だけアドレスを進め、次の「文字列のアドレス」を指します。これが「次の単語」への移動（縦移動）の正体です。</li>
+<li>*ppの正体： *pp は pp が指すアドレスの中身を取り出す操作です。その結果は char * 型、つまり “cat” という文字列の先頭アドレスそのものです。これに +1 すると、sizeof(char) (1バイト) 分だけアドレスが進むため、‘c’ の隣の ‘a’ を指します。これが「次の文字」への移動（横移動）の正体です。</li>
+</ul>
+<p>この「縦横モデル」が、コマンドライン引数の処理など、実際のプログラムでどのように機能するかを次のセクションで見ていきましょう。</p>
+<h2 id="2-実践コードで理解する縦移動と横移動"><a class="header" href="#2-実践コードで理解する縦移動と横移動">2. 実践：コードで理解する「縦移動」と「横移動」</a></h2>
+<p>前セクションで学んだ抽象的な「縦横モデル」が、単なる比喩ではなく、C言語の動作そのものであることを具体的なコードを通じて体験しましょう。理論を実践に結びつけることで、理解はより確かなものになります。</p>
+<h4 id="実践例1コマンドライン引数の表示-args_testc"><a class="header" href="#実践例1コマンドライン引数の表示-args_testc">実践例1：コマンドライン引数の表示 (args_test.c)</a></h4>
+<p>このプログラムは、実行時に渡されたコマンドライン引数を一つずつ順番に表示します。C言語の main 関数が受け取る char **argv（または char *argv[]）は、まさにこの「単語帳」モデルの典型例です。</p>
+<p><strong>args_test.c</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(int argc, char **argv) {
+    printf("引数の数 (argc): %d\n", argc);
+
+    // ポインタのポインタ argv を使って、各引数を表示
+    // argv[i] は *(argv + i) と等価
+    for (int i = 0; i &lt; argc; i++) {
+        printf("%d番目の引数: %s\n", i, *(argv + i));
+    }
+
+    return 0;
+}
+</code></pre>
+<p><strong>コンパイルと実行</strong></p>
+<blockquote>
+<p>cl args_test.c
+./args_test.exe apple banana</p>
+</blockquote>
+<p><strong>実行結果と解説</strong></p>
+<p>引数の数 (argc): 3
+0番目の引数: ./args_test.exe
+1番目の引数: apple
+2番目の引数: banana</p>
+<p>この結果は、<code>*(argv + i)</code> というポインタ演算が、まさに <strong>「縦の移動」</strong> であることを示しています。</p>
+<ul>
+<li>*(argv + 0) は、0番目の引数を指します。ここで面白いのは、実はプログラム名そのものが「0番目の単語」としてリストに入っているという点です。これは初学者がよく見落とすポイントです。</li>
+<li>*(argv + 1) は、リストを縦に1つ進み、1番目の引数 “apple” を指します。</li>
+<li>*(argv + 2) は、さらに縦に進み、2番目の引数 “banana” を指します。</li>
+</ul>
+<p><strong>おまけ：</strong> 横移動の確認 もし、printf 文を</p>
+<pre><code> printf("%d番目の引数: %s\n", i, *(argv + i) + 1);
+</code></pre>
+<p>と書き換えて実行すると、1番目の引数の出力は “pple” となります。これは、*(argv + 1) で単語 “apple” を特定した後に +1 することで、先頭文字 ‘a’ から1つ**「横の移動」**が起こり、2文字目の ‘p’ から表示が始まったことを実証しています。</p>
+<h4 id="実践例2特定の文字をスキップ-remove_hyphenc"><a class="header" href="#実践例2特定の文字をスキップ-remove_hyphenc">実践例2：特定の文字をスキップ (remove_hyphen.c)</a></h4>
+<p>このプログラムは、外側のループで「縦移動（次の引数へ）」を行い、内側のループで「横移動（文字の走査）」を行って、ハイフン - を含まない文字だけを表示します。</p>
+<p><strong>remove_hyphen.c</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(int argc, char **argv) {
+    // 縦移動: 1番目から最後の引数までループ (0番目はプログラム名なのでスキップ)
+    for (int i = 1; i &lt; argc; i++) {
+        char *current_char_ptr = argv[i]; // 現在の引数（単語）の先頭アドレスを取得
+
+        // 横移動: 文字列の終端 '\0' まで1文字ずつ走査
+        while (*current_char_ptr != '\0') {
+            if (*current_char_ptr != '-') {
+                putchar(*current_char_ptr);
+            }
+            current_char_ptr++; // 次の文字へポインタを進める
+        }
+        putchar(' '); // 単語の区切りにスペースを挿入
+    }
+    putchar('\n');
+    return 0;
+}
+</code></pre>
+<p>横移動の核となる <code>current_char_ptr++</code> このプログラムの「横移動」は、<code>current_char_ptr++</code> という一行が担っています。</p>
+<ol>
+<li>char *current_char_ptr = argv[i]; で、現在の単語の先頭アドレスを取得します。</li>
+<li>while ループの中で current_char_ptr++ が実行されるたびに、ポインタは sizeof(char) (1バイト) 分だけアドレスを進めます。</li>
+<li>これにより、ポインタは文字列の中を1文字ずつ正確に移動し、終端のヌル文字 \0 に到達するまで走査を続けます。これは、(*pp + 1) の概念と完全に一致する具体的な動作です。</li>
+</ol>
+<p>これらの実践的なコード例を通して、<code>char **</code> を用いたポインタ演算が、単なる理論ではなく、実用的なプログラムを構築するための強力なツールであることがお分かりいただけたでしょう。</p>
+<h2 id="3-よくある混乱char-a-配列-と-char-a-ポインタ-の決定的違い"><a class="header" href="#3-よくある混乱char-a-配列-と-char-a-ポインタ-の決定的違い">3. よくある混乱：char a[] (配列) と char *a (ポインタ) の決定的違い</a></h2>
+<p>文字列を扱う際、<code>char a[] = "Hello";</code> という配列宣言と <code>char *a = "Hello";</code> というポインタ宣言は、一見よく似ていますが、メモリ上での振る舞いは全く異なります。この違いを正確に理解することは、予期せぬバグやセグメンテーション違反といった深刻なエラーを防ぐ上で極めて重要です。</p>
+<p><strong><code>char a[];</code> の正体：書き換え可能な「箱」の確保</strong></p>
+<p><code>char a[4];</code> のように配列を宣言すると、その瞬間に文字を入れるための「箱」が物理的にメモリ上に確保されます。この領域はプログラムの実行中に自由に変更が可能です。</p>
+<pre><code>char a[] = "cat"; // {'c', 'a', 't', '\0'} の4バイトの箱が確保される
+a[0] = 'b';       // OK! 中身は "bat" になる
+</code></pre>
+<p>ただし、重要な制約があります。配列名 a は、確保された箱の先頭アドレスを指す**「定数」**として扱われます。そのため、a が別の場所を指すように変更することはできません。</p>
+<p><strong><code>char *a;</code> の正体：住所を記録するための「メモ」</strong></p>
+<p>一方、char *a; のようにポインタを宣言した場合、確保されるのはアドレスを記録するための「メモ」用の変数 a のみです。文字そのものを格納する「箱」は、この時点ではまだ用意されていません。したがって、有効なアドレスを代入せずに使用しようとすると、未定義の動作を引き起こします。</p>
+<p>最も注意が必要なパターン：読み取り専用領域の罠</p>
+<p>ポインタで最もよく使われ、同時に最も注意が必要なのが、文字列リテラルによる初期化です。</p>
+<pre><code>char *a = "Hello"; // "Hello"は読み取り専用領域に配置される
+</code></pre>
+<p>この場合、“Hello” という文字列は、プログラムが始まる前に用意された読み取り専用領域に配置されます。ポインタ変数 a は、その場所のアドレスを指すだけです。これを「博物館のガラスケース」に例えることができます。中身を見ることはできますが、変更しようとすると警報が鳴ります。</p>
+<p><code>a[0] = 'B'; // NG!</code> ガラスケースを割ろうとする行為。セグメンテーション違反でクラッシュする可能性が高い。</p>
+<p>これはC言語初心者が最も陥りやすいクラッシュの原因の一つです。この違いを脳に焼き付けることが、何時間ものデバッグ作業を節約することに繋がります。</p>
+<p>では、なぜこのような仕組みになっているのでしょうか？ この読み取り専用の保護は、実は極めて重要なセキュリティ機能です。これにより、プログラムが誤って、あるいは悪意を持って自分自身の命令コードや定数データを書き換えてしまうのを防ぎ、より安定した安全なシステムを実現しているのです。</p>
+<p><strong>まとめ：配列とポインタの使い分け</strong></p>
+<p>両者の違いを明確に理解し、適切に使い分けることが重要です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>項目</th><th>char a[]; （配列）</th><th>char *a; （ポインタ）</th></tr>
+</thead>
+<tbody>
+<tr><td>メモリの確保</td><td>文字を入れる箱が確保される</td><td>住所をメモする場所だけ確保される</td></tr>
+<tr><td>箱の中身の変更</td><td>安全に書き換え可能</td><td>原則NG （特にリテラル代入時）</td></tr>
+<tr><td>住所の変更</td><td>NG （常に同じ場所を指す定数）</td><td>OK （別の文字列の住所に切り替え可能）</td></tr>
+</tbody>
+</table>
+</div>
+<p>明確な指針は以下の通りです。</p>
+<ul>
+<li>後から内容を書き換えたい場合： 配列 char a[] を使用する。</li>
+<li>別の文字列を指すように切り替えたい、または書き換え不要な固定文字列を使いたい場合： ポインタ char *a を使用する。</li>
+</ul>
+<h2 id="4-応用動的メモリ確保とポインタ"><a class="header" href="#4-応用動的メモリ確保とポインタ">4. 応用：動的メモリ確保とポインタ</a></h2>
+<p>コンパイル時にサイズが決定される配列には、「実行時まで必要なサイズがわからない」という状況に対応できない限界があります。この問題を解決するのが、プログラム実行中に必要な分だけメモリを確保する動的メモリ確保であり、ポインタはこの技術の根幹をなす要素です。</p>
+<p><strong>malloc による1次元配列の確保</strong></p>
+<p>malloc 関数を使うと、指定したサイズのメモリブロックをヒープ領域から確保し、その先頭アドレスを返すことができます。このアドレスをポインタ変数に格納することで、確保した領域を配列のように利用できます。</p>
+<pre><code>#include &lt;stdlib.h&gt; // malloc, free を使うために必要
+#include &lt;stdio.h&gt;
+
+int main() {
+    int n = 5;
+    // char型5個分のメモリを動的に確保
+    char *pvowels = (char *)malloc(n * sizeof(char));
+
+    if (pvowels == NULL) { return 1; } // メモリ確保失敗時のエラー処理
+
+    pvowels[0] = 'A';
+    *(pvowels + 1) = 'E'; // ポインタ演算でもアクセス可能
+    pvowels[2] = 'I';
+    pvowels[3] = 'O';
+    pvowels[4] = 'U';
+
+    for (int i = 0; i &lt; n; i++) {
+        printf("%c ", pvowels[i]);
+    }
+    printf("\n");
+
+    // 使い終わったメモリは必ず解放する
+    free(pvowels);
+
+    return 0;
+}
+</code></pre>
+<p>動的メモリ確保の最大の利点は、必要な分だけメモリを確保できる柔軟性にありますが、同時に<strong>free() を呼び出してメモリを解放する責任</strong>がプログラマに生じます。これを怠ると、プログラムが確保したメモリを返却しない「メモリリーク」が発生し、システム全体のパフォーマンスを低下させる原因となります。</p>
+<p><strong><code>char **</code> を用いた2次元配列の動的確保</strong></p>
+<p>ポインタのポインタは、2次元配列を動的に確保する際に真価を発揮します。ここで、セクション2で学んだ「縦横モデル」が具体的にどう使われるか見てみましょう。これは2段階のプロセスで行われます。</p>
+<ol>
+<li>縦のリストを確保： まず、「行」の数だけ char * (ポインタ) を格納するための領域を確保します。これが「単語帳」の構造そのもの、つまり縦のリストを作る作業です。</li>
+<li>横の領域を確保： 次に、各行のポインタに対してループ処理を行い、それぞれに「列」の数だけ char を格納するための領域を確保します。これが各単語の文字を格納する横のスペースを作る作業です。</li>
+</ol>
+<p>この2段階プロセスが、抽象的なモデルと具体的なメモリ確保を結びつける「アハ体験」の瞬間です。</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int nrows = 2;
+    int ncols = 5;
+    int i, j;
+
+    // 1. 行ポインタの領域を確保 (char* を nrows 個分) -&gt; 「縦」の確保
+    char **pvowels = (char **)malloc(nrows * sizeof(char *));
+
+    // 2. 各行の領域を確保 (char を ncols 個分) -&gt; 「横」の確保
+    for (i = 0; i &lt; nrows; i++) {
+        pvowels[i] = (char *)malloc(ncols * sizeof(char));
+    }
+
+    // データ代入
+    pvowels[0][0] = 'A';
+    pvowels[0][1] = 'E';
+    pvowels[0][2] = 'I';
+    pvowels[0][3] = 'O';
+    pvowels[0][4] = 'U';
+
+    pvowels[1][0] = 'a';
+    pvowels[1][1] = 'e';
+    pvowels[1][2] = 'i';
+    pvowels[1][3] = 'o';
+    pvowels[1][4] = 'u';
+
+    // データ表示
+    for (i = 0; i &lt; nrows; i++) {
+        for(j = 0; j &lt; ncols; j++) {
+            printf("%c ", pvowels[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 解放も2段階で行う
+    // 最初に各行を解放
+    for (i = 0; i &lt; nrows; i++) {
+        free(pvowels[i]);
+    }
+    // 最後にトップレベルのポインタを解放
+    free(pvowels);
+    
+    return 0;
+}
+</code></pre>
+<p>メモリ解放も確保とは逆の順序で、各行（横）を解放してから、トップレベルのポインタ（縦）を解放する必要があります。</p>
+<h2 id="5-まとめポインタを使いこなすための重要ポイント"><a class="header" href="#5-まとめポインタを使いこなすための重要ポイント">5. まとめ：ポインタを使いこなすための重要ポイント</a></h2>
+<p>本研修資料を通じて、C言語のポインタ、特にその核心である char ** について学んできました。最後に、ポインタを安全かつ効果的に使いこなすための最重要ポイントを3つに絞って振り返ります。</p>
+<ul>
+<li>配列とポインタの等価性 配列記法 a[i] は、ポインタ演算 *(a + i) の可読性を高めた表現です。この表裏一体の関係性を理解することが、C言語がメモリをどのように扱っているかを解き明かす鍵となります。</li>
+<li>ポインタのポインタの「縦横モデル」 char **pp のような複雑な構造は、pp+1 が「次の単語（行）」への縦移動、*pp+1 が「現在の単語内の次の文字（列）」への横移動という直感的なモデルで捉えることで、格段に理解しやすくなります。</li>
+<li>宣言による役割の違い char a[] は書き換え可能なデータ格納用の**「箱」を確保し、char *a はアドレスを指すための「メモ」**を確保します。特に文字列リテラルをポインタに代入する際は、読み取り専用領域へのポインタとなるため、内容の変更は厳禁です。この違いを常に意識することが、安全なプログラミングに不可欠です。</li>
+</ul>
+<p>ポインタの学習は一度で完結するものではありません。本当の習熟は、実際にコードを書き、コンパイルし、そしてデバッガを使ってメモリ上のアドレスや値がどのように変化するかを自分の目で追いながら試行錯誤を繰り返すことで達成されます。本資料が、皆様のその一歩を踏み出すための確かな土台となることを願っています。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_2_chapter_05.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_2_chapter_07.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_2_chapter_05.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_2_chapter_07.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

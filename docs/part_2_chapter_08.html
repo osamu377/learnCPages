@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>auto と static - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="auto-と-static"><a class="header" href="#auto-と-static">auto と static</a></h1>
+<h2 id="イントロダクション記憶クラス指定子"><a class="header" href="#イントロダクション記憶クラス指定子">イントロダクション:記憶クラス指定子</a></h2>
+<p>ここでは、C言語における変数の <strong>生存期間</strong> と <strong>有効範囲</strong> という、プログラムの安定性を左右する重要な概念について学びます。特に、初心者がつまずきやすい<code>auto</code>と<code>static</code>という2つの記憶クラス指定子に焦点を当てます。これらの違いを正確に理解し、適切に使い分けることは、意図しないバグを防ぎ、信頼性と保守性の高いコードを書くための不可欠なスキルです。この資料を通じて、変数の振る舞いを深く理解し、より高度なプログラミングへの第一歩を踏み出しましょう。</p>
+<hr>
+<h2 id="1-基本となる-auto-変数"><a class="header" href="#1-基本となる-auto-変数">1. 基本となる auto 変数</a></h2>
+<p>このセクションでは、C言語における最も基本的で一般的な変数であるauto変数について解説します。私たちが普段、関数内で何気なく宣言しているローカル変数の正体は、実はこのauto変数です。そのデフォルトの挙動を正確に理解することは、C言語プログラミングの基礎を固める上で極めて重要です。</p>
+<p><strong>auto変数（自動変数）とは</strong></p>
+<p>auto変数は、関数やブロック内で宣言されるローカル変数のデフォルトの型です。その名の通り、特定のスコープ内で「自動的」に生成・破棄される性質を持っています。</p>
+<p>以下に、auto変数の主要な特徴をまとめます。</p>
+<ul>
+<li>キーワード autoキーワードを使って明示的に宣言することも可能ですが、関数内で宣言された変数はデフォルトでautoとして扱われるため、通常はこのキーワードは省略されます。</li>
+<li>有効範囲（スコープ） 変数が宣言された関数内、またはブロック（{}で囲まれた範囲）内に限定されます。スコープ外からはアクセスすることはできません。</li>
+<li>生存期間 auto変数の寿命は非常に短く、一時的です。
+<ul>
+<li>関数が呼び出されるたびに、メモリ（スタック領域）上に新しく生成されます。</li>
+<li>関数の処理が終了すると、その変数はメモリから完全に消滅し、確保されていた領域は解放されます。</li>
+<li>このため、関数を再度呼び出しても、以前の値が保持されていることはありません。</li>
+</ul>
+</li>
+<li>初期値 宣言時に明示的に値を代入して初期化しない場合、その変数には**不定な値（通称：ごみデータ）**が入っています。これは予期せぬバグの温床となるため、必ず初期化する習慣をつけましょう。</li>
+</ul>
+<p>auto変数の「関数呼び出しごとにリセットされる」という性質は、一時的な計算には非常に便利ですが、状態を記憶する必要がある場合には不向きです。この点が、次にご紹介するstatic変数との決定的な違いとなります。</p>
+<hr>
+<h2 id="2-状態を記憶する-static-変数"><a class="header" href="#2-状態を記憶する-static-変数">2. 状態を記憶する static 変数</a></h2>
+<p>前のセクションでは、関数が終わるとその役割も記憶もすべて失うauto変数を学びました。もしauto変数が「一度きりの仕事人」だとすれば、static変数は「プログラムの歴史を記憶する書記官」です。static変数は、プログラムの実行が開始されてから終了するまで、その値を保持し続ける特殊な変数です。この「状態を記憶する」という強力な特性は、特定のプログラミング課題をエレガントに解決するための鍵となります。</p>
+<p><strong>static変数（静的変数）とは</strong></p>
+<p>static変数は、その名の通りメモリ上の位置が「静的」に固定され、プログラムのライフサイクル全体を通じて生存する変数です。関数が終了してもその値は破棄されず、次回の呼び出し時に同じ値を参照・更新できます。</p>
+<p>以下に、static変数の主要な特徴をauto変数と比較しながら見ていきましょう。</p>
+<ul>
+<li>キーワード 変数をstaticとして機能させるためには、データ型の前に <strong><code>static</code>キーワードを付けて明示的に宣言する</strong> 必要があります。</li>
+<li>有効範囲（スコープ） static変数のスコープは、宣言された場所によって異なります。
+<ul>
+<li>関数内で宣言した場合: スコープはauto変数と同様に、その関数内に限定されます。外部から直接アクセスすることはできません。</li>
+<li>関数外で宣言した場合: スコープはそのファイル全体に限定されます。これは単なる制限ではなく、意図的な設計手法です。staticを付けることで、他のファイルからの意図しない変更を防ぐ「プライベートなグローバル変数」を作成できます。このテクニックは、特に大規模なプロジェクトでコードの安全性を保つために不可欠です。</li>
+</ul>
+</li>
+<li>生存期間 auto変数とは全く異なり、非常に長い寿命を持ちます。
+<ul>
+<li>プログラムが開始される前にメモリが確保され、一度だけ生成されます。</li>
+<li>関数が終了しても消滅せず、プログラムが終了するまでメモリ上に存在し続けます。</li>
+<li>このため、関数の呼び出しをまたいで値を保持することができます。</li>
+</ul>
+</li>
+<li>初期値 auto変数との重要な違いとして、明示的に初期化しない場合でも、コンパイラによって自動的に0で初期化されるという特性があります。この違いを意識することが、バグを未然に防ぐ鍵となります。</li>
+</ul>
+<hr>
+<h2 id="3-c言語における4つのメモリ領域"><a class="header" href="#3-c言語における4つのメモリ領域">3. C言語における4つのメモリ領域</a></h2>
+<p>今度はメモリ管理の点から、auto変数とstatic変数をみてみましょう。</p>
+<p>前章で、メモリ空間にはスタック領域とヒープ領域があることを学びました。auto変数はディフォルトのローカル変数ですから、スタック領域に作成されます。</p>
+<p>では、static変数や、関数の外で宣言されるグローバル変数は、どうでしょう？ どちらの領域に入るのでしょうか？</p>
+<p>どちらでもない、というのが正解です。</p>
+<p>実は、プログラムが利用する主なメモリ領域は、スタック、ヒープを含め、ぜんぶで4つあります。</p>
+<ul>
+<li>プログラム領域(テキスト領域)</li>
+<li>データ領域</li>
+<li>スタック領域</li>
+<li>ヒープ領域</li>
+</ul>
+<p>各領域の役割を簡潔に見ていきましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>領域名</th><th>格納されるもの</th><th>確保・解放のタイミング</th><th>特徴</th></tr>
+</thead>
+<tbody>
+<tr><td>テキスト領域</td><td>プログラムのコード（機械語）</td><td>プログラム起動時～終了時</td><td>プログラム実行中に変更されることはない。プログラマが直接意識する必要はほとんどない。</td></tr>
+<tr><td>データ領域</td><td>グローバル変数、静的（static）変数</td><td>プログラム起動時～終了時</td><td>プログラムが終了するまで値が保持される。</td></tr>
+<tr><td>スタック領域</td><td>ローカル変数、関数の引数、関数の戻りアドレス</td><td>関数の呼び出し時～関数終了時</td><td>自動的に確保・解放が行われる。</td></tr>
+<tr><td>ヒープ領域</td><td>プログラム実行中に動的に確保されるデータ</td><td>プログラマが手動で確保・解放する</td><td>任意のタイミングで必要なサイズのメモリを確保できる。</td></tr>
+</tbody>
+</table>
+</div>
+<p>この全体像を把握することが、メモリ管理を理解する上での重要なポイントとなります。</p>
+<p>ところで、static変数には、上で説明した「関数をまたいで値を保持する」使い方のほかに、「グローバル変数のスコープをファイル内に限定する」という重要な役割もあります。次のセクションでは、これらの特性が実際のコードでどのように活かされるのかを具体的に見ていきます。</p>
+<hr>
+<h2 id="3-実践的な比較と用例"><a class="header" href="#3-実践的な比較と用例">3. 実践的な比較と用例</a></h2>
+<p>ここまではautoとstaticの理論的な違いを学んできました。このセクションでは、両者の特性を比較表で整理し、実際のコード例を通して、どのような場面でどちらを選択するべきかを具体的に解説します。</p>
+<p><strong>auto と static の特性比較</strong></p>
+<p>これまでの内容を以下の表にまとめました。この違いを常に意識することが、適切な使い分けの第一歩です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>特性</th><th>auto 変数</th><th>static 変数</th></tr>
+</thead>
+<tbody>
+<tr><td>生存期間</td><td>関数呼び出しの間</td><td>プログラム実行中全体</td></tr>
+<tr><td>有効範囲</td><td>ブロック内</td><td>宣言場所による（関数内 or ファイル内）</td></tr>
+<tr><td>初期値</td><td>不定値（ごみデータ）</td><td>0</td></tr>
+<tr><td>宣言方法</td><td>キーワードは通常省略</td><td>staticキーワードを明示</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="用例1関数呼び出し回数のカウント"><a class="header" href="#用例1関数呼び出し回数のカウント">用例1：関数呼び出し回数のカウント</a></h3>
+<p>問題: あるレースに参加したランナーの数をカウントしたいとします。ランナーが1人参加するたびにrunner()という関数が呼ばれると仮定して、合計人数をカウントするプログラムを考えてみましょう。</p>
+<p><strong>auto変数を使った失敗例</strong></p>
+<p>まず、auto変数でカウンターを実装してみます。</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int runner() {
+    int count = 0; // auto変数
+    count++;
+    return count;
+}
+
+int main() {
+    printf("%d ", runner()); // 1人目
+    printf("%d ", runner()); // 2人目
+    return 0;
+}
+// 期待する出力: 1 2
+// 実際の出力: 1 1
+</code></pre>
+<p>このコードは期待通りに動作しません。runner()が呼び出されるたびに、全く新しいcount変数がメモリ上に生まれ、0で初期化されます。関数が終わるとその変数は破棄されるため、前回の呼び出しの記憶は完全に失われます。</p>
+<p><strong>static変数を使った成功例</strong></p>
+<p>次に、カウンター変数をstaticに変更してみましょう。</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int runner() {
+    static int count = 0; // static変数
+    count++;
+    return count;
+}
+
+int main() {
+    printf("%d ", runner()); // 1人目
+    printf("%d ", runner()); // 2人目
+    return 0;
+}
+// 実際の出力: 1 2
+</code></pre>
+<p>今度は期待通りに動作しました。ここで重要なのは、static int count = 0; という初期化処理は、プログラムの開始前に一度だけ行われるということです。これはrunner()関数が繰り返し実行されるフローの一部ではありません。そのため、countの値は関数が終了してもメモリに保持され続け、呼び出すたびに正しくインクリメント（+1）されていきます。</p>
+<h3 id="用例2グローバル変数のスコープ限定"><a class="header" href="#用例2グローバル変数のスコープ限定">用例2：グローバル変数のスコープ限定</a></h3>
+<p>staticのもう一つの強力な用途は、グローバル変数を「カプセル化」することです。</p>
+<p>プログラム・ファイル(<code>.c</code>ファイル)の行数が多くなりすぎて、どこにどの関数があるかわかりにくくなったり、一つの大きなプログラムを複数のプログラマが分業して書いていく場合など、ファイルを分割して2つ以上にする場合があります。その方法については、第3部の「プログラムのビルド工程」で詳しく説明します。</p>
+<p>ここでは、その方法については深く考えず、ただ一つのプログラムが、以下の2つのファイルで構成されている、という点だけに、皆さんの思考をフォーカスしてください。</p>
+<p><strong>module.c</strong></p>
+<pre><code>// module.c
+#include &lt;stdio.h&gt;
+
+// 他のファイルからもアクセス可能なグローバル変数
+int public_counter = 0;
+
+// このファイル内からのみアクセス可能な静的グローバル変数
+static int private_counter = 0;
+
+void count_up() {
+    public_counter++;
+    private_counter++;
+    printf("private_counter is now %d\n", private_counter);
+}
+</code></pre>
+<p><strong>main.c</strong></p>
+<pre><code>// main.c
+#include &lt;stdio.h&gt;
+
+// module.cで定義された変数を参照することを宣言
+extern int public_counter;
+// extern static int private_counter; // この行はコンパイルエラーになる！
+
+// module.cで定義された関数プロトタイプ宣言
+void count_up();
+
+int main() {
+    public_counter = 100; // OK: 他のファイルからアクセス可能
+    printf("public_counter is now %d\n", public_counter);
+
+    // private_counter = 50; // NG: アクセス不可のためコンパイルエラー
+
+    count_up(); // module.cの関数を呼び出す
+
+    return 0;
+}
+</code></pre>
+<p>main.cからpublic_counterはexternキーワードで参照し、値を変更できます。しかし、private_counterにアクセスしようとすると、コンパイラはそれを見つけられず、リンカエラーを引き起こします。なぜなら、staticキーワードによってprivate_counterのスコープがmodule.cファイル内に完全に閉じられているからです。</p>
+<p>このように、staticは <strong>ファイル間で共有する必要のないグローバル変数を、他のファイルから隠蔽し、意図しない外部からの変更を防ぐ</strong> という効果があります。これによって、コードの安全性を劇的に高めるのです。</p>
+<p>理論と具体例を通じて、両者の違いが明確になったことでしょう。では最後に、知識を定着させるための演習問題に取り組んでみましょう。</p>
+<hr>
+<h2 id="4-理解度チェック演習問題"><a class="header" href="#4-理解度チェック演習問題">4. 理解度チェック：演習問題</a></h2>
+<p>これまでに学んだ知識を実践的な問題に応用することで、特にstatic変数の強力な特性についての理解を深めていきましょう。</p>
+<h3 id="問題"><a class="header" href="#問題">問題</a></h3>
+<p>sum()という関数があります。この関数は呼び出されるたびに引数numを受け取ります。これまでのnumの合計値を計算して返すようにsum()関数を完成させてください。</p>
+<p><strong>条件：</strong></p>
+<ul>
+<li>関数の外で合計値を保持する変数（グローバル変数）を使用してはなりません。</li>
+<li>sum()関数の引数はint numの一つのみとします。</li>
+</ul>
+<p><strong>スターターコード</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int sum (int num) {
+    // ここにコードを記述
+}
+
+int main() {
+    printf("%d \n",sum(55));  // 期待される出力: 55
+    printf("%d \n",sum(45));  // 期待される出力: 100
+    printf("%d \n",sum(50));  // 期待される出力: 150
+    return 0;
+}
+</code></pre>
+<h3 id="解答と解説"><a class="header" href="#解答と解説">解答と解説</a></h3>
+<p>この問題は、static変数の「関数呼び出しをまたいで値を保持する」特性を利用することで解決できます。</p>
+<p><strong>解答コード</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int sum (int num) {
+    // 合計値を保持するためのstatic変数を宣言
+    static int total = 0;
+
+    // 現在の合計値に引数を加算
+    total += num;
+
+    // 合計値を返す
+    return total;
+}
+
+int main() {
+    printf("%d \n",sum(55));
+    printf("%d \n",sum(45));
+    printf("%d \n",sum(50));
+    return 0;
+}
+</code></pre>
+<p><strong>解説</strong></p>
+<p>この解決策が機能する理由は、変数totalがstaticで宣言されているためです。</p>
+<ol>
+<li>static int total = 0; はプログラムの実行開始時に一度だけ実行され、totalは0で初期化されます。</li>
+<li>最初のsum(55)の呼び出しで、totalは55になります。関数が終了しても、この55という値はメモリに保持されます。</li>
+<li>次のsum(45)の呼び出しでは、保持されていた55に45が加算され、totalは100になります。</li>
+<li>同様に、sum(50)では100に50が加算され、150が返されます。</li>
+</ol>
+<p>このように、static変数はグローバル変数を汚さずに、関数内に閉じた形で状態を管理するための強力なツールとなります。この演習を通じて、その実践的な価値を体感できたことでしょう。</p>
+<hr>
+<h2 id="5-まとめ"><a class="header" href="#5-まとめ">5. まとめ</a></h2>
+<p>この研修資料では、C言語における2つの基本的な記憶クラス指定子、autoとstaticについて、その特性と実践的な使い方を学びました。変数の「生存期間」と「有効範囲」をコントロールするこれらのキーワードは、プログラムの挙動を正確に制御する上で欠かせない知識です。</p>
+<p>最後に、両者の使い分けの指針を再確認しましょう。</p>
+<ul>
+<li>auto変数 関数内の <strong>「使い捨て」の道具</strong>。計算が終われば跡形もなく消える、最も基本的で安全な選択肢です。</li>
+<li>static変数 プログラムの <strong>「記憶」を司る特殊な道具</strong>。値を保持し続けるか、外部から隠すという明確な目的がある場合にのみ使用します。</li>
+</ul>
+<p>これらの記憶クラス指定子を意識し、場面に応じて適切に使い分けること。それが、バグが少なく、他の開発者にも意図が伝わりやすい、保守性の高いコードを書くための重要な一歩となります。この知識を活かし、より堅牢なCプログラムを構築していきましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_2_chapter_07.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_3_chapter_00.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_2_chapter_07.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_3_chapter_00.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

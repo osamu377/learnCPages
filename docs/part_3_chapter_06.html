@@ -1,0 +1,411 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ビット演算 - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="ビット演算"><a class="header" href="#ビット演算">ビット演算</a></h1>
+<h2 id="イントロダクション"><a class="header" href="#イントロダクション">イントロダクション</a></h2>
+<p>この章では、C言語プログラミングにおける強力な武器、「ビット演算」について解説します。これは、単なる計算テクニックではありません。プログラムのパフォーマンスを極限まで引き上げ、メモリを劇的に削減するための、いわば『プロの領域』に踏み込むための必須スキルです。特に我々が主戦場とする組み込みの世界では、この知識が製品の品質を左右します。</p>
+<p>特に、ハードウェアに近いレベルでの制御が求められる分野では、ビット演算の知識が成功の鍵を握ります。具体的には、以下のような領域で頻繁に活用されています。</p>
+<ul>
+<li>組み込みシステム: 限られたメモリとCPUリソースの中で、デバイスのレジスタを直接操作し、効率的な制御を実現します。</li>
+<li>画像処理: ピクセルデータをビットレベルで操作し、高速なフィルタリングや色変換を行います。</li>
+<li>通信プロトコル: ネットワークパケット内のヘッダ情報を効率的に構築・解析します。</li>
+<li>フラグ管理: 複数の状態（ON/OFFなど）を1つの整数変数内にコンパクトに格納し、管理します。</li>
+</ul>
+<p>この章を読み終える頃には、皆さんはビット演算の基本原則を理解し、実務で頻出するテクニックを自信を持って使いこなせるようになっているでしょう。</p>
+<p>それでは、コンピュータの最も基本的な言語である「ビット」の世界へ、一緒に踏み込んでいきましょう。</p>
+<hr>
+<h2 id="1-ビット演算の基本原則コンピュータの言語を理解する"><a class="header" href="#1-ビット演算の基本原則コンピュータの言語を理解する">1. ビット演算の基本原則：コンピュータの言語を理解する</a></h2>
+<p>このセクションでは、ビット演算の根幹をなす概念を学びます。ビット演算とは、コンピュータがデータを扱う最小単位である「ビット（bit）」、すなわち0と1の並びを直接操作する技術です。これにより、私たちはソフトウェアからハードウェアに近いレベルでの精密なデータ制御を行うことが可能になります。</p>
+<p>C言語には、このビット操作を実現するために6つの主要な演算子が用意されています。まずはその一覧を見て、それぞれの役割の概要を掴みましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>演算子</th><th>名前</th><th>説明</th><th>記述例</th></tr>
+</thead>
+<tbody>
+<tr><td>&amp;</td><td>AND (論理積)</td><td>両方のビットが1なら1</td><td>a &amp; b</td></tr>
+<tr><td>|</td><td>OR (論理和)</td><td>どちらかのビットが1なら1</td><td>a | b</td></tr>
+<tr><td>^</td><td>XOR (排他的論理和)</td><td>ビットが異なれば1、同じなら0</td><td>a ^ b</td></tr>
+<tr><td>~</td><td>NOT (否定/反転)</td><td>0と1をすべて反転する</td><td>~a</td></tr>
+<tr><td>&lt;&lt;</td><td>左シフト</td><td>ビット列を左にずらす</td><td>a &lt;&lt; 1</td></tr>
+<tr><td>&gt;&gt;</td><td>右シフト</td><td>ビット列を右にずらす</td><td>a &gt;&gt; 1</td></tr>
+</tbody>
+</table>
+</div>
+<p>これらの演算の根底にあるのは、「ブール論理」です。これは「真（1）」と「偽（0）」を操作する考え方であり、ビット演算はまさにこの論理をコンピュータのデータに直接適用するものなのです。つまり、ビットの1を「真」、0を「偽」と見なすことで、複数のフラグや状態を整数内の各ビットに割り当て、論理的に操作することが可能になります。</p>
+<p>次のセクションでは、これらの演算子が具体的にどのように動作するのか、一つひとつ詳しく見ていきましょう。</p>
+<hr>
+<h2 id="2-主要な演算子の詳細な分析"><a class="header" href="#2-主要な演算子の詳細な分析">2. 主要な演算子の詳細な分析</a></h2>
+<p>各演算子が持つ固有の特性を深く理解することは、特定のプログラミング課題をエレガントかつ効率的に解決するための鍵となります。ここでは、主要な4つの論理演算子について、その動作と典型的な用途を分析します。</p>
+<p>説明を分かりやすくするため、以降ではa = 5（2進数で0101）、b = 3（2進数で0011）という2つの4ビット変数を例として使用します。</p>
+<h2 id="21-and--特定ビットの抽出マスキング"><a class="header" href="#21-and--特定ビットの抽出マスキング">2.1. AND (&amp;): 特定ビットの抽出（マスキング）</a></h2>
+<p>AND演算は、2つのビットを比較し、両方が1の場合にのみ結果が1になるというルールで動作します。</p>
+<pre><code>  0101  (a = 5)
+&amp; 0011  (b = 3)
+------
+  0001  (結果 = 1)
+</code></pre>
+<p>この特性の最も重要な用途は「マスキング」です。特定のビット位置だけが1の数値（マスク）とAND演算を行うことで、対象の変数のそのビットが1になっているかどうかを安全に確認できます。不要なビットはすべて0になり、目的のビットだけが抽出されるのです。</p>
+<h2 id="22-or--特定ビットの強制onフラグ設定"><a class="header" href="#22-or--特定ビットの強制onフラグ設定">2.2. OR (|): 特定ビットの強制ON（フラグ設定）</a></h2>
+<p>OR演算は、2つのビットを比較し、どちらか一方でも1であれば結果が1になるというルールで動作します。</p>
+<pre><code>  0101  (a = 5)
+| 0011  (b = 3)
+------
+  0111  (結果 = 7)
+</code></pre>
+<p>この演算子の主な用途は、特定のビットを強制的にON（1に設定）することです。これは「フラグを立てる」とも呼ばれ、機器の状態や設定オプションのON/OFFを管理する際に極めて有効なテクニックです。</p>
+<h2 id="23-xor--ビットの反転と比較"><a class="header" href="#23-xor--ビットの反転と比較">2.3. XOR (^): ビットの反転と比較</a></h2>
+<p>XOR（排他的論理和）演算は、2つのビットが異なる場合に1、同じ場合には0になるというユニークな特性を持ちます。</p>
+<pre><code>  0101  (a = 5)
+^ 0011  (b = 3)
+------
+  0110  (結果 = 6)
+</code></pre>
+<p>この特性から、XORには2つの主要な用途が生まれます。</p>
+<ol>
+<li>特定のビットだけを反転させる（トグル、つまりONならOFFに、OFFならONにする）: 特定のビット位置が1のマスクとXOR演算を行うと、その位置のビットだけが反転します。</li>
+<li>違いの検出: 2つの値が完全に同じであればXORの結果は0になります。これを利用して、データの変更を検出したり、簡単な暗号化に応用されたりします。</li>
+</ol>
+<h3 id="24-not--全ビットの反転"><a class="header" href="#24-not--全ビットの反転">2.4. NOT (~): 全ビットの反転</a></h3>
+<p>NOT演算子は、単一の変数に対して働き、そのすべてのビットを反転させます（0は1に、1は0に）。</p>
+<pre><code>~ 0101  (a = 5)
+------
+  1010  (結果 = 10)
+</code></pre>
+<p>⚠️ 重要注意点 符号付き整数 (intなど) に対してNOT演算を行うと、予期せぬ負の値になることがあります。これは、コンピュータが負の数を「2の補数」という形式で表現しているためです。この表現方法では、最上位ビットが符号（1が負）を示し、全ビットを反転すると符号を含めて逆転するため、全く異なる値に見えるのです。このような意図しない挙動を避けるため、ビットの反転操作を行う際は、通常はunsigned型の変数で扱うことが強く推奨されます。</p>
+<p>これらの論理演算をマスターすれば、次はデータをダイナミックに動かすシフト演算の理解へと進む準備が整います。</p>
+<hr>
+<h2 id="3-シフト演算---高速な乗算除算テクニック"><a class="header" href="#3-シフト演算---高速な乗算除算テクニック">3. シフト演算 (&lt;&lt;, &gt;&gt;): 高速な乗算・除算テクニック</a></h2>
+<p>シフト演算は、ビット列全体を左または右にずらすだけの非常にシンプルな操作ですが、その効果は絶大です。CPUは単純な乗算や除算の命令を実行するよりも、シフト演算をはるかに高速に処理できます。これは、パフォーマンスが重要な場面での強力な最適化テクニックとなります。</p>
+<h3 id="31-左シフト-"><a class="header" href="#31-左シフト-">3.1. 左シフト (&lt;&lt;)</a></h3>
+<p>左シフト (&lt;&lt;) は、ビット列全体を指定されたビット数だけ左に移動させます。このとき、空いた右端のビットには自動的に 0 が挿入されます。</p>
+<p>数学的には、「1ビット左へシフトすると値が2倍になる」という効果があります。</p>
+<ul>
+<li>例: 3 (0011) &lt;&lt; 1 → 6 (0110)</li>
+</ul>
+<pre><code>  0011  (元の値: 3)
+&lt;&lt; 1    (1ビット左へ)
+------
+  0110  (結果: 6)
+</code></pre>
+<h3 id="32-右シフト-"><a class="header" href="#32-右シフト-">3.2. 右シフト (&gt;&gt;)</a></h3>
+<p>右シフト (&gt;&gt;) は、ビット列全体を右に移動させます。</p>
+<p>数学的には、「1ビット右へシフトすると値が1/2（整数除算なので端数切り捨て）になる」という効果があります。</p>
+<ul>
+<li>例: 6 (0110) &gt;&gt; 1 → 3 (0011)</li>
+</ul>
+<pre><code>  0110  (元の値: 6)
+&gt;&gt; 1    (1ビット右へ)
+------
+  0011  (結果: 3)
+</code></pre>
+<p>ここで、右シフトには非常に重要な注意点があります。変数の型によって、左端に挿入されるビットが異なるのです。</p>
+<ul>
+<li>論理シフト: 空いた左端のビットに常に0が挿入されます。これは主にunsigned型（符号なし整数）で発生します。</li>
+<li>算術シフト: 空いた左端のビットに元の符号ビット（正なら0、負なら1）がコピーされます。これは主にsigned型（符号付き整数）で発生します。これにより、負の数を右シフトしても符号が維持され、正しく「-10 ÷ 2 = -5」のような演算が実現できます。もし論理シフトで0が挿入されると、負の数が正の数に化けてしまい、バグの原因となります。</li>
+</ul>
+<p>この挙動の違いは、特に負の数を扱った際に発見しにくいバグの原因となります。このリスクを避けるための最も重要な定石は以下の通りです。</p>
+<p>⚠️ 鉄則 シフト演算は、バグを避けるため、原則としてunsigned型に対して行ってください。</p>
+<p>これらの基本操作を組み合わせることで、いよいよ実用的なプログラミングテクニックへと応用していくことができます。</p>
+<hr>
+<h2 id="4-実践テクニックビットマスクによるフラグ管理"><a class="header" href="#4-実践テクニックビットマスクによるフラグ管理">4. 実践テクニック：ビットマスクによるフラグ管理</a></h2>
+<p>ここまでの理論的な知識を統合し、実務で最も頻繁に使われる応用例の一つである「ビットマスク」をマスターしましょう。ビットマスクとは、1つの整数変数の中に複数のON/OFF状態（フラグ）を効率的に格納し、操作するテクニックです。これにより、ブール型の変数を何個も並べるよりも、はるかにメモリ効率の良いコードを書くことができます。</p>
+<p>基本的な操作は、これまで学んだ演算子と <code>1 &lt;&lt; n</code> （nビット目だけが1のマスクを作成する）という表現を組み合わせることで実現します。</p>
+<p><strong>特定のビットをセットする (Set bit n)</strong></p>
+<p>指定した n 番目のビットを 1 (ON) にします。</p>
+<ul>
+<li>コード例: storage |= 1 &lt;&lt; n;</li>
+<li>原理: OR (|) 演算を使い、他のビットの状態に影響を与えずに、指定したビット位置だけを強制的に 1 にします。</li>
+</ul>
+<p><strong>特定のビットをクリアする (Clear bit n)</strong></p>
+<p>指定した n 番目のビットを 0 (OFF) にします。</p>
+<ul>
+<li>コード例: storage &amp;= ~(1 &lt;&lt; n);</li>
+<li>原理: まず 1 &lt;&lt; n で n ビット目だけが 1 のマスクを作り、~ でそれを反転させます（n ビット目だけが 0 で、他は全て 1 のマスクになる）。このマスクと AND (&amp;) 演算を行うことで、目的のビットだけが 0 にクリアされます。</li>
+</ul>
+<p><strong>特定のビットを反転させる (Flip bit n)</strong></p>
+<p>指定した n 番目のビットの状態を反転させます（0なら1に、1なら0に）。</p>
+<ul>
+<li>コード例: storage ^= 1 &lt;&lt; n;</li>
+<li>原理: XOR (^) 演算の「ビットが異なれば1になる」特性を利用します。対象ビットが 0 なら 0 ^ 1 で 1 になり、1 なら 1 ^ 1 で 0 になります。他のビットは 0 とXORされるため変化しません。</li>
+</ul>
+<p><strong>特定のビットをチェックする (Check bit n)</strong></p>
+<p>指定した n 番目のビットが 1 (ON) か 0 (OFF) かを判定します。</p>
+<ul>
+<li>コード例: bit = storage &amp; (1 &lt;&lt; n);</li>
+<li>原理: AND (&amp;) 演算で n 番目のビットだけを抽出します。もし n 番目のビットが 1 であれば、結果は 0 以外の値（具体的には 1 &lt;&lt; n）になります。もし 0 であれば、結果は 0 になります。この結果を if 文で評価します。C言語では0以外の値は「真」と評価されるため、if (storage &amp; (1 &lt;&lt; n)) と書くだけで「もしnビット目がONなら」という条件分岐を簡潔に記述できます。</li>
+</ul>
+<p>これらのテクニックは、複数の状態をわずか数バイトで管理できるため、特にメモリが制約される組み込みシステム開発では必須のスキルです。しかし、この強力なツールを安全に使いこなすためには、いくつかの注意点を理解しておく必要があります。</p>
+<hr>
+<h2 id="5-初心者が陥りやすい3つの罠と対策"><a class="header" href="#5-初心者が陥りやすい3つの罠と対策">5. 初心者が陥りやすい3つの罠と対策</a></h2>
+<p>ビット演算は強力な反面、いくつかの典型的な間違いが原因で、発見しにくいバグを生み出す可能性があります。ここでは、皆さんが安全で信頼性の高いコードを書くためのチェックリストとして、初心者が陥りやすい3つの罠とその対策を解説します。</p>
+<ol>
+<li>論理演算子 (&amp;&amp;, ||) との混同</li>
+</ol>
+<ul>
+<li>問題点: ビットごとの演算を行う &amp; や | と、条件分岐で使われる論理演算子の &amp;&amp; や || は、見た目が似ていますが、全く異なる動作をします。最悪なことに、これらの演算子を書き間違えてもコンパイルエラーにならず、意図しない挙動を引き起こすことがあり、バグの発見を非常に困難にします。</li>
+<li>正しい対策: &amp; はビット単位の積、&amp;&amp; は条件全体の真偽を評価するもの、と明確に区別して使いましょう。コードレビュー時には特に注意深く確認する癖をつけてください。</li>
+</ul>
+<ol start="2">
+<li>演算子の優先順位</li>
+</ol>
+<ul>
+<li>問題点: ビット演算子 (&amp;, |, ^) は、比較演算子 (==, !=) よりも演算の優先順位が低いことがよくあります。これにより、予期せぬ評価順序で式が計算されてしまいます。</li>
+<li>例（間違い）: if (x &amp; 0x01 == 0)
+<ul>
+<li>このコードは、0x01 == 0 が先に評価されます。その結果は偽、つまり0になります。次に x &amp; 0 が計算されますが、これは常に0となり、プログラマの意図した「xの最下位ビットが0かどうかのチェック」とは全く異なる動作になります。</li>
+</ul>
+</li>
+<li>正しい対策: ビット演算を含む比較式では、必ずカッコで囲んで演算の順序を明示する習慣をつけましょう。
+<ul>
+<li>例（正解）: if ((x &amp; 0x01) == 0)</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>printfでの2進数表示</li>
+</ol>
+<ul>
+<li>問題点: デバッグ中に変数のビットパターンを確認したくても、標準のC言語ライブラリには、printf 関数で値を2進数で直接表示するためのフォーマット指定子（例：%b）が用意されていません。</li>
+<li>正しい対策: ビット演算のデバッグや動作確認を行う際には、代わりに16進数 (%x) を使うのが一般的です。16進数は1桁がちょうど4ビットに対応するため、ビットパターンを把握しやすいという利点があります。デバッグを効率化するために、整数値を2進数文字列に変換する自作のヘルパー関数を用意しておくことは、多くのプロジェクトで採用されている良い習慣です。</li>
+</ul>
+<p>これらの注意点を常に心に留めておくことで、ビット演算に起因する多くのバグを未然に防ぐことができます。</p>
+<hr>
+<h2 id="6-まとめと次のステップ"><a class="header" href="#6-まとめと次のステップ">6. まとめと次のステップ</a></h2>
+<p>この研修資料を通じて、C言語におけるビット演算が、単なる計算テクニックではなく、パフォーマンスとメモリ効率を追求する上でいかに重要であるかを学んできました。ビットというコンピュータの最小単位を直接操作することで、私たちはより洗練され、最適化されたコードを書く力を手に入れることができます。</p>
+<p>もし覚えることが多すぎると感じたら、まずは実務で最も頻繁に登場する、以下の2つの基本原則から確実にマスターしてください。</p>
+<p>「特定のビットをONにするにはOR」、「特定のビットを調べるにはAND」</p>
+<p>この2つを使いこなせるだけでも、多くのフラグ管理の問題に対応できるようになります。</p>
+<p>知識を定着させるための最良の方法は、実際に手を動かしてみることです。次のステップとして、このガイドで学んだテクニックを使い、簡単な関数（例えば「与えられた数値の特定のビットを反転させる関数」など）を自分で作成してみてください。実践を通じて、ビット演算は皆さんの強力なツールキットの一部となるでしょう。</p>
+<p>この地道なスキルが、いずれハードウェアを意のままに操る大きな力になります。皆さんのこれからの活躍を期待しています。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_3_chapter_05.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_3_chapter_07.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_3_chapter_05.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_3_chapter_07.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

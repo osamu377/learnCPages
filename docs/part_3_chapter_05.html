@@ -1,0 +1,418 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>二分木 - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="二分木の基礎"><a class="header" href="#二分木の基礎">二分木の基礎</a></h1>
+<h2 id="1-はじめになぜ二分木を学ぶのか"><a class="header" href="#1-はじめになぜ二分木を学ぶのか">1. はじめに：なぜ二分木を学ぶのか</a></h2>
+<p>この章では、コンピュータサイエンスの分野で極めて重要なデータ構造である「二分木」について学びます。二分木は、効率的なデータの検索、ソート、階層構造の表現といった、私たちが日々直面する基本的な課題を解決するための強力なツールです。一見すると複雑に思えるかもしれませんが、その基本的な原理を理解することで、より高度なアルゴリズムやデータ構造への扉が開かれます。</p>
+<p>この章を通じて、以下の主要な概念を習得します。</p>
+<ul>
+<li>二分木の定義: 二分木とは何か、その基本的な構成要素と特性を学びます。</li>
+<li>探索アルゴリズム: 木構造に格納されたデータにアクセスするための主要な手法である「深さ優先探索」と「幅優先探索」を理解します。</li>
+<li>C言語による実装: 概念的な知識を、C言語のコードを通して具体的な形にする方法を分析します。</li>
+</ul>
+<p>それではまず、二分木を構成する基本的な要素と用語の理解から始めましょう。</p>
+<h2 id="2-二分木の基本概念"><a class="header" href="#2-二分木の基本概念">2. 二分木の基本概念</a></h2>
+<p>このセクションでは、二分木を理解する上で不可欠な基本的な用語とその特性について解説します。これらの概念は、木構造に対する挿入、削除、探索といった、より高度な操作を学ぶ上での確固たる基盤となります。</p>
+<p>以下に、主要な用語を解説します。</p>
+<ul>
+<li>
+<p>二分木 (Binary Tree) 各ノードが最大で2つの子（左の子と右の子）しか持たない木構造のデータ構造です。このシンプルな制約が、効率的なアルゴリズムの設計を可能にします。</p>
+<pre><code>      g                  s                  9
+     / \                / \                / \
+    b   m              f   u              5   13
+   / \                    / \                /  \
+  c   d                  t   y              11  15
+</code></pre>
+<p>二分木は、二分探索木やバイナリヒープといった、より特殊化されたデータ構造を実装するための基礎となります。これらは、データの効率的な検索やソート処理に広く利用されています。</p>
+</li>
+<li>
+<p>平衡木 (Balanced Tree) 木のすべてのノードにおいて、そのノードを根とする左の部分木と右の部分木の深さ（高さ）の差が1以下である木を指します。</p>
+<pre><code>    平均木            平均木ではない
+      g                  s        
+     / \                / \       
+    b   m              f   u      
+   / \                    / \     
+  c   d                  t   y    
+                        /     \
+                       x       r 
+</code></pre>
+</li>
+<li>
+<p>深さ/高さ (Depth/Height) 木の根（ルート）から特定のノードまたは葉（リーフ）までの距離を示す指標です。根の深さを0とし、階層が下がるごとに1ずつ増加します。木のノード数を n とした場合、平衡木の深さは log2(n) の整数部分で近似でき、これが探索効率に大きく関わってきます。</p>
+<pre><code>            深さ/高さ
+              ---
+      g        0
+     / \      ---
+    b   m      1
+   / \        ---
+  c   d        2  
+              ---
+</code></pre>
+</li>
+</ul>
+<p><strong>平衡木の重要性</strong></p>
+<p>平衡木が特に重要視されるのは、その深さ（高さ）が予測可能になるためです。データが偏って挿入されると、木は線形リストのような不均衡な形状になり、探索効率が大幅に低下します。一方、平衡木は深さが log2(n) 程度に保たれるため、探索、挿入、削除といった操作の計算量を効率的に維持することができます。</p>
+<p>基本的な概念を理解したところで、次はこれらの木構造に格納されたデータをどのように辿っていくか、すなわち探索アルゴリズムについて掘り下げていきましょう。</p>
+<h2 id="3-木の探索トラバーサルアルゴリズム"><a class="header" href="#3-木の探索トラバーサルアルゴリズム">3. 木の探索（トラバーサル）アルゴリズム</a></h2>
+<p>木構造に格納されたデータにアクセスするためには、すべてのノードを体系的に訪問する手順が必要です。この手順を「探索（トラバーサル）」と呼びます。トラバーサルは、単にデータを見つけるだけでなく、特定の順序で処理を行うためにも不可欠な戦略です。</p>
+<p>探索には主に2つの戦略があります。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>戦略名</th><th>説明</th></tr>
+</thead>
+<tbody>
+<tr><td>深さ優先探索 (DFS)</td><td>根から始まり、各分岐を可能な限り深く探索してから、次の分岐に移る（バックトラックする）アルゴリズム。</td></tr>
+<tr><td>幅優先探索 (BFS)</td><td>あるレベル（階層）の全ノードを訪れてから、次のより低いレベルへ進むアルゴリズム（レベル順探索）。</td></tr>
+</tbody>
+</table>
+</div>
+<p>特に深さ優先探索（DFS）は、実装の容易さから広く使われており、ノードを訪問するタイミングによって3つの主要な種類に分類されます。</p>
+<ul>
+<li>行きがけ順 (Pre-order) ノードを最初に <strong>訪問 (visit)</strong> し、次に左の子、最後に右の子を辿ります。 (訪問 -&gt; 左 -&gt; 右)</li>
+<li>通りがけ順 (In-order) 最初に左の子を辿り、次にノードを <strong>訪問 (visit)</strong> し、最後に右の子を辿ります。 (左 -&gt; 訪問 -&gt; 右)</li>
+<li>帰りがけ順 (Post-order) 最初に左の子、次に右の子を辿り、最後にノードを <strong>訪問 (visit)</strong> します。 (左 -&gt; 右 -&gt; 訪問)</li>
+</ul>
+<p>どの探索方法を選択するかによって、ノードが処理される順序は全く異なります。それでは次のセクションで、これらのアルゴリズムがC言語でどのように実装されるのか、具体的なコードを見ていきましょう。</p>
+<h2 id="4-c言語による実装の分析"><a class="header" href="#4-c言語による実装の分析">4. C言語による実装の分析</a></h2>
+<p>ここからは、これまでに学んだ理論的な概念が、実際のC言語のコードでどのように表現され、機能するのかを分析します。コードを読み解くことで、抽象的なデータ構造が具体的なロジックに落ちていく過程を理解することができます。</p>
+<h3 id="41-ノードのデータ構造-struct-node"><a class="header" href="#41-ノードのデータ構造-struct-node">4.1. ノードのデータ構造 (struct node)</a></h3>
+<p>二分木を構成する基本単位である「ノード」は、C言語の構造体 (struct) を用いて表現するのが一般的です。各ノードは、自身の値、そして左と右の子ノードへのポインタを保持します。</p>
+<pre><code>typedef struct node {
+    int val;
+    struct node * left;
+    struct node * right;
+} node_t;
+</code></pre>
+<p>この node_t 構造体は、val という整数型の値を格納するメンバーと、自身と同じ node_t 型へのポインタである left と right を持ちます。これにより、各ノードが他の2つのノードを指し示す、連鎖的な構造が実現されます。</p>
+<h3 id="42-挿入ロジック-insert関数"><a class="header" href="#42-挿入ロジック-insert関数">4.2. 挿入ロジック (insert関数)</a></h3>
+<p>次に、木に新しいデータを追加する insert 関数のロジックを見てみましょう。この関数は、再帰を用いて適切な挿入位置を探します。</p>
+<p>この実装は、大小関係に基づいてノードを配置する順序木を生成します。ただし、挿入されるデータの順序によっては木が不均衡になる可能性があり、必ずしも平衡木になるわけではない点に注意してください。</p>
+<pre><code>void insert(node_t * tree, int val) {
+    if (tree-&gt;val == 0) {
+        /* insert on current (empty) position */
+        tree-&gt;val = val;
+    } else {
+        if (val &lt; tree-&gt;val) {
+            /* insert left */
+            if (tree-&gt;left != NULL) {
+                insert(tree-&gt;left, val);
+            } else {
+                tree-&gt;left = (node_t *) malloc(sizeof(node_t));
+                tree-&gt;left-&gt;val = val;
+                tree-&gt;left-&gt;left = NULL;
+                tree-&gt;left-&gt;right = NULL;
+            }
+        } else {
+            if (val &gt;= tree-&gt;val) {
+                /* insert right */
+                if (tree-&gt;right != NULL) {
+                    insert(tree-&gt;right,val);
+                } else {
+                    tree-&gt;right = (node_t *) malloc(sizeof(node_t));
+                    tree-&gt;right-&gt;val = val;
+                    tree-&gt;right-&gt;left = NULL;
+                    tree-&gt;right-&gt;right = NULL;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>この関数のロジックは以下のステップで実行されます。</p>
+<ol>
+<li>まず、tree-&gt;val == 0 かどうかをチェックします。これは、この演習における「ノードが空である」という特殊な状態を示しており、主に最初の値（根）を挿入するために使われます。</li>
+<li>ノードが空でない場合、挿入したい値 val と現在のノードの値 tree-&gt;val を比較します。</li>
+</ol>
+<ul>
+<li>val が小さければ左へ、大きければ右へ進みます。</li>
+</ul>
+<ol start="3">
+<li>進んだ先に子ノードがまだ存在しない場合（tree-&gt;left == NULL または tree-&gt;right == NULL）、それが挿入のベースケースとなります。ここで malloc を使って新しいノードのメモリを確保し、値を設定して木に連結します。</li>
+<li>進んだ先に子ノードが既に存在する場合、その子ノードを新たな起点として insert 関数自身を呼び出します。これが再帰ステップであり、適切な空き場所が見つかるまで木を深く辿っていきます。</li>
+</ol>
+<p>ここで、シニアエンジニアの視点から重要な注意点を共有します。このコードの tree-&gt;val == 0 というチェックは、あくまでこの演習のための簡略化された実装です。実際のアプリケーションでは、0 という値も木に挿入したい正当なデータかもしれません。このように特定の値に特別な意味を持たせる実装は堅牢性に欠けるため、通常はツリーやノード自体が NULL であるかどうかで空の状態を判断する方が良い設計です。</p>
+<h3 id="43-探索の実装-printdfs関数"><a class="header" href="#43-探索の実装-printdfs関数">4.3. 探索の実装 (printDFS関数)</a></h3>
+<p>最後に、木の内容を出力するための深さ優先探索（DFS）の実装を見てみましょう。提供されている元のコードは以下の通りです。</p>
+<pre><code>/* depth-first search */
+void printDFS(node_t * current) {
+    if (current == NULL) return; /* security measure */
+    if (current-&gt;left != NULL) printDFS(current-&gt;left);
+    if (current != NULL) printf("%d ", current-&gt;val);
+    if (current-&gt;right != NULL) printDFS(current-&gt;right);
+}
+</code></pre>
+<p>この関数の処理の順序を注意深く見てください。</p>
+<ol>
+<li>左の子に対して printDFS を再帰的に呼び出す (左)</li>
+<li>現在のノードの値 (current-&gt;val) を出力する (訪問)</li>
+<li>右の子に対して printDFS を再帰的に呼び出す (右)</li>
+</ol>
+<p>この 左 -&gt; 訪問 -&gt; 右 という順序は、前セクションで学んだ通りがけ順 (In-order) 探索に他なりません。この実装が順序木に対して適用されると、結果としてノードの値が昇順（小さい順）で出力されるという重要な特徴があります。これは、通りがけ順の非常に強力な応用例です。</p>
+<p>これまでの分析を踏まえ、次のセクションではこの printDFS 関数を課題に従って変更する演習に取り組んでみましょう。</p>
+<h2 id="5-演習探索順序の変更"><a class="header" href="#5-演習探索順序の変更">5. 演習：探索順序の変更</a></h2>
+<p>このセクションでは、これまでに学んだ知識を実践に移すための演習を行います。理論を理解するだけでなく、それを応用して実際のコードを仕様通りに変更するスキルは、エンジニアにとって非常に重要です。</p>
+<h3 id="課題"><a class="header" href="#課題">課題:</a></h3>
+<p>現在の printDFS 関数（通りがけ順）を、行きがけ順 (Pre-order) の深さ優先探索に変更してください。</p>
+<p><strong>解答と解説</strong></p>
+<p>行きがけ順（Pre-order）の定義は 訪問 -&gt; 左 -&gt; 右 でした。この順序を実現するには、関数の処理の順番を入れ替えるだけです。</p>
+<p>変更後のコード 以下が、行きがけ順に修正した printDFS 関数です。</p>
+<pre><code>/* depth-first search - pre-order */
+void printDFS(node_t * current) {
+    if (current == NULL) return; /* security measure */
+
+    /* Visit the current node first */
+    printf("%d ", current-&gt;val);
+
+    /* Then recur on left subtree */
+    if (current-&gt;left != NULL) {
+        printDFS(current-&gt;left);
+    }
+
+    /* Finally recur on right subtree */
+    if (current-&gt;right != NULL) {
+        printDFS(current-&gt;right);
+    }
+}
+</code></pre>
+<p>変更点の解説 変更点は、<code>printf("%d ", current-&gt;val);</code> の行を、左右の子への再帰呼び出しよりも前に移動させたことだけです。これにより、関数が呼び出された際に、まず現在のノードの値を「訪問（出力）」し、その後に左の部分木、右の部分木の順で探索を進めるという「行きがけ順」のロジックが実現されます。</p>
+<p>このように、再帰的な処理の順序を少し変えるだけで、探索の振る舞いを大きく変えられることが、木構造のアルゴリズムの興味深い点です。</p>
+<h2 id="6-まとめ"><a class="header" href="#6-まとめ">6. まとめ</a></h2>
+<p>本研修では、二分木の基本的な概念からC言語による具体的な実装、そして簡単なアルゴリズムの改修までを学びました。最後に、本研修の最も重要なポイントを振り返りましょう。</p>
+<ol>
+<li>二分木の構造 各ノードが最大2つの子を持つというシンプルなルールが、階層的なデータを効率的に管理するための強力な基盤となることを学びました。</li>
+<li>探索アルゴリズムの重要性 深さ優先探索（DFS）や幅優先探索（BFS）は、木構造に格納されたデータに体系的にアクセスするための不可欠なツールです。特にDFSにおける「行きがけ順」「通りがけ順」「帰りがけ順」は、目的応じてデータの処理順序を制御する上で重要です。</li>
+<li>理論から実践へ C言語の構造体と再帰関数を用いることで、二分木のような抽象的なデータ構造を具体的にコードとして実装できることを確認しました。理論的な知識を実際のコードに落とし込む能力は、エンジニアとしての成長に欠かせません。</li>
+</ol>
+<p>皆さんにとって、これらの基本的なデータ構造の知識は、将来的に複雑なアルゴリズムや大規模なシステムを開発する上での強固な土台となります。今回の学びを活かし、これからも探求を続けていってください。以上で研修を終了します。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_3_chapter_04.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_3_chapter_06.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_3_chapter_04.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_3_chapter_06.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>標準ライブラリ関数 - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="標準ライブラリ関数"><a class="header" href="#標準ライブラリ関数">標準ライブラリ関数</a></h1>
+<h2 id="1-はじめに標準ライブラリの重要性"><a class="header" href="#1-はじめに標準ライブラリの重要性">1. はじめに：標準ライブラリの重要性</a></h2>
+<p>本章の目的は、皆さんがC言語プログラミングの世界で確かな一歩を踏み出すために不可欠な「標準ライブラリ関数」の知識と実践的な使い方を習得することです。C言語における標準ライブラリは、複雑な処理を簡潔に記述するための強力なツールキットであり、いわば熟練した職人が用意してくれた高精度な道具箱のようなものです。これらの道具を正しく使いこなすことは、効率的で信頼性の高いソフトウェアを開発するための鍵であり、特にC言語特有の落とし穴を予測し回避する**「ディフェンシブ・プログラミング」**を実践するための第一歩となります。</p>
+<p>本章では、C言語プログラミングで最も頻繁に使用される以下の3つの主要なヘッダファイルに焦点を当てて解説します。</p>
+<ul>
+<li>&lt;string.h&gt;: 文字列のコピー、比較、結合といった基本的な文字列操作を担当します。</li>
+<li>&lt;math.h&gt;: 累乗や平方根、丸め処理など、科学技術計算に不可欠な数値計算機能を提供します。</li>
+<li>&lt;stdio.h&gt;: コンソールやファイルとのデータのやり取り、すなわち入出力処理の基盤を担います。</li>
+</ul>
+<p>これらのライブラリを理解することは、C言語プログラミングの基礎を固める上で避けては通れない道です。それではまず、以前の章で学んだことと重複しますが、改めてプログラムの根幹をなすデータの一つである「文字列」を安全かつ効率的に扱うための技術から見ていきましょう。</p>
+<hr>
+<h2 id="2-文字列操作の基本-stringh-ライブラリ"><a class="header" href="#2-文字列操作の基本-stringh-ライブラリ">2. 文字列操作の基本: &lt;string.h&gt; ライブラリ</a></h2>
+<p>C言語には、他の多くのプログラミング言語にあるようなネイティブな「文字列型」は存在しません。その代わりに、文字の配列（char型配列）の終端に特別な文字であるナル文字（\0）を置くことで文字列を表現します。この仕様のため、文字列操作には細心の注意が必要となります。&lt;string.h&gt;ライブラリは、こうした文字配列を安全かつ効率的に操作するための一連の標準関数を提供し、C言語における文字列処理の基盤を形成しています。これらの関数を正しく理解し、使いこなすことは、バグの少ない堅牢なコードを書くための第一歩です。</p>
+<h3 id="21-文字列のコピー-strcpy-strncpy"><a class="header" href="#21-文字列のコピー-strcpy-strncpy">2.1 文字列のコピー (strcpy, strncpy)</a></h3>
+<p>文字列のコピーは最も基本的な操作の一つですが、同時に最も危険を伴う操作でもあります。strcpyとstrncpyの違いを正確に理解することが重要です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>目的</th><th>説明</th><th>注意点</th></tr>
+</thead>
+<tbody>
+<tr><td>strcpy(s1, s2)</td><td>文字列をコピーする</td><td>文字列 s2 の内容を、文字列 s1 へと完全にコピーします。</td><td>s1 は、s2 の文字列全体と終端のナル文字 (\0) を格納できるだけの十分な大きさの配列である必要があります。さもないと、バッファオーバーフロー（メモリの破壊）を引き起こす致命的な危険性があります。</td></tr>
+<tr><td>strncpy(s1, s2, n)</td><td>指定した長さだけ文字列をコピーする</td><td>文字列 s2 の内容から、最大で n 文字だけを s1 へコピーします。</td><td>s2 の長さが n 文字以上の場合、s1 には終端のナル文字 (‘\0’) が自動的に付加されないため、手動で追加する必要があります。逆に s2 の長さが n 文字未満の場合、s1 の残りの部分はナル文字で埋められます。</td></tr>
+</tbody>
+</table>
+</div>
+<p>strcpyはシンプルですが、コピー先のバッファサイズを一切考慮しないため、非常に危険です。例えば、10バイトの配列に20バイトの文字列をコピーしようとすると、配列の境界を越えてメモリが破壊され、プログラムのクラッシュや予測不能な脆弱性の原因となります。</p>
+<p>一方、strncpyはコピーする最大文字数を指定できるため、一見すると安全な代替策に見えます。しかし、コピー元の文字列長が指定文字数n以上の場合、コピー先の文字列がナル終端されないという重大な注意点があります。安全にstrncpyを使用するためには、常に手動でナル文字を書き込む習慣をつけるべきです。</p>
+<h3 id="22-文字列の比較-strcmp-strncmp"><a class="header" href="#22-文字列の比較-strcmp-strncmp">2.2 文字列の比較 (strcmp, strncmp)</a></h3>
+<p>文字列が等しいかどうか、あるいは辞書順でどちらが先に来るかを判定するために比較関数を使用します。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>目的</th><th>説明</th><th>戻り値</th></tr>
+</thead>
+<tbody>
+<tr><td>strcmp(s1, s2)</td><td>2つの文字列を比較する</td><td>文字列 s1 と s2 を、先頭から終端のナル文字まで完全に比較します。</td><td>等しい (s1 と s2 が同じ文字列) なら 0。<br> s1 の方が大きい (辞書順で後) なら 正の数。<br> s1 の方が小さい (辞書順で前) なら 負の数。</td></tr>
+<tr><td>strncmp(s1, s2, n)</td><td>指定した長さだけ2つの文字列を比較する</td><td>文字列 s1 と s2 の、先頭から最大で n 文字だけを比較します。</td><td>等しい (最初の n 文字が同じ) なら 0。<br> s1 の方が大きい なら 正の数。<br> s1 の方が小さい なら 負の数。</td></tr>
+</tbody>
+</table>
+</div>
+<p>strcmpの戻り値は、単に true/false ではなく、2つの文字列の辞書順での大小関係を示します。s1がs2より辞書順で後にある場合（例: strcmp(“banana”, “apple”)）は正の数を、その逆の場合は負の数を返します。この特性は、文字列のソート処理などで非常に役立ちます。</p>
+<h3 id="23-文字列の結合-strcat-strncat"><a class="header" href="#23-文字列の結合-strcat-strncat">2.3 文字列の結合 (strcat, strncat)</a></h3>
+<p>既存の文字列の末尾に別の文字列を追加（結合）する操作です。コピーと同様にバッファオーバーフローのリスクが伴います。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>目的</th><th>説明</th><th>注意点</th></tr>
+</thead>
+<tbody>
+<tr><td>strcat(s1, s2)</td><td>文字列を結合する</td><td>文字列 s2 を、文字列 s1 の末尾に結合します。結果は s1 に格納されます。</td><td>s1 は、結合後の s1 と s2 の両方の文字列全体と終端のナル文字を格納できるだけの十分な大きさの配列である必要があります。バッファオーバーフローのリスクが非常に高いです。</td></tr>
+<tr><td>strncat(s1, s2, n)</td><td>指定した長さだけ文字列を結合する</td><td>文字列 s2 の内容から、最大で n 文字だけを s1 の末尾に結合します。</td><td>常に結合後の文字列の末尾に終端のナル文字 (\0) が付加されます。この点で strncpy よりも安全ですが、s1 の配列サイズが結合後の文字列長を格納するのに十分であることの確認は依然として必要です。</td></tr>
+</tbody>
+</table>
+</div>
+<p>strcatはstrcpyと同様に、結合先のバッファサイズを考慮しないため、深刻なバッファオーバーフローを引き起こす可能性があります。安全性を考慮するなら、結合する最大文字数を指定でき、かつ常にナル終端を保証してくれるstrncatの使用が推奨されます。</p>
+<h3 id="24-文字列の長さ-strlen"><a class="header" href="#24-文字列の長さ-strlen">2.4 文字列の長さ (strlen)</a></h3>
+<p>文字列の長さを取得する、非常に基本的ながら重要な関数です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>目的</th><th>説明</th><th>戻り値</th></tr>
+</thead>
+<tbody>
+<tr><td>strlen(s)</td><td>文字列の長さを取得する</td><td>文字列 s に含まれる文字の数を数えます。</td><td>終端のナル文字 (\0) を除く、文字の総数を返します。</td></tr>
+</tbody>
+</table>
+</div>
+<p>初心者が最も間違いやすいポイントは、strlenが返す値に終端のナル文字(\0)は含まれないという点です。例えば、“Hello” という文字列の長さは5です。しかし、この文字列を格納するために必要な配列のサイズは、ナル文字を含めた6バイト（char buffer[6];）であることに注意してください。この1バイトの違いを意識することが、バッファオーバーフローを防ぐ上で極めて重要です。</p>
+<p>文字列操作の基本をマスターしたところで、次はプログラムに計算能力を与える数学関数の世界を探求していきましょう。</p>
+<hr>
+<h2 id="3-数値計算と数学関数-mathh-ライブラリ"><a class="header" href="#3-数値計算と数学関数-mathh-ライブラリ">3. 数値計算と数学関数: &lt;math.h&gt; ライブラリ</a></h2>
+<p>&lt;math.h&gt;ライブラリは、C言語におけるあらゆる数値処理の根幹をなす関数群を提供します。単純な四則演算を超えた、科学技術計算、グラフィックス、データ分析など、高度なアプリケーション開発には欠かせない存在です。これらの関数の多くは、計算精度を確保するためにdouble型の浮動小数点数を引数とし、double型を戻り値として返します。これらの関数を利用するには、プログラムの先頭で #include &lt;math.h&gt; を記述する必要があります。</p>
+<h3 id="31-累乗平方根関数"><a class="header" href="#31-累乗平方根関数">3.1 累乗・平方根関数</a></h3>
+<p>べき乗や平方根など、基本的な代数計算を行うための関数です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>宣言</th><th>説明</th><th>例（概念）</th></tr>
+</thead>
+<tbody>
+<tr><td>pow(base, exp)</td><td>double pow(double, double)</td><td>base の exp 乗、つまり base^{exp} を計算します。</td><td>pow(2.0, 3.0) は 2^3=8.0 を返します。</td></tr>
+<tr><td>sqrt(x)</td><td>double sqrt(double)</td><td>x の正の平方根（二乗根）を計算します。\sqrt{x} と等価です。</td><td>sqrt(9.0) は \sqrt{9}=3.0 を返します。</td></tr>
+<tr><td>cbrt(x)</td><td>double cbrt(double)</td><td>x の立方根（三乗根）を計算します。\sqrt[3]{x} と等価です。</td><td>cbrt(27.0) は \sqrt[3]{27}=3.0 を返します。</td></tr>
+<tr><td>hypot(x, y)</td><td>double hypot(double, double)</td><td>x と y を直交する2辺とする直角三角形の斜辺の長さを計算します。\sqrt{x^2 + y^2} と等価です。</td><td>hypot(3.0, 4.0) は \sqrt{3^2+4^2}=5.0 を返します。</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>特に重要な注意点</strong></p>
+<ul>
+<li>pow(base, exp):
+<ul>
+<li>baseが負の数で、expが整数でない場合（例: pow(-2.0, 0.5)）、数学的に結果は複素数となるため、C言語ではドメインエラーとなり、NaN（Not a Number）などが返されます。</li>
+<li>baseが 0 で、expが負の数の場合（例: pow(0.0, -1.0)）、ゼロ除算が発生するため、結果は無限大（Inf）となります。</li>
+</ul>
+</li>
+<li>sqrt(x):
+<ul>
+<li>xに負数を渡した場合、実数の範囲では解が存在しないため、ドメインエラーとなります。</li>
+</ul>
+</li>
+</ul>
+<h3 id="32-丸め関数"><a class="header" href="#32-丸め関数">3.2 丸め関数</a></h3>
+<p>浮動小数点数を、指定されたルールに従って整数値に丸めるための関数です。戻り値は整数ではなくdouble型である点に注意してください。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>宣言</th><th>説明</th><th>例（概念）</th></tr>
+</thead>
+<tbody>
+<tr><td>ceil(x)</td><td>double ceil(double)</td><td>x を切り上げて、x 以上の最小の整数値を返します（天井関数）。</td><td>ceil(4.1) は 5.0<br>ceil(-4.9) は -4.0</td></tr>
+<tr><td>floor(x)</td><td>double floor(double)</td><td>x を切り捨てて、x 以下の最大の整数値を返します（床関数）。</td><td>floor(4.9) は 4.0<br>floor(-4.1) は -5.0</td></tr>
+<tr><td>round(x)</td><td>double round(double)</td><td>x を最も近い整数に丸めます。端数 .5 の場合は、**絶対値が大きい方（0から遠い方）**に丸めます。</td><td>round(4.5) は 5.0<br>round(-4.5) は -5.0</td></tr>
+<tr><td>trunc(x)</td><td>double trunc(double)</td><td>x の小数部分を切り捨てて、0 に最も近い整数値を返します。</td><td>trunc(4.9) は 4.0<br>trunc(-4.9) は -4.0</td></tr>
+</tbody>
+</table>
+</div>
+<p>これらの関数の違いは、特に負の数を扱う場合に顕著になります。例えば-4.1という値に対して、floorは-5.0を返すのに対し、truncは-4.0を返します。目的応じて適切な丸め関数を選択することが重要です。</p>
+<h3 id="33-絶対値関数"><a class="header" href="#33-絶対値関数">3.3 絶対値関数</a></h3>
+<p>数値の符号を取り除き、0からの距離を求める関数です。対象となるデータの型によって使用する関数が異なります。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>宣言</th><th>説明</th><th>データ型</th></tr>
+</thead>
+<tbody>
+<tr><td>abs(x)</td><td>int abs(int)</td><td>整数 x の絶対値を計算します。</td><td>int</td></tr>
+<tr><td>labs(x)</td><td>long labs(long)</td><td>長整数 x の絶対値を計算します。</td><td>long</td></tr>
+<tr><td>llabs(x)</td><td>long long llabs(long long)</td><td>非常に大きな整数 x の絶対値を計算します。</td><td>long long</td></tr>
+<tr><td>fabs(x)</td><td>double fabs(double)</td><td>浮動小数点数 x の絶対値を計算します。</td><td>double</td></tr>
+</tbody>
+</table>
+</div>
+<p>特に重要な違いと注意点</p>
+<ul>
+<li>ヘッダファイルの違い: 整数型の絶対値関数（abs, labs, llabs）は &lt;stdlib.h&gt; に定義されています。一方、浮動小数点数用のfabsは &lt;math.h&gt; に定義されています。両方を使用する場合は、両方のヘッダファイルをインクルードする必要があります。</li>
+<li>オーバーフローのリスク: 整数型のabs関数には注意が必要です。例えば、32ビットのint型で表現可能な最小の負の数（-2147483648）をabsに渡した場合、その絶対値はint型で表現可能な最大の正の数を超えてしまいます。C言語の規格上、この結果は未定義の動作となりますが、多くの環境では元の負の値がそのまま返されるという危険な挙動を示します。これは発見が困難なバグの原因となり得ます。</li>
+</ul>
+<p>数学関数によってプログラムに高度な計算能力を組み込めるようになりました。次は、これらの計算結果をユーザーに表示したり、ユーザーからの入力を受け取ったりするための入出力処理について学びます。</p>
+<hr>
+<h2 id="4-基本的なデータの入出力-stdioh-ライブラリ"><a class="header" href="#4-基本的なデータの入出力-stdioh-ライブラリ">4. 基本的なデータの入出力: &lt;stdio.h&gt; ライブラリ</a></h2>
+<p>&lt;stdio.h&gt;（Standard Input/Output Header）ライブラリは、プログラムが外部の世界と対話するための最も基本的かつ強力なツールセットです。キーボードからの入力、画面への出力、そしてディスク上のファイルへの読み書きなど、あらゆる入出力操作の基盤となります。このライブラリが提供する機能を使いこなすことで、プログラムは単なる計算機から、ユーザーと対話し、データを永続化できるインタラクティブなアプリケーションへと進化します。このライブラリの機能を利用するには、 #include &lt;stdio.h&gt; が必要です。</p>
+<h3 id="41-コンソール入出力"><a class="header" href="#41-コンソール入出力">4.1 コンソール入出力</a></h3>
+<p>ユーザーとの直接的な対話の窓口となる、キーボード入力と画面出力を行うための主要な関数です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>機能</th><th>使用例</th><th>説明</th></tr>
+</thead>
+<tbody>
+<tr><td>printf</td><td>書式付き標準出力</td><td>printf(“Hello, %d”, num);</td><td>画面に指定した書式（%d、%sなど）でデータを出力します。</td></tr>
+<tr><td>scanf</td><td>書式付き標準入力</td><td>scanf(“%d”, &amp;num);</td><td>キーボードから入力されたデータを、指定した書式で読み込み、変数に格納します。</td></tr>
+<tr><td>puts</td><td>文字列出力</td><td>puts(“Result”);</td><td>文字列を出力し、自動的に末尾に改行を追加します。</td></tr>
+<tr><td>fgets</td><td>文字列入力</td><td>fgets(buf, size, stdin);</td><td>指定されたストリームから、最大文字数までの文字列を安全に読み込みます。</td></tr>
+</tbody>
+</table>
+</div>
+<p>scanfを使用する際には、第2引数以降に変数のアドレス（&amp;演算子で取得）を渡す必要があります。これは、scanf関数に、読み取った値を**格納すべき変数のメモリアドレス（＝場所）**を直接教えるためです。</p>
+<p>また、文字列入力においてscanfはバッファオーバーフローの脆弱性を生みやすいのに対し、fgetsは読み込む最大サイズを指定できるため、より安全な選択肢となります。</p>
+<h3 id="42-ファイル操作"><a class="header" href="#42-ファイル操作">4.2 ファイル操作</a></h3>
+<p>プログラムの実行が終了してもデータを保持するために、ファイルへの読み書きは不可欠です。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>関数名</th><th>機能</th><th>使用例</th><th>説明</th></tr>
+</thead>
+<tbody>
+<tr><td>fopen</td><td>ファイルを開く</td><td>FILE* fp = fopen(“data.txt”, “w”);</td><td>指定されたファイルを開き、操作の基点となるファイルポインタ (FILE*) を返します。失敗した場合は NULL を返します。</td></tr>
+<tr><td>fclose</td><td>ファイルを閉じる</td><td>fclose(fp);</td><td>開いたファイルを閉じ、関連するリソースを解放します。</td></tr>
+<tr><td>fprintf</td><td>ファイルへの書式付き出力</td><td>fprintf(fp, “Name: %s”, name);</td><td>指定されたファイルポインタに対し、printf と同様に書式付きでデータを出力します。</td></tr>
+<tr><td>fscanf</td><td>ファイルからの書式付き入力</td><td>fscanf(fp, “%d”, &amp;age);</td><td>指定されたファイルポインタから、scanf と同様に書式付きでデータを読み込みます。</td></tr>
+<tr><td>fgetc</td><td>1文字の読み込み</td><td>char c = fgetc(fp);</td><td>ファイルから次の1文字を読み込みます。</td></tr>
+<tr><td>fputc</td><td>1文字の書き込み</td><td>fputc(‘A’, fp);</td><td>指定されたファイルに1文字を書き込みます。</td></tr>
+</tbody>
+</table>
+</div>
+<p>ファイル操作の基本的なライフサイクルは、fopenでファイルを開いてファイルポインタFILE*を取得し、そのポインタを使って読み書きを行い、最後に必ずfcloseでファイルを閉じる、という流れになります。fopenが成功した場合は、どのような処理経路を辿っても、最終的に必ず対応するfcloseが呼び出されるように設計することが、リソースリークを防ぐための鉄則です。</p>
+<p><strong>fopenの主なモード</strong></p>
+<p>モード	説明
+“r”	読み込み (Read) モード。ファイルが存在しない場合はエラー。
+“w”	書き込み (Write) モード。ファイルが存在する場合、内容がすべて破棄されます。
+“a”	追記 (Append) モード。データはファイルの末尾に追加されます。
+“r+”	読み書きモード。ファイルが存在しない場合はエラー。
+“w+”	読み書きモード。ファイルが存在する場合、内容は破棄されます。</p>
+<p>特に “w” モードは破壊的な操作であることに注意が必要です。誤って重要なファイルを開くと、その内容は即座に失われます。</p>
+<h3 id="43-標準ストリームの理解"><a class="header" href="#43-標準ストリームの理解">4.3 標準ストリームの理解</a></h3>
+<p>C言語のプログラムは、起動時に自動的に3つの「標準ストリーム」に接続されます。これらはファイルポインタと同様に扱うことができ、コンソール入出力の基盤となっています。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>定数名</th><th>機能</th><th>接続先（標準）</th><th>通常の用途</th></tr>
+</thead>
+<tbody>
+<tr><td>stdin</td><td>標準入力</td><td>キーボード</td><td>scanf や fgets の入力元。</td></tr>
+<tr><td>stdout</td><td>標準出力</td><td>画面（コンソール）</td><td>printf や puts の出力先。</td></tr>
+<tr><td>stderr</td><td>標準エラー出力</td><td>画面（コンソール）</td><td>エラーメッセージや警告を出力するストリーム。</td></tr>
+</tbody>
+</table>
+</div>
+<p>stdoutとstderrは、どちらも標準では画面に出力されるため同じように見えますが、戦略的に重要な違いがあります。</p>
+<p>通常の出力（stdout）は、リダイレクト（例: my_program &gt; output.txt）によってファイルに保存されることがよくあります。しかし、エラーメッセージまでファイルにリダイレクトされてしまうと、ユーザーはプログラムがエラーで停止したことに気づかないかもしれません。</p>
+<p>そこで、エラーメッセージはstderrに出力します（例: fprintf(stderr, “エラー: ファイルが開けません\n”);）。stderrは通常リダイレクトの影響を受けないため、たとえstdoutがファイルに向けられていても、エラーメッセージはユーザーの画面に確実に表示されます。この使い分けは、ユーザーフレンドリーで堅牢なコマンドラインツールを作成する上で非常に重要なテクニックです。</p>
+<hr>
+<h2 id="5-まとめ"><a class="header" href="#5-まとめ">5. まとめ</a></h2>
+<p>本資料では、C言語プログラミングの根幹をなす3つの主要な標準ライブラリ、&lt;string.h&gt;、&lt;math.h&gt;、そして&lt;stdio.h&gt;について、その役割と実践的な使い方を解説しました。</p>
+<ul>
+<li>&lt;string.h&gt; は、C言語特有の文字配列を安全に扱うための必須ツールです。バッファオーバーフローの危険性を常に意識し、strncpyやstrncatといったサイズ指定可能な関数を正しく利用することが、堅牢なコードへの第一歩です。</li>
+<li>&lt;math.h&gt; は、プログラムに高度な計算能力を与えます。ドメインエラーやオーバーフローといったエッジケースを理解することで、信頼性の高い数値処理を実装できます。</li>
+<li>&lt;stdio.h&gt; は、プログラムと外部世界をつなぐインターフェースです。コンソール、ファイル、そして標準ストリームの概念を理解することで、インタラクティブで実用的なアプリケーションを構築することが可能になります。</li>
+</ul>
+<p>ここで学んだ関数群は、C言語で開発を行う上での基本的な語彙です。これらの基本を確実にマスターすることが、将来、より複雑で高度なアプリケーションを自信を持って開発するための揺ぎない土台となります。標準ライブラリという強力な味方と共に、これからも学習を続け、優れたエンジニアを目指してください。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_3_chapter_06.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_3_chapter_08.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_3_chapter_06.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_3_chapter_08.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

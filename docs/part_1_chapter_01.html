@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>はじめの一歩 - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="はじめの一歩"><a class="header" href="#はじめの一歩">はじめの一歩</a></h1>
+<p><img src="img/p1c1.png" alt="最初の一歩ガイド"></p>
+<h2 id="イントロダクション"><a class="header" href="#イントロダクション">イントロダクション</a></h2>
+<p>プログラミングの世界へようこそ。この章が終わる頃、皆さんはコンピューターに自分の言葉で命令を下す、その第一歩を力強く踏み出しているはずです。本ガイドの目的は、皆さんがC言語の基本的な概念と構文をマスターし、自信を持って最初のプログラムを作成できるようになることです。</p>
+<p>C言語は決して古い言語ではありません。現在でもWindowsのようなOSから、Pythonのような他のプログラミング言語の処理系、Gitのような開発ツールまで、私たちのIT社会を根底から支える多くのシステムで活躍しています。この章を終える頃には、皆さんは「コンピューターの基本的な動作原理を理解し、簡単なプログラムを自力で作成できる」という確かなスキルと自信を手にしているはずです。</p>
+<p>本日のアジェンダは以下の通りです。この流れに沿って、一歩ずつ着実に学んでいきましょう。</p>
+<ul>
+<li>C言語とは？：コンピューターとの対話方法</li>
+<li>最初のプログラム：基本構造の理解</li>
+<li>情報の保管庫：変数とデータ型</li>
+<li>情報を表示する技術：printf関数の活用</li>
+<li>実践演習：自己紹介プログラムの作成</li>
+<li>まとめと次のステップ</li>
+</ul>
+<hr>
+<h2 id="1-c言語の世界へようこそ"><a class="header" href="#1-c言語の世界へようこそ">1. C言語の世界へようこそ</a></h2>
+<p>このセクションでは、C言語がどのような言語で、なぜ今もなお重要視されているのか、その本質に迫ります。C言語は単にコードを書くための技術ではなく、コンピューターがどのように動作するのか、その仕組みを深く理解するための基礎となる、非常にパワフルなツールです。</p>
+<p><strong>C言語とは何か？</strong></p>
+<p>C言語とは、一言で言えば「コンピューターと対話するための『言語』」です。私たちが日本語や英語を使って互いに意思疎通するように、プログラマーはC言語のようなプログラミング言語を使って、コンピューターに「何をしてほしいのか」という指示を正確に伝えます。</p>
+<p><strong>C言語の重要性と実用例</strong></p>
+<p>C言語は、そのパワフルさと汎用性の高さから、現代社会を支える様々なシステムで採用されています。皆さんが日常的に利用しているものの多くが、C言語によって作られています。</p>
+<ul>
+<li>オペレーティングシステム (OS): Microsoft Windows</li>
+<li>他のプログラミング言語: Pythonインタプリタ</li>
+<li>開発ツール: Git (バージョン管理システム)</li>
+</ul>
+<p>これらの例からもわかるように、C言語を学ぶことは、ITシステムの根幹を理解することに直結します。</p>
+<p><strong>C言語は「コンパイル言語」</strong></p>
+<p>C言語には、「コンパイル言語」であるという重要な特徴があります。これは、プログラムが実行されるまでのプロセスを指します。</p>
+<ol>
+<li>ソースコードの作成: 私たち人間が、C言語の文法に従ってテキストファイルに命令を書き出します。これが「ソースコード」です。</li>
+<li>コンパイル: 「コンパイラ」と呼ばれる専門の翻訳プログラムが、人間が書いたソースコードをすべて読み込み、コンピューターが直接理解できる機械語に一括で翻訳します。</li>
+<li>実行可能ファイルの生成: コンパイルが成功すると、コンピューターが実行できる形式のファイル（Windowsなら.exeファイルなど）が作成されます。</li>
+</ol>
+<p>この「事前に全て翻訳しておく」というプロセスにより、C言語のプログラムは非常に高速に動作するという強みを持っています。</p>
+<p>C言語がどのような言語で、どうやってコンピューターが理解できる形になるのか、その全体像を掴みました。次はいよいよ、その「実行可能ファイル」の元となるソースコードの具体的な構造を解き明かしていきましょう。</p>
+<h2 id="2-最初のプログラムコンピューターに挨拶させよう"><a class="header" href="#2-最初のプログラムコンピューターに挨拶させよう">2. 最初のプログラム：コンピューターに挨拶させよう</a></h2>
+<p>このセクションでは、C言語プログラムの最も基本的な「型」を学びます。一見すると複雑に見えるプログラムも、実はこれから学ぶ単純な要素の組み合わせで成り立っています。この骨格を理解することが、プログラミング学習の第一歩です。</p>
+<p><strong>プログラムの基本構造</strong></p>
+<p>C言語のプログラムには、必ず含めなければならないいくつかの構成要素があります。一つずつ見ていきましょう。</p>
+<ul>
+<li>#include &lt;stdio.h&gt;
+<ul>
+<li>これは、画面に文字を表示するprintf()のような、「標準的なおしゃべり機能」を使うための準備です。最初は深く考えず、「おまじない」のようなものだと覚えてください。専門的には「インクルードディレクティブ」と呼び、便利な機能が詰まったライブラリをプログラムに組み込むための命令です。</li>
+</ul>
+</li>
+<li>int main()
+<ul>
+<li>C言語のプログラムは、必ずこのmainという名前の場所から実行が始まります。まさに「プログラムの心臓部」であり、処理のスタート地点です。</li>
+<li>先頭のintは、この main関数 が処理を終えたときに「整数 (integer) 」の値を返すことを意味します。慣習として、プログラムが問題なく正常に終了したことを示すために 0 を返す return 0; という一文を最後に記述します。この 0 という値は、私たちのプログラムを呼び出したOS（オペレーティングシステム）に返され、「プログラムは問題なく正常に終了しました」という報告の役割を果たします。</li>
+</ul>
+</li>
+<li>{ } (波括弧)
+<ul>
+<li>この記号は、処理の「かたまり」を示します。main関数の仕事がどこから始まり、どこで終わるのか、その範囲を明確にする役割があります。</li>
+</ul>
+</li>
+<li>printf(“…”);
+<ul>
+<li>これは、カッコ()の中に書かれた内容を画面に表示（出力）するための、最も基本的な命令です。</li>
+</ul>
+</li>
+<li>; (セミコロン)
+<ul>
+<li>C言語では、一つ一つの命令（文）の終わりを明確にするために、必ずセミコロンを付けます。これは文章における句点「。」のようなもので、「これで一つの命令の終わりですよ」という区切りマークの役割を果たします。</li>
+</ul>
+</li>
+</ul>
+<p><strong>完成コード</strong></p>
+<p>これらの要素を組み合わせると、コンピューターに「Hello, World!」と挨拶させるプログラムが完成します。</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main() 
+{
+    printf("Hello, World!");
+    return 0;
+}
+</code></pre>
+<p>これでプログラムの基本的な骨格を理解できました。素晴らしい進歩です！ 次はこの骨格の中で、実際に様々な情報（データ）を扱うための重要な概念である「変数」について学んでいきましょう。</p>
+<h2 id="3-情報を扱うための道具変数とデータ型"><a class="header" href="#3-情報を扱うための道具変数とデータ型">3. 情報を扱うための道具：変数とデータ型</a></h2>
+<p>プログラムが単なる決まった動作の繰り返しではなく、状況に応じて動的に動作するためには、情報を一時的に記憶しておく仕組みが不可欠です。この中核を担うのが「変数」と「データ型」です。</p>
+<p><strong>変数とは？</strong></p>
+<p>変数とは、プログラムが扱うデータ（例えば、年齢、名前、計算結果など）を一時的にしまっておくための「ラベル付きの箱」のようなものです。</p>
+<p>この箱の最も重要な特徴は、ラベルの名前（例：age）は固定 ですが、中身の値（例：25）を後から自由に入れ替えられることです。この性質があるからこそ「変」数と呼ばれ、プログラムは柔軟な処理を行うことができます。</p>
+<p><strong>変数の使い方：宣言と代入</strong></p>
+<p>変数を利用するには、2つの基本的なステップが必要です。</p>
+<ol>
+<li>宣言 (Declaration) 変数をいきなり使うことはできません。まず、「これからこういう箱を使いますよ」とコンピューターに知らせる必要があります。これを「宣言」と呼びます。</li>
+<li>代入 (Assignment) 用意した箱に、実際のデータを入れる操作です。</li>
+<li>ここで使う記号=は、算数の「等しい」とは意味が異なります。プログラミングにおける=は、「右側の値を、左側の変数の箱に入れる」という命令だと覚えてください。</li>
+</ol>
+<p><strong>データ型とは？</strong></p>
+<p>なぜ宣言の際にintのような「型」を指定する必要があるのでしょうか？ それは、扱うデータの種類に応じて、コンピューターが最適なサイズの「箱」を効率的に準備するためです。例えば、5という小さな数を扱うのにintは十分ですが、地球の人口のような巨大な数をintに入れようとすると、箱が小さすぎて値が壊れてしまいます。データ型は、その変数（箱）に何を入れることができるのかを定義する、いわば「箱の種類」なのです。</p>
+<p>以下に代表的なデータ型を示します。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>型の種類</th><th>意味</th><th>具体例</th></tr>
+</thead>
+<tbody>
+<tr><td>int</td><td>整数 (Integer)</td><td>10, -100, 0 など、小数点のない数</td></tr>
+<tr><td>float</td><td>浮動小数点数 (単精度)</td><td>3.14, -0.5 など、小数点のある数</td></tr>
+<tr><td>double</td><td>浮動小数点数 (倍精度)</td><td>3.1415926535 など、より桁数の多い小数</td></tr>
+<tr><td>char</td><td>一文字 (Character)</td><td>‘A’, ‘b’, ‘1’ など、単一の文字</td></tr>
+<tr><td>char[]</td><td>文字列</td><td>“Taro”, “Hello” など、複数の文字の連なり</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>補足</strong>: intが最も基本的な整数の箱ですが、C言語にはより小さな値を扱うshortや、非常に大きな値を扱うlongなど、様々なサイズの箱が用意されています。また、C言語には“文字列“を直接扱うための専用のデータ型が存在しないため、一文字を扱うchar型を複数個並べた「文字の配列」という特殊な形式で文字列を表現します。</p>
+<p>これで、プログラムの中で情報を記憶しておくための「箱」の作り方がわかりました。次のセクションでは、この箱の中身を画面に表示するための、より応用的なテクニックを学んでいきましょう。</p>
+<h2 id="4-変数の内容を表示するprintfの応用"><a class="header" href="#4-変数の内容を表示するprintfの応用">4. 変数の内容を表示する：printf()の応用</a></h2>
+<p>これまでの知識で、決まった文字列を画面に表示できるようになりました。このセクションでは、プログラムの実行中に変化する「変数の中身」を動的に表示する手法を学びます。これをマスターすることで、プログラムの表現力は格段に向上します。</p>
+<p><strong>書式指定子 (Format Specifier)</strong></p>
+<p>printf()関数を使って変数の値を表示するには、「書式指定子（しょしきしていし）」という特殊な目印を使います。これは、表示したい文字列の中に「ここに、こういう種類の値が入りますよ」と、あらかじめ場所を確保しておくためのプレースホルダーです。</p>
+<p><strong>主な書式指定子の種類</strong></p>
+<p>データ型に応じて、使用する書式指定子は異なります。代表的なものを覚えましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>書式指定子</th><th>表示したい型</th><th>イメージ（覚え方）</th></tr>
+</thead>
+<tbody>
+<tr><td>%d</td><td>int（整数）</td><td>Decimal（10進数）の d</td></tr>
+<tr><td>%f</td><td>double / float（小数）</td><td>Float / Fraction（小数）の f</td></tr>
+<tr><td>%c</td><td>char（文字）</td><td>Character の c</td></tr>
+<tr><td>%s</td><td>文字列</td><td>String の s</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>使用方法の具体例</strong></p>
+<p>printf()の中で書式指定子を使うには、以下のルールに従います。</p>
+<p>printf(“フォーマット文字列”, 変数1, 変数2, …);</p>
+<ol>
+<li>表示したい文字列の中に、値を入れたい場所へ書式指定子（%dなど）を記述します。</li>
+<li>文字列の後ろにカンマ,を打ちます。</li>
+<li>カンマの後ろに、書式指定子に対応させたい変数を表示したい順番で並べます。</li>
+</ol>
+<p><strong>コード例:</strong></p>
+<pre><code>int age = 30;
+double height = 175.5;
+
+printf("私の年齢は %d 歳で、身長は %f cmです。\n", age, height);
+</code></pre>
+<p>このコードでは、最初の%dに変数ageの中身が、次の%fに変数heightの中身がそれぞれ当てはめられて表示されます。</p>
+<p>また、文字列の最後にある \n は、改行を意味する特殊な文字です。これがあることで、printf()の後の表示は新しい行から始まります。</p>
+<p>これまでの知識を総動員すれば、基本的なプログラムを作成する準備は万全です。次の最終セクションでは、実際に手を動かして、学んだことの集大成として自己紹介プログラムを作成する演習に取り組みましょう。</p>
+<h2 id="5-実践演習自己紹介プログラムを作ろう"><a class="header" href="#5-実践演習自己紹介プログラムを作ろう">5. 実践演習：自己紹介プログラムを作ろう</a></h2>
+<p>この演習の目的は、これまで学んだ知識（プログラムの基本構造、変数の宣言・代入、printfでの表示）を統合し、「自分で考えてプログラムを組み立てる」という一連の流れを体験することです。これは、学んだ知識を使えるスキルへと昇華させるための重要なステップです。</p>
+<h3 id="51-設計プログラムの計画"><a class="header" href="#51-設計プログラムの計画">5.1 設計：プログラムの計画</a></h3>
+<p>コーディングを始める前に、どのようなプログラムを作るのかを計画する「設計」のフェーズが非常に重要です。今回は、年齢と好きな食べ物を表示する自己紹介プログラムを作成します。まず、扱う情報に対して、どのデータ型の変数を準備するかを考えましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>表示したい情報</th><th>データの種類</th><th>使用する変数の型</th><th>変数の名前（例）</th></tr>
+</thead>
+<tbody>
+<tr><td>年齢</td><td>整数（小数点なし）</td><td>int</td><td>age</td></tr>
+<tr><td>好きな食べ物</td><td>複数の文字</td><td>char[] (文字列)</td><td>food</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="52-実装c言語コード"><a class="header" href="#52-実装c言語コード">5.2 実装：C言語コード</a></h3>
+<p>上記の設計に基づいて作成した、完全な自己紹介プログラムのコードです。</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+    // 1. 変数を初期化
+    int age = 18;
+    char food[] = "オムライス";
+
+    // 2. printfを使って変数の内容を表示
+    printf("私は現在 %d 歳です。\n", age);
+    printf("好きな食べ物は %s です。\n", food);
+
+    return 0;
+}
+</code></pre>
+<h3 id="53-解説コードの動作"><a class="header" href="#53-解説コードの動作">5.3 解説：コードの動作</a></h3>
+<p>このコードが何をしているのか、詳しく見ていきましょう。</p>
+<ol>
+<li>
+<p>int age = 18;</p>
+<p>int型の変数 age を宣言すると同時に 18 という値を代入しています。このような宣言と代入の同時実行を、専門用語で「初期化 (initialization)」と呼びます。</p>
+</li>
+<li>
+<p>char food[] = “オムライス”;</p>
+<p>同様に、char[]型（文字列）の変数 food を“オムライス“という値で初期化しています。</p>
+</li>
+<li>
+<p>printf(“私は現在 %d 歳です。\n”, age);</p>
+<p>ここでは、セクション4で学んだ書式指定子 %d を使っています。これにより、文字列内の目印の場所に、変数ageの中身である18が正確に埋め込まれます。</p>
+</li>
+<li>
+<p>printf(“好きな食べ物は %s です。\n”, food);</p>
+<p>同様に、書式指定子 %s を使い、目印の場所に変数foodの中身である“オムライス“が埋め込まれて表示されます。</p>
+</li>
+</ol>
+<h3 id="54-実行結果"><a class="header" href="#54-実行結果">5.4 実行結果</a></h3>
+<p>このプログラムを実行すると、コンピューターの画面（コンソール）には以下のように表示されます。</p>
+<pre><code>私は現在 18 歳です。
+好きな食べ物は オムライス です。
+</code></pre>
+<p>素晴らしい！ この演習を自力で理解できたなら、あなたはもう単なる学習者ではありません。プログラムを「作る側」の人間です。それでは最後に、本章のまとめと、今後の学習についてお話しします。</p>
+<h2 id="6-まとめと次のステップ"><a class="header" href="#6-まとめと次のステップ">6. まとめと次のステップ</a></h2>
+<p>この章では、C言語プログラミングの基礎となる非常に重要な概念を学びました。最後に、学習内容を振り返りましょう。</p>
+<p>本章の学習内容サマリー</p>
+<ul>
+<li>C言語の基本構造: 全てのプログラムの骨格となるmain関数と、機能を追加するための#includeについて学びました。</li>
+<li>変数とデータ型: 情報を一時的に記憶するための「変数」という箱と、その箱の種類を定義するintやcharなどの「データ型」を理解しました。</li>
+<li>printf関数の活用: 画面に情報を表示するprintf関数の基本的な使い方と、変数の中身を動的に表示するための「書式指定子」について学びました。</li>
+<li>プログラム作成のプロセス: 設計、コーディング（初期化を含む）、実行という一連の流れを、自己紹介プログラムの作成を通して実践しました。</li>
+</ul>
+<p><strong>次のステップへ</strong></p>
+<p>ここで学んだ知識は、プログラミングの世界への第一歩です。ここからさらに学びを深めることで、プログラムでできることの幅は大きく広がります。</p>
+<p>次のステップとして推奨するのは、「計算処理」です。+（足し算）や-（引き算）といった演算子を使い、コンピューターに計算をさせる方法を学ぶことで、より実用的なプログラムを作成できるようになります。</p>
+<p><strong>最後に</strong></p>
+<p>プログラミング学習は、ここで手に入れた「知識」を「知恵」に変えていく旅です。エラーと向き合い、解決策を考え抜く、そのプロセスこそが皆さんを優れた技術者へと成長させます。今日がその記念すべき一日目です。お疲れ様でした。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_1_chapter_00.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_1_chapter_02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_1_chapter_00.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_1_chapter_02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

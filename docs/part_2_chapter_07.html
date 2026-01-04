@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>スタックとヒープ - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="スタックとヒープ"><a class="header" href="#スタックとヒープ">スタックとヒープ</a></h1>
+<h2 id="イントロダクションなぜメモリ管理が重要なのか"><a class="header" href="#イントロダクションなぜメモリ管理が重要なのか">イントロダクション：なぜメモリ管理が重要なのか？</a></h2>
+<p>これから皆さんが安定性と効率性に優れたアプリケーションを開発していく上で、避けては通れない非常に重要な概念が「メモリ管理」です。次章で説明するように、C言語におけるプログラムが利用するメモリ領域は4種類ありますが、その中で、特に <strong>スタック</strong> と <strong>ヒープ</strong> の動作原理を深く理解することは、信頼性の高いコードを書くための絶対的な基礎となります。この二つの領域は、それぞれ異なる役割とルールを持っており、その違いを把握することは「ポインタ使い」としてのレベルを上げ、メモリ関連の厄介なバグを未然に防ぐ鍵となるのです。</p>
+<p>この章を通じて、皆さんは以下の主要なトピックを学びます。</p>
+<ul>
+<li>スタックとヒープの基本的な役割と目的</li>
+<li>両者の決定的な違い（管理方法、寿命、速度など）</li>
+<li>関数呼び出しがスタックに与える影響</li>
+<li>スタックとヒープが連携して動的メモリを確保する仕組み</li>
+<li>メモリリークなどの重大なリスクとその防止策</li>
+</ul>
+<p>メモリの動作原理を理解することは、単なる知識の習得ではありません。それは高品質なコードを自信を持って書き上げるための第一歩です。さあ、プログラムの舞台裏で何が起きているのか、その核心に迫っていきましょう。</p>
+<hr>
+<h2 id="1-メモリの二大領域スタックとヒープの概要"><a class="header" href="#1-メモリの二大領域スタックとヒープの概要">1. メモリの二大領域：スタックとヒープの概要</a></h2>
+<p>C言語のプログラムが実行される際、OS（オペレーティングシステム）はプログラムが作業するためのメモリ空間を割り当てます。このメモリ空間はいくつかの領域に分かれていますが、その中でも特に重要なのが「スタック領域」と「ヒープ領域」です。これら二つの領域は、それぞれ全く異なる目的とルールに基づいてデータを管理します。この違いを正確に理解することが、本章のゴールです。</p>
+<h3 id="11-スタック領域-stack-area---自動的一時的な仕事場"><a class="header" href="#11-スタック領域-stack-area---自動的一時的な仕事場">1.1. スタック領域 (Stack Area) - 自動的・一時的な仕事場</a></h3>
+<p>スタック領域とは、プログラムの実行中に、コンパイラによって自動的かつ一時的に管理されるメモリ領域です。プログラマが直接操作することはほとんどなく、プログラムの構造に従って機械的に利用されます。</p>
+<ul>
+<li>自動管理 メモリの確保と解放は、すべてコンパイラが自動で行います。そのため、プログラマが「このメモリを確保してください」「このメモリを解放してください」といった指示を明示的に出す必要はありません。この自動化された管理が、スタックの大きな利便性です。</li>
+<li>主な用途 主に「ローカル変数」と「関数の呼び出し情報」という二つの重要なデータが格納されます。関数内で宣言されたint x;のような変数は、その関数が実行されている間だけスタック上に存在します。</li>
+<li>データの流れ (LIFO) スタックは「LIFO (Last-In, First-Out)」、つまり「後から入れたものが先に出る」という原則で動作します。これは、洗ったお皿を積み重ねていく様子に似ています。関数が呼び出されるたびに、その関数の情報（スタックフレーム）が一番上に積まれ（プッシュ）、関数の処理が終わると、一番上のお皿を取り除くように自動的に解放（ポップ）されます。この比喩が重要なのは、一番上のお皿にしかアクセスできないという点です。これが、後述する「スコープ」の概念、つまりなぜfuncAがfuncBのローカル変数に触れないのか、というルールの物理的なイメージとなります。</li>
+<li>サイズ制限とリスク スタック領域のサイズには上限が定められています。もし関数が無限に再帰的に呼び出されるなどして、データが積まれすぎると、スタックの許容量を超えてしまいます。この状態が「スタックオーバーフロー」と呼ばれる致命的なエラーであり、プログラムは強制終了します。</li>
+</ul>
+<h3 id="12-ヒープ領域-heap-area---手動で管理する広大な土地"><a class="header" href="#12-ヒープ領域-heap-area---手動で管理する広大な土地">1.2. ヒープ領域 (Heap Area) - 手動で管理する広大な土地</a></h3>
+<p>ヒープ領域とは、プログラマが任意のタイミングで、手動でメモリを確保・解放するために使用される、広大で柔軟なメモリ領域です。つまり以前の章で説明した「動的メモリ確保」の対象です。</p>
+<ul>
+<li>手動管理（動的メモリ確保） ヒープ領域の利用は、完全にプログラマの責任において行われます。malloc()関数でメモリの確保を要求し、使い終わったら必ずfree()関数で解放しなければなりません。この手動管理が、ヒープの最大の特徴であり、同時に難しさでもあります。</li>
+<li>主な用途 「実行時にサイズが決まる大きなデータ」（例えば、ユーザーの入力に応じてサイズが変わる配列）や、「関数をまたいで長期間保持したいデータ」など、スタックの自動的・一時的な性質では対応できないケースで利用されます。</li>
+<li>データ構造 スタックのような厳格なLIFOの規則はありません。OSはヒープ内の空いている場所を見つけてメモリを割り当てるため、確保されたメモリブロックが物理的に連続しているとは限りません。</li>
+<li>危険性（メモリリーク） ヒープ管理における最大の敵が「メモリリーク」です。これは、malloc()で確保したメモリをfree()で解放し忘れることで発生します。解放されなかったメモリは、プログラムが終了するまで誰にも使われないまま占有され続け、最終的には利用可能なメモリをすべて使い果たし、プログラムの動作を不安定にしたり、クラッシュさせたりする原因となります。</li>
+</ul>
+<p>スタックの自動性と安全性、そしてヒープの柔軟性と広大さは、いわばトレードオフの関係にあります。どちらの領域をどのような状況で使うべきかを的確に判断する能力は、Cプログラマにとって不可欠です。次のセクションでは、両者の違いをより明確にするため、比較表を用いて分析します。</p>
+<hr>
+<h2 id="2-スタックとヒープの比較分析"><a class="header" href="#2-スタックとヒープの比較分析">2. スタックとヒープの比較分析</a></h2>
+<p>スタックとヒープの特性を直接比較することは、両者の長所と短所を浮き彫りにし、特定の状況でどちらのメモリ領域を利用すべきかという設計判断を的確に行う上で非常に重要です。以下の表で、その違いを整理してみましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>特徴</th><th>スタック領域 (Stack)</th><th>ヒープ領域 (Heap)</th></tr>
+</thead>
+<tbody>
+<tr><td>管理方法</td><td>自動 （コンパイラが行う）</td><td>手動 （malloc / free を使う）</td></tr>
+<tr><td>データの寿命</td><td>関数が終了するまで</td><td>free()されるか、プログラムが終了するまで</td></tr>
+<tr><td>主な用途</td><td>ローカル変数、関数の呼び出し</td><td>実行時にサイズが決まる大きなデータ</td></tr>
+<tr><td>速度</td><td>非常に高速</td><td>スタックよりは遅い</td></tr>
+<tr><td>リスク</td><td>スタックオーバーフロー</td><td>メモリリーク、二重解放</td></tr>
+</tbody>
+</table>
+</div>
+<p>この比較表から、いくつかの実践的な洞察が得られます。</p>
+<ul>
+<li>なぜスタックは高速なのか？ スタックへのメモリ確保・解放は、CPUの特定レジスタ（スタックポインタ）が持つアドレス値を加減算するだけの、極めて高速な単一命令です。OSの複雑なメモリ管理アルゴリズムを呼び出す必要がないため、ヒープに比べて桁違いに高速なのです。</li>
+<li>手動管理がもたらすプログラマの責任 ヒープの「手動管理」は、大きな自由度をもたらす一方で、「借りたものは必ず返す」という厳格な責任をプログラマに課します。free()の呼び出し忘れ（メモリリーク）や、同じメモリを二度解放する（二重解放）といったミスは、すべてプログラマの責任となり、深刻なバグに直結します。</li>
+<li>データの寿命とスコープ データの「寿命」は、プログラムの設計において極めて重要です。関数内で一時的に使うだけのデータはスタックに、関数が終わった後も使い続けたいデータはヒープに置く、という使い分けが基本となります。</li>
+</ul>
+<p>これらの違いが、実際のプログラムの動作、特にプログラムの基本単位である「関数の呼び出し」において、どのように具体的に現れるのでしょうか。次の章では、スタックの動作原理をさらに詳しく見ていきます。</p>
+<hr>
+<h2 id="3-スタックの動作原理関数の呼び出しとスタックフレーム"><a class="header" href="#3-スタックの動作原理関数の呼び出しとスタックフレーム">3. スタックの動作原理：関数の呼び出しと「スタックフレーム」</a></h2>
+<p>スタックは、プログラムの実行フローを裏で支える「縁の下の力持ち」です。関数が呼び出され、処理を終えて戻ってくる。この一連の当たり前の動作は、すべてスタックのLIFO（後入れ先出し）の仕組みによって実現されています。関数が呼び出されるたびにスタック上で何が起きているのかを具体的に理解することは、変数のスコープや再帰といった重要な概念の理解に直結します。</p>
+<h3 id="スタックフレームとは"><a class="header" href="#スタックフレームとは">スタックフレームとは？</a></h3>
+<p>関数が呼び出されると、その関数の実行に必要な情報一式がまとめられ、スタックに積まれます。この情報のかたまりを「スタックフレーム」と呼びます。スタックフレームとは、関数が使う、引数、ローカル変数、戻りアドレスなどをひとまとめにした領域のことです。</p>
+<ul>
+<li>引数: 関数に渡された値。</li>
+<li>ローカル変数: 関数内で宣言された変数。</li>
+<li>戻りアドレス: 関数の処理が終わった後、どこに戻ればよいかを示す情報。</li>
+</ul>
+<h3 id="関数呼び出しのシーケンス"><a class="header" href="#関数呼び出しのシーケンス">関数呼び出しのシーケンス</a></h3>
+<p>main関数からfuncAが呼び出され、さらにfuncAからfuncBが呼び出されるというシナリオで、スタックの状態がどのように変化するかを見ていきましょう。</p>
+<p>なお、ここで「高いアドレス」「低いアドレス」というのは、単純にアドレスの数字の大きい・小さいと理解してください。</p>
+<h4 id="ステップ1-main関数の開始"><a class="header" href="#ステップ1-main関数の開始">ステップ1: main関数の開始</a></h4>
+<p>プログラムが実行されると、まずmain関数のためのスタックフレームがスタックの底に積まれます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+</thead>
+<tbody>
+<tr><td>高いアドレス</td><td>…</td></tr>
+<tr><td>→</td><td>main関数のスタックフレーム</td></tr>
+<tr><td>低いアドレス</td><td>空き領域</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="ステップ2-関数funcaの呼び出し"><a class="header" href="#ステップ2-関数funcaの呼び出し">ステップ2: 関数funcAの呼び出し</a></h4>
+<p>main関数がfuncAを呼び出すと、mainのスタックフレームの上に、funcAのための新しいスタックフレームが積まれます（プッシュ）。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+</thead>
+<tbody>
+<tr><td>高いアドレス</td><td>…</td></tr>
+<tr><td>→</td><td>funcA のスタックフレーム</td></tr>
+<tr><td></td><td>main関数のスタックフレーム</td></tr>
+<tr><td>低いアドレス</td><td>空き領域</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="ステップ3-関数funcbの呼び出し"><a class="header" href="#ステップ3-関数funcbの呼び出し">ステップ3: 関数funcBの呼び出し</a></h4>
+<p>次に、funcAがfuncBを呼び出すと、さらにその上にfuncBのスタックフレームが積まれます。この時点で、プログラムが直接アクセスできるのは一番上にあるfuncBのスタックフレーム内のローカル変数だけです。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+</thead>
+<tbody>
+<tr><td>高いアドレス</td><td>…</td></tr>
+<tr><td>→</td><td>funcB のスタックフレーム</td></tr>
+<tr><td></td><td>funcA のスタックフレーム</td></tr>
+<tr><td></td><td>main関数のスタックフレーム</td></tr>
+<tr><td>低いアドレス</td><td>空き領域</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="ステップ4-関数funcbの終了と解放"><a class="header" href="#ステップ4-関数funcbの終了と解放">ステップ4: 関数funcBの終了と解放</a></h4>
+<p>funcBの処理が完了すると、funcBのスタックフレームはスタックから自動的に取り除かれ（ポップ）、制御が呼び出し元のfuncAに戻ります。この瞬間、funcB内で使われていたローカル変数は完全に消滅し、アクセス不能になります。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+</thead>
+<tbody>
+<tr><td>高いアドレス</td><td>…</td></tr>
+<tr><td>→</td><td>funcA のスタックフレーム</td></tr>
+<tr><td></td><td>main関数のスタックフレーム</td></tr>
+<tr><td>低いアドレス</td><td>空き領域</td></tr>
+</tbody>
+</table>
+</div>
+<p>この一連のプロセスから導き出される重要な結論は、「なぜ関数内のローカル変数が、その関数の外から使えないのか」というスコープの概念です。答えは、変数が属するスタックフレームが、関数の終了と共に物理的にメモリから消去されてしまうからです。</p>
+<p>しかし、プログラムは一時的なデータだけで完結しません。関数の寿命を超えてデータを保持したい場合、スタックだけでは力不足です。そこで登場するのがヒープ領域であり、次の章では、スタックとヒープがどのように連携して動的なデータ管理を実現するのかを解説します。</p>
+<hr>
+<h2 id="4-スタックとヒープの連携動的メモリ確保の舞台裏"><a class="header" href="#4-スタックとヒープの連携動的メモリ確保の舞台裏">4. スタックとヒープの連携：動的メモリ確保の舞台裏</a></h2>
+<p>ヒープ領域の利用は、単独で行われるわけではありません。実際には、スタック領域との巧妙な連携プレーによって成り立っています。mallocを使ってヒープメモリを確保する際、データがどのメモリ領域にどのように配置され、プログラムはそれにどうアクセスするのか。その一連の流れを解き明かすことが、動的メモリ確保を真に理解する鍵となります。</p>
+<p>ここでは、以下のコードを例に、そのプロセスをステップバイステップで見ていきましょう。</p>
+<pre><code>int *p;
+p = (int *)malloc(sizeof(int));
+</code></pre>
+<h4 id="ステップ1-ポインタ変数の生成"><a class="header" href="#ステップ1-ポインタ変数の生成">ステップ1: ポインタ変数の生成</a></h4>
+<p>まず、int *p; という行が実行されます。この時点で何が起こるかというと、ポインタ変数p自体がスタック領域に作成されます。</p>
+<ul>
+<li>スタック領域: pという名前のポインタ変数が確保される。</li>
+<li>ヒープ領域: 何も変化しない。</li>
+</ul>
+<p>重要なのは、このpはmain関数（あるいはそれが宣言された関数）のローカル変数であるため、その置き場所はスタックであるという点です。この時点では、pの中身は不定（いわゆるゴミの値）であり、どこも指していません。このような初期化されていないポインタを誤って使用すると、プログラムは即座にクラッシュする可能性があります。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>領域</th><th>変数名</th><th>型</th><th>中身（値）</th></tr>
+</thead>
+<tbody>
+<tr><td>スタック</td><td>p</td><td>int * (ポインタ)</td><td>（ゴミの値 / NULL）</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="ステップ2-mallocによるヒープ確保"><a class="header" href="#ステップ2-mallocによるヒープ確保">ステップ2: mallocによるヒープ確保</a></h4>
+<p>次に、p = (int *)malloc(sizeof(int));の右辺、malloc関数が実行されます。mallocはOSに対して「int型一つ分のメモリをください」と要求します。</p>
+<ul>
+<li>スタック領域: 何も変化しない。</li>
+<li>ヒープ領域: OSがヒープ内の空き領域からint型（通常4バイト）のメモリブロックを確保し、その先頭アドレスを返す。</li>
+</ul>
+<p>例えば、OSが0x8004というアドレスのメモリを確保したとします。mallocはこの0x8004という値を返り値として返します。</p>
+<h4 id="ステップ3-アドレスの代入と連携の完成"><a class="header" href="#ステップ3-アドレスの代入と連携の完成">ステップ3: アドレスの代入と連携の完成</a></h4>
+<p>最後に、代入演算子=によって、mallocが返したヒープのアドレスが、スタック上のポインタ変数pに格納されます。</p>
+<ul>
+<li>スタック領域: ポインタ変数pの値が、ヒープのアドレス（例: 0x8004）になる。</li>
+<li>ヒープ領域: 確保されたメモリはそのまま。</li>
+</ul>
+<p>これで、「スタック上のポインタが、ヒープ上のメモリを指し示す」という連携関係が完成しました。ポインタpは、スタックとヒープをつなぐ「橋渡し役」として機能しているのです。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>領域</th><th>変数名</th><th>型</th><th>中身（値）</th></tr>
+</thead>
+<tbody>
+<tr><td>スタック</td><td>p</td><td>int * (ポインタ)</td><td>0x8004 (ヒープのアドレス)</td></tr>
+<tr><td>ヒープ</td><td>（変数名なし）</td><td>int</td><td>（ゴミの値）</td></tr>
+</tbody>
+</table>
+</div>
+<p>この連携が確立されて初めて、*p = 100; というコードが意味を持ちます。このコードは、「ポインタpが指し示す先（つまりヒープ上のアドレス0x8004）に、値100を書き込む」という操作を実行します。</p>
+<p>このようにメモリを「借りる」プロセスを理解した今、次はそのメモリを「返す」ことの重要性、すなわちfree()関数の役割について学ぶ必要があります。</p>
+<hr>
+<h2 id="5-プログラマの責務freeによるメモリ解放とリークの防止"><a class="header" href="#5-プログラマの責務freeによるメモリ解放とリークの防止">5. プログラマの責務：free()によるメモリ解放とリークの防止</a></h2>
+<p>ヒープ領域のメモリ管理におけるプログラマの最も重要な責務は、「借りたメモリを確実に返す」ことです。この責務を果たすための重要なツールがfree()関数です。これを正しく使うことがプロフェッショナルなコードの証であり、怠った場合の深刻な結果が「メモリリーク」です。本章では、このプログラマの責務について深く掘り下げます。</p>
+<p><strong>free()関数の仕組み</strong></p>
+<p>free()関数は、mallocで確保したメモリブロックの先頭アドレスを引数に取ります。この関数を呼び出すと、OSに対して「このアドレスから始まるメモリブロックはもう使いません」と通知します。OSはその領域を「未使用」としてマークし、将来別のmalloc呼び出しで再利用できるようになります。</p>
+<p>ここで注意すべき点は、free(p)を実行しても、スタック上にあるポインタ変数p自体は消えないということです。pは解放されたメモリのアドレスを持ち続けます。この、もはや無効となったメモリ領域を指し続けるポインタは「ダングリングポインタ（dangling pointer）」と呼ばれます。この「ダングリングポインタ」を誤って使用すると、プログラムがクラッシュするだけでなく、解放されたメモリが別の機密データ（例えばパスワードや個人情報）に再割り当てされていた場合、意図せずその情報を読み取ったり書き換えたりする深刻なセキュリティ脆弱性の原因となります。</p>
+<p><strong>メモリリークの危険性</strong></p>
+<p>free()を呼び出す最大の理由は、**メモリリーク（Memory Leak）**を防ぐためです。メモリリークは以下のメカニズムで発生します。</p>
+<ol>
+<li>メモリ確保: mallocでヒープにメモリを借りる。</li>
+<li>ポインタの消失: 借りたメモリを指していたポインタ変数（スタック上に存在）が、関数の終了などでスコープを外れ、自動的に消滅する。</li>
+<li>アクセス不能: ヒープ上に借りたメモリは残ったままですが、その場所を知る唯一の手がかりだったポインタが失われたため、誰もそのメモリにアクセスも解放もできなくなります。</li>
+</ol>
+<p>この「迷子」になったメモリは、プログラムが終了するまで無駄に占有され続けます。これが頻繁に発生すると、以下のような深刻な問題を引き起こします。</p>
+<ul>
+<li>メモリの枯渇: 利用可能なヒープメモリが徐々に減少し、最終的には新たなmallocが失敗するようになり、プログラムがクラッシュします。</li>
+<li>システム全体への悪影響: 特に長期間稼働するサーバーアプリケーションの開発者にとって、見過ごされた小さなメモリリークは些細なバグではありません。それはサービス停止や緊急再起動を要する致命的な障害となり得ます。だからこそ、free()のマスターは交渉の余地がない必須スキルなのです。</li>
+</ul>
+<p>free()の使用上の注意点</p>
+<p>free()は必須のツールですが、使い方を誤ると別の問題を引き起こします。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>問題点</th><th>説明</th><th>対策</th></tr>
+</thead>
+<tbody>
+<tr><td>二重解放 (Double Free)</td><td>同じアドレスに対してfree()を二度以上呼び出すことです。これはメモリ管理情報を破壊し、プログラムのクラッシュや予測不能な動作の原因となります。</td><td>プロのCプログラマとしての規律です。解放後のポインタへのNULL代入は、チームのコーディング規約として徹底すべき防御的なプログラミングの基本です。</td></tr>
+<tr><td>解放後の使用 (Use After Free)</td><td>free()で解放済みのメモリに、再びアクセスしてデータを読み書きすることです。そのメモリは既にOSによって別の目的に再割り当てされている可能性があり、データの破壊やセキュリティ上の深刻な脆弱性を生み出します。</td><td>上記同様、解放後にポインタへNULLを代入することが最も確実な防御策です。これもプログラマの規律として徹底すべきです。</td></tr>
+</tbody>
+</table>
+</div>
+<p>結論として、ヒープメモリ管理は「借りたら返す」というプログラマの規律の上に成り立っています。free()を正しく、適切なタイミングで使うことは、プロフェッショナルなCプログラマにとって必須のスキルなのです。</p>
+<hr>
+<h2 id="6-まとめメモリ管理をマスターし次のステップへ"><a class="header" href="#6-まとめメモリ管理をマスターし次のステップへ">6. まとめ：メモリ管理をマスターし、次のステップへ</a></h2>
+<p>このトレーニング資料を通じて、C言語プログラミングの心臓部とも言えるメモリ管理、特にスタックとヒープの役割と動作原理について学びました。ここで得た知識は、今後の開発において皆さんを力強く支える土台となるでしょう。</p>
+<p>最後に、最も重要な概念を振り返ります。</p>
+<ul>
+<li>スタックは、ローカル変数と関数の呼び出しに使われる、コンパイラが自動管理する高速な領域です。</li>
+<li>ヒープは、動的な大きなデータや長寿命のデータに使われる、プログラマが手動管理する広大な領域です。</li>
+<li>ヒープの利用には、malloc()で借り、使い終わったら必ず<strong>free()で返す</strong>というプログラマの厳格な責任が伴います。</li>
+<li>free()を怠るとメモリリークを、誤って使うと二重解放などの深刻なバグを引き起こし、プログラムの安定性を著しく損ないます。</li>
+</ul>
+<p>初心者の皆さんへ。スタックとヒープの概念を理解することは、単なる暗記項目ではありません。それは、メモリの動きを頭の中でシミュレーションしながら、なぜこのコードが安全で、なぜあのコードが危険なのかを論理的に判断するための、実践的なスキルです。</p>
+<p>これからも、常にメモリを意識したコーディングを心がけてください。それが、信頼性の高いソフトウェアを構築するプロフェッショナルへの確実な道筋です。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_2_chapter_06.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_2_chapter_08.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_2_chapter_06.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_2_chapter_08.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="jp" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>演算子 - Learning C Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-69ce5cea.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-9ead6770.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Learning C Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="演算子"><a class="header" href="#演算子">演算子</a></h1>
+<p><img src="img/p1c2.png" alt="C言語演算子早わかりガイド"></p>
+<h2 id="1-はじめに演算子とは何か-なぜ重要なのか"><a class="header" href="#1-はじめに演算子とは何か-なぜ重要なのか">1. はじめに：演算子とは何か？ なぜ重要なのか？</a></h2>
+<p>本章の記述は、C言語プログラミングの核心をなす「演算子（えんざんし）」について、プログラムを学び始めた皆さんが、その役割と使い方を体系的に理解することを目的としています。</p>
+<p>プログラムとは、突き詰めればデータを処理する命令の集まりです。そして演算子とは、その処理の最も基本的な「動詞」、つまり足し算や比較といった具体的なアクションを実行するための「道具」なのです。</p>
+<p>これらの道具を一つひとつ正しく理解し、適切に使いこなすことが、意図通りに動作する信頼性の高いコードを書くための、揺るぎない第一歩となります。</p>
+<p>本章の説明を通じて、C言語に用意されている様々な演算子の種類とその役割を順を追って学んでいきましょう。</p>
+<hr>
+<h2 id="2-数値計算の基本算術演算子"><a class="header" href="#2-数値計算の基本算術演算子">2. 数値計算の基本：算術演算子</a></h2>
+<p>算術演算子は、プログラムにおけるあらゆる数値計算の土台を形成する、極めて重要な要素です。言い換えれば、これらがなければデータに基づいた意味のある処理はほとんど実現できません。ここでは、C言語における基本的な計算のルールを学びます。</p>
+<p><strong>算術演算子の一覧</strong></p>
+<p>C言語では、主に以下の5つの算術演算子が使用されます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>演算子</th><th>意味</th><th>使用例</th><th>結果</th></tr>
+</thead>
+<tbody>
+<tr><td>+</td><td>足し算 （加算）</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
+<tr><td>-</td><td>引き算 （減算）</td><td><code>5 - 3</code></td><td><code>2</code></td></tr>
+<tr><td>*</td><td>かけ算 （乗算）</td><td><code>5 * 3</code></td><td><code>15</code></td></tr>
+<tr><td>/</td><td>割り算 （除算）</td><td><code>5 / 3</code></td><td><code>1</code></td></tr>
+<tr><td>%</td><td>剰余 （割り算の 余り）</td><td><code>5 % 3</code></td><td><code>2</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>重要な注意点</strong></p>
+<ol>
+<li>乗算・除算記号 プログラミングの世界では、数学で使う記号とは異なり、かけ算には * (アスタリスク)、割り算には / (スラッシュ) を使用します。これはC言語に限らず、多くのプログラミング言語で共通のルールです。</li>
+<li>整数除算の罠 上記の表で <code>5 / 3</code> の結果が <code>1.666...</code> ではなく <code>1</code> になっている点に注意してください。C言語では、整数同士の割り算の結果は、小数点以下が切り捨てられ、整数になります。これはバグの原因となりやすいため、正確な計算が必要な場合は後述する「キャスト演算子」の知識が重要になります。</li>
+</ol>
+<p><strong>剰余演算子（%）の価値</strong></p>
+<p>剰余演算子 % は、単に「割り算の余り」を求めるだけではありません。特定の周期を持つ処理や条件判定において、非常に強力な道具となります。</p>
+<p>代表的なユースケース：偶数・奇数の判定 ある整数 n が偶数かどうかを判定したい場合、n % 2 の計算結果を見ます。</p>
+<ul>
+<li>結果が <code>0</code> ならば、その数は2で割り切れるため 偶数 です。</li>
+<li>結果が <code>1</code> ならば、その数は2で割り切れないため 奇数 です。</li>
+</ul>
+<p>このように、剰余演算子は特定の条件を満たすかどうかを簡潔に判定する際に役立ちます。</p>
+<p>基本的な計算方法を理解したところで、次にそれらの計算結果を変数に保存する方法を見ていきましょう。</p>
+<h2 id="3-値の格納と更新代入およびインクリメントデクリメント演算子"><a class="header" href="#3-値の格納と更新代入およびインクリメントデクリメント演算子">3. 値の格納と更新：代入およびインクリメント・デクリメント演算子</a></h2>
+<p>プログラムが単に計算するだけでなく、その結果を記憶し、状態を変化させていくためには「代入」という概念が不可欠です。ここでは、変数に値を設定したり、既存の値を効率的に更新したりするための演算子を学びます。</p>
+<h3 id="31-代入演算子変数に値をしまう"><a class="header" href="#31-代入演算子変数に値をしまう">3.1. 代入演算子：変数に値を「しまう」</a></h3>
+<p>代入演算子は、計算結果や特定の値を指定した変数に格納（代入）する役割を持ちます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>演算子</th><th>意味</th><th>使用例</th><th>同等のコード</th></tr>
+</thead>
+<tbody>
+<tr><td>=</td><td>代入</td><td><code>score = 80;</code></td><td>N/A</td></tr>
+<tr><td>+=</td><td>加算代入</td><td><code>x += 5;</code></td><td><code>x = x + 5;</code></td></tr>
+<tr><td>-=</td><td>減算代入</td><td><code>y -= 2;</code></td><td><code>y = y - 2;</code></td></tr>
+<tr><td>*=</td><td>乗算代入</td><td><code>z *= 3;</code></td><td><code>z = z * 3;</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>複合代入演算子の利点</strong></p>
+<p>x = x + 5; というコードは、「変数xの現在の値に5を足し、その結果を再び変数xに格納する」という意味です。このような「自分自身の値を更新する」処理は、プログラミングでは非常に頻繁に登場します。</p>
+<p>x += 5; のような複合代入演算子は、この頻出パターンをより短く、そして直感的に記述するために用意されています。この形式は、単に文字数を減らすだけでなく、「この変数は自身の状態を更新している」という意図をコード上で明確に示します。これにより、大規模なプログラムでもデータの変更追跡が容易になります。</p>
+<h3 id="32-インクリメントデクリメント演算子1だけ増減させる"><a class="header" href="#32-インクリメントデクリメント演算子1だけ増減させる">3.2. インクリメント・デクリメント演算子：「1」だけ増減させる</a></h3>
+<p>変数の値を「1だけ増やす」または「1だけ減らす」という操作は、特にループ処理などでカウンターを管理する際に極めて頻繁に行われます。そのための専用の便利な演算子が用意されています。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>演算子</th><th>意味</th><th>使用例</th><th>同等のコード</th></tr>
+</thead>
+<tbody>
+<tr><td>++</td><td>インクリメント （1増やす）</td><td><code>i++;</code></td><td><code>i = i + 1;</code></td></tr>
+<tr><td>–</td><td>デクリメント （1減らす）</td><td><code>j--;</code></td><td><code>j = j - 1;</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>これらの演算子の戦略的重要性</strong></p>
+<p>例えば「1から10まで順番に処理を繰り返す」といったループを実装する場合、カウンタ変数を i とすると、ループの各ステップで i++ を実行することになります(ループについては、後の章で詳しく学びます)。このような定型的な処理を、i = i + 1; よりもはるかに簡潔に表現できるため、これらの演算子はC言語の構文に不可欠な要素となっています。実務では i++ のように、変数の後ろにつけることが多いです。</p>
+<p>変数の値を操作する方法を学んだので、次はその値同士を比較してプログラムの動作を分岐させる方法を学びましょう。</p>
+<h2 id="4-条件判断の核比較演算子と論理演算子"><a class="header" href="#4-条件判断の核比較演算子と論理演算子">4. 条件判断の核：比較演算子と論理演算子</a></h2>
+<p>優れたプログラムは、単に上から下へ一直線に処理を実行するだけではありません。特定の条件に応じて動作を変える「知能」を持っています。その判断ロジックを組み立てるための基本的な部品が、ここで紹介する比較演算子と論理演算子です。</p>
+<h3 id="41-比較演算子二つの値を比べる"><a class="header" href="#41-比較演算子二つの値を比べる">4.1. 比較演算子：二つの値を「比べる」</a></h3>
+<p>比較演算子は、二つの値の関係性（等しいか、大きいかなど）を評価し、その結果を返します。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>演算子</th><th>意味</th><th>使用例 (a=10, b=5 の場合)</th><th>結果</th></tr>
+</thead>
+<tbody>
+<tr><td>==</td><td>等しい</td><td><code>a == b</code></td><td><code>偽 (0)</code></td></tr>
+<tr><td>!=</td><td>等しくない</td><td><code>a != b</code></td><td><code>真 (1)</code></td></tr>
+<tr><td>&gt;</td><td>より大きい</td><td><code>a &gt; b</code></td><td><code>真 (1)</code></td></tr>
+<tr><td>&lt;</td><td>より小さい</td><td><code>a &lt; b</code></td><td><code>偽 (0)</code></td></tr>
+<tr><td>&gt;=</td><td>以上 （より大きいか、等しい）</td><td><code>a &gt;= b</code></td><td><code>真 (1)</code></td></tr>
+<tr><td>&lt;=</td><td>以下 （より小さいか、等しい）</td><td><code>a &lt;= b</code></td><td><code>偽 (0)</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>結果の性質：真(1)か偽(0)か</strong></p>
+<p>比較演算が返す結果は、必ず「真（True）」または「偽（False）」のどちらかになります。C言語では、慣習的に真を 1、偽を 0 という整数で表現します。これらの演算子が返す 1 (真) か 0 (偽) という結果は、プログラムの流れを分岐させる if 文の『スイッチ』として機能します。この仕組みが、プログラムに知能を与える基本です。</p>
+<p><strong>最重要注意点：= と == の違い</strong></p>
+<p><strong>警告：</strong> 初心者が最も陥りやすい間違いの一つが、代入演算子 = と等価比較演算子 == の混同です。</p>
+<ul>
+<li>a = 10;  は、「aという変数に10を代入する」という命令です。</li>
+<li>a == 10; は、「aの値は10と等しいか？」という**問いかけ（比較）**です。</li>
+</ul>
+<p>条件分岐の if 文などでこれらを間違えると、意図しない動作や深刻なバグの原因となります。常に意識して使い分けるようにしてください。</p>
+<h3 id="42-論理演算子複数の条件を組み合わせる"><a class="header" href="#42-論理演算子複数の条件を組み合わせる">4.2. 論理演算子：複数の条件を「組み合わせる」</a></h3>
+<p>一つの比較だけでは表現できない、より複雑な条件を組み立てるために論理演算子を使用します。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>演算子</th><th>意味</th><th>日本語の意味</th><th>使用例</th></tr>
+</thead>
+<tbody>
+<tr><td>&amp;&amp;</td><td>論理AND</td><td>A かつ B</td><td><code>age &gt; 18 &amp;&amp; score &gt;= 70</code></td></tr>
+<tr><td>||</td><td>論理OR</td><td>A または B</td><td><code>mounth == 1 || month == 12</code></td></tr>
+<tr><td>!</td><td>論理NOT</td><td>A ではない</td><td><code>!is_raining</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>各演算子の論理</strong></p>
+<ul>
+<li>論理AND (&amp;&amp;): 「A かつ B」を意味します。両方の条件が真のときのみ、全体の評価が真 (1) になります。
+<ul>
+<li>例: 「年齢が18歳より大きく、かつ、スコアが70点以上」という条件を満たす場合にのみ真となります。</li>
+</ul>
+</li>
+<li>論理OR (||): 「A または B」を意味します。どちらか一方、あるいは両方の条件が真であれば、全体の評価が真 (1) になります。
+<ul>
+<li>例: 「月が1月または12月」という条件のように、いずれかの条件を満たせば真となります。</li>
+</ul>
+</li>
+<li>論理NOT (!): 「A ではない」を意味します。条件の真偽を反転させます。真 (1) の条件に付けると偽 (0) になり、偽 (0) の条件に付けると真 (1) になります。
+<ul>
+<li>例: 「is_raining (雨が降っている) が偽の場合」を判定したいとき、!is_raining と書くことで「雨が降っていないならば」という条件を簡潔に表現できます。</li>
+</ul>
+</li>
+</ul>
+<p>複数の演算子を組み合わせる際の計算順序には明確なルールが存在します。次のセクションで、その優先順位について見ていきましょう。</p>
+<h2 id="5-演算のルール演算子の優先順位"><a class="header" href="#5-演算のルール演算子の優先順位">5. 演算のルール：演算子の優先順位</a></h2>
+<p>5 + 3 * 2 という数式があった場合、私たちは自然と掛け算を先に行い、答えが 11 であると理解します。プログラムも同様に、式の中に複数の演算子が含まれる場合、どの計算を先に行うかを決定するための「優先順位」というルールを持っています。このルールを無視すると、予期せぬ計算結果やバグに繋がるため、正しく理解することが重要です。</p>
+<p><strong>優先順位の階層</strong></p>
+<p>C言語における主要な演算子の優先順位は、高いものから順に以下のようになります。</p>
+<ol>
+<li>最も高い: カッコ () の中</li>
+<li>次に高い: 単項演算子 (++, –, !)</li>
+<li>次に高い: 乗算 (*), 除算 (/), 剰余 (%)</li>
+<li>次に高い: 足し算 (+), 引き算 (-)</li>
+<li>次に高い: 比較演算子 (&gt;, &lt;, ==, != など)</li>
+<li>次に高い: 論理演算子 (&amp;&amp;, ||)</li>
+<li>最も低い: 代入演算子 (=, += など)</li>
+</ol>
+<p><strong>最も重要な実践的アドバイス</strong></p>
+<p>これらの優先順位をすべて暗記するのは大変ですし、間違いのもとです。そこで、プロの現場でも遵守されている最も安全で確実なルールがあります。</p>
+<p><strong>黄金律： 迷ったときは、必ずカッコ () を使う</strong></p>
+<p>カッコ () で囲まれた式は、他のどの演算子よりも常に最優先で計算されます。これにより、開発者は計算順序をコンパイラに明確に指示でき、意図しない動作を防ぐことができます。コードの可読性も向上するため、優先順位が自明な場合でも、複雑な式では積極的にカッコを使用することが推奨されます。</p>
+<p>計算のルールを学んだ上で、さらにC言語が内部でデータをどのように扱っているかを理解するための、少し特殊な演算子について解説します。</p>
+<h2 id="6-メモリと型を扱う特殊な演算子"><a class="header" href="#6-メモリと型を扱う特殊な演算子">6. メモリと型を扱う特殊な演算子</a></h2>
+<p>これまでに学んだ演算子とは少し趣が異なり、データの「大きさ」や「種類（型）」といった、よりコンピュータの内部構造に近い情報を扱うための特殊な演算子が存在します。これらを理解することは、メモリ効率や計算精度を意識した、より高度で精密なプログラミングへの扉を開きます。</p>
+<h3 id="61-sizeof演算子データの大きさを調べる"><a class="header" href="#61-sizeof演算子データの大きさを調べる">6.1. sizeof演算子：データの「大きさ」を調べる</a></h3>
+<p>sizeof演算子は、変数やデータ型がコンピュータのメモリ上でどれくらいのサイズ（バイト数）を占めているかを調べるための「測定道具」です。この結果を printf 関数で表示する際には、%zu という専用の書式指定子を使用します。</p>
+<p>プログラムが動作するとき、すべてのデータはメモリ上の「箱」に格納されます。sizeofを使えば、その「箱」の大きさを正確に知ることができます。例えば、sizeof(int) は int 型の変数が何バイトのメモリを必要とするかを返します。</p>
+<p><strong>関連概念：ビットとバイト</strong></p>
+<p>sizeofが返す値の単位である「バイト」を理解するために、情報の基本単位を知っておきましょう。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>単位</th><th>意味</th><th>イメージ</th></tr>
+</thead>
+<tbody>
+<tr><td>ビット (bit)</td><td>情報を表す最小単位。2進数の1桁 (0か1) を表します。</td><td>スイッチ1つ</td></tr>
+<tr><td>バイト (Byte)</td><td>8ビット をひとまとめにしたもの。</td><td>最も基本的なデータの箱</td></tr>
+</tbody>
+</table>
+</div>
+<p>この「8ビット = 1バイト」という関係は、コンピュータサイエンスの基本です。例えば、sizeof(int) の結果が 4 であった場合、それは int 型のデータが 4 * 8 = 32 ビットの大きさを持つことを意味します。</p>
+<h3 id="62-キャスト演算子データの型を一時的に変換する"><a class="header" href="#62-キャスト演算子データの型を一時的に変換する">6.2. キャスト演算子：データの「型」を一時的に変換する</a></h3>
+<p>キャスト演算子 (変換したい型) は、計算の途中で一時的に変数のデータ型を変更するための「型指定の魔法のカッコ」と考えることができます。</p>
+<p><strong>キャストの具体的な価値</strong></p>
+<ul>
+<li>問題提起 前述の通り、int 型の変数 a = 5, b = 2 があるとき、a / b の計算結果は小数点以下が切り捨てられ 2 になってしまいます。</li>
+<li>解決策 ここでキャスト演算子を使います。(double)a / b と記述すると、計算の瞬間だけ変数 a が int 型の 5 から double 型の 5.0 として扱われます。C言語では、異なる型同士の計算では精度の高い方に合わせて処理が行われるため、もう一方の b も double 型の 2.0 として扱われ、5.0 / 2.0 の計算が実行されます。その結果、2.5 という数学的に正しい答えを得ることができます。</li>
+</ul>
+<p><strong>型の変換パターン</strong></p>
+<p>C言語における型の変換は、主に以下の2つのパターンで行われます。</p>
+<ol>
+<li>明示的な型変換 これは、開発者が (double)a のようにキャスト演算子を意図的に使って型を変換するケースです。計算の精度を保証したい場合などに使用します。</li>
+<li>暗黙的な型変換 これは、C言語のコンパイラが文脈に応じて自動的に型を変換するケースです。</li>
+</ol>
+<ul>
+<li>格上げ: int 型の値と double 型の値を計算する場合、精度の低い int が自動的に double に「格上げ」されてから計算されます。</li>
+<li>代入時の変換: int 型の変数に double 型の値を代入しようとすると、小数点以下が自動的に切り捨てられて整数部分だけが格納されます。（例: <code>int score = 95.8;</code> と書くと、score には 95 が入ります）</li>
+</ul>
+<p>これまでに学んだ演算子を組み合わせることで、プログラムの処理の流れを自在に制御する準備が整いました。</p>
+<h2 id="7-まとめと次のステップ"><a class="header" href="#7-まとめと次のステップ">7. まとめと次のステップ</a></h2>
+<p>この章では、C言語における様々な「道具」である演算子について学んできました。数値計算を行う算術演算子、変数に値を格納する代入演算子、そしてプログラムに判断能力を与える比較演算子と論理演算子。これらの基本的な役割と使い方を理解できたはずです。</p>
+<p>特に、比較演算子と論理演算子は、これから皆さんが学ぶプログラミングの次のステップにおいて、極めて重要な役割を果たします。なぜなら、これらの演算子が返す「真(1)」か「偽(0)」という結果こそが、プログラムの流れを制御する「条件分岐（if文）」や、同じ処理を繰り返す「繰り返し（for文, while文）」の動作を決定するからです。</p>
+<p>今回身につけた演算子の知識を土台に、次はいよいよプログラムのフロー制御を学んでいきましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part_1_chapter_01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="part_1_chapter_03.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part_1_chapter_01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="part_1_chapter_03.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
