@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e118c292.js";
+            window.path_to_searchindex_js = "searchindex-d416fae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ead6770.js"></script>
@@ -223,17 +223,80 @@
 <li>putchar(): 1文字だけを出力します。単純な文字出力に特化しています。</li>
 <li>puts(): 文字列を出力し、末尾に自動で改行文字 \n を追加します。手軽に一行出力したい場合に便利です。</li>
 </ul>
+<p>以下にサンプル・プログラムを示します。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char grade = 'A';
+    char name[] = "Gemini";
+
+    // 1. putchar() : 1文字だけを表示する
+    // 改行が必要な場合は、別に '\n' を表示させる必要がある
+    printf("1. putcharの結果: ");
+    putchar(grade); 
+    putchar('\n');
+
+    // 2. puts() : 文字列を表示して、自動的に改行する
+    // 変数を混ぜて表示することはできない（文字列のみ）
+    puts("2. putsの結果:");
+    puts(name);
+
+    // 3. printf() : 自由に組み立てて表示する
+    // 変数、文字、数値を組み合わせて複雑な表示ができる（自動改行はしない）
+    printf("3. printfの結果:\n");
+    printf("名前は %s で、評価は %c です。\n", name, grade);
+
+    return 0;
+}
+</code></pre>
 <p><strong>キーボードからの入力 (stdin)</strong></p>
 <ul>
-<li>scanf(): 書式を指定してキーボードからデータを読み込みます。変数に値を格納するため、引数には必ずアドレス演算子 &amp; が必須である点に注意してください。</li>
-<li>getchar(): 1文字だけを読み取ります。</li>
-<li>fgets(): 安全に文字列を一行読み込むための推奨される関数です。
+<li>
+<p>scanf(): 書式を指定してキーボードからデータを読み込みます。変数に値を格納するため、引数には必ずアドレス演算子 &amp; が必須である点に注意してください。</p>
+</li>
+<li>
+<p>getchar(): 1文字だけを読み取ります。</p>
+</li>
+<li>
+<p>fgets(): 安全に文字列を一行読み込むための推奨される関数です。</p>
 <ul>
 <li>重要: かつて使われていた gets() 関数は、用意したバッファサイズを超える入力があった場合にメモリを破壊する「バッファオーバーフロー」という深刻な脆弱性の原因となるため、絶対に使用してはいけません。fgets() は読み込む最大文字数を指定できるため、この危険を回避できます。</li>
-<li>特性: fgets() は、入力された改行文字 \n も文字列の一部としてバッファに読み込む点に注意が必要です。</li>
 </ul>
+<p>【注意】<br><code>scanf()</code>や<code>fgets()</code> は、入力された改行文字 <code>\n</code> も文字列の一部としてバッファに読み込む点に注意が必要です。ただし、<code>scanf()</code>が続く場合は、次の<code>scanf()</code>が残った <code>\n</code> を読み飛ばしてくれるので、通常はあまり気にしません。</p>
 </li>
 </ul>
+<p>以下にサンプル・プログラムを示します。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char ch;
+    int num;
+    char str[100];
+
+    // 1. getchar() : 1文字だけ読み込む
+    printf("1. 文字を1つ入力してください: ");
+    ch = getchar();
+    printf("読み込んだ文字: %c\n\n", ch);
+
+    // バッファに残った改行文字をクリア（おまじない）
+    while (getchar() != '\n'); 
+
+    // 2. scanf() : 数値や単語を読み込む
+    printf("2. 整数を入力してください: ");
+    scanf("%d", &amp;num);
+    printf("読み込んだ数値: %d\n\n", num);
+
+    // バッファに残った改行文字をクリア
+    while (getchar() != '\n');
+
+    // 3. fgets() : 1行まるごと（スペースを含めて）読み込む
+    printf("3. 文章を入力してください（スペース可）: ");
+    fgets(str, sizeof(str), stdin);
+    printf("読み込んだ文字列: %s", str);
+
+    return 0;
+}
+</code></pre>
 <p>標準ストリームの仕組みを理解したことで、printf が stdout という名の「ファイル」へ書き込んでいるに過ぎないことが分かりました。この知識を応用し、いよいよディスク上に存在する物理的なファイルをプログラムから操作するための、具体的な手順へと進みましょう。</p>
 <hr>
 <h2 id="3-ファイル操作の基本ステップと実践"><a class="header" href="#3-ファイル操作の基本ステップと実践">3. ファイル操作の基本ステップと実践</a></h2>
