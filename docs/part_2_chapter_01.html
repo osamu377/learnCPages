@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d416fae2.js";
+            window.path_to_searchindex_js = "searchindex-66240e1b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ead6770.js"></script>
@@ -213,7 +213,7 @@
 <p>では、なぜポインタであるはずの name 変数を、name[0] のように配列としてアクセスできるのでしょうか。その答えは、メモリの連続性にあります。name ポインタは文字列の先頭 ‘J’ を指していますが、メモリ上ではその直後に ‘o’、‘h’、‘n’ とデータが連続して並んでいます。そのため、配列のインデックスを使って後続の文字にもアクセスできるのです。そして、C言語の文字列は、その終端がナル文字（\0）によって示されるというルールになっています。</p>
 <p>このように、文字列はポインタの概念を理解するための身近で分かりやすい応用例です。しかし、ポインタの真価は、単にデータを指し示すだけでなく、それを能動的に操作することにあります。次のセクションでは、そのための核心的な技術である「間接参照（デリファレンス）」について学びます。</p>
 <hr>
-<p><strong>【コラム: ポインタ変数宣言の書式】</strong></p>
+<p><strong>【補注: ポインタ変数宣言の書式】</strong></p>
 <p>ポインタ変数の宣言の書き方は以下の3通りあります。スペースを入れる位置が違いますが、どれも間違いではありません。</p>
 <div class="table-wrapper">
 <table>
@@ -269,7 +269,7 @@ printf("The value of a is also %d\n", *pointer_to_a);
 </li>
 </ol>
 <hr>
-<p><strong>【コラム: 記号<code>*</code>】</strong></p>
+<p><strong>【補注: 記号<code>*</code>】</strong></p>
 <p><code>*</code>は、</p>
 <ol>
 <li>ポインタ変数の宣言</li>
