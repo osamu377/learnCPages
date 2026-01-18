@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-eb8bd25a.js";
+            window.path_to_searchindex_js = "searchindex-aa569534.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ead6770.js"></script>
@@ -249,12 +249,10 @@
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+<tr><th></th><th>スタックの内容</th></tr>
 </thead>
 <tbody>
-<tr><td>高いアドレス</td><td>…</td></tr>
 <tr><td>→</td><td>main関数のスタックフレーム</td></tr>
-<tr><td>低いアドレス</td><td>空き領域</td></tr>
 </tbody>
 </table>
 </div>
@@ -263,13 +261,11 @@
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+<tr><th></th><th>スタックの内容</th></tr>
 </thead>
 <tbody>
-<tr><td>高いアドレス</td><td>…</td></tr>
 <tr><td>→</td><td>funcA のスタックフレーム</td></tr>
 <tr><td></td><td>main関数のスタックフレーム</td></tr>
-<tr><td>低いアドレス</td><td>空き領域</td></tr>
 </tbody>
 </table>
 </div>
@@ -278,14 +274,12 @@
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+<tr><th></th><th>スタックの内容</th></tr>
 </thead>
 <tbody>
-<tr><td>高いアドレス</td><td>…</td></tr>
 <tr><td>→</td><td>funcB のスタックフレーム</td></tr>
 <tr><td></td><td>funcA のスタックフレーム</td></tr>
 <tr><td></td><td>main関数のスタックフレーム</td></tr>
-<tr><td>低いアドレス</td><td>空き領域</td></tr>
 </tbody>
 </table>
 </div>
@@ -294,17 +288,27 @@
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>メモリのアドレス</th><th>スタックの内容</th></tr>
+<tr><th></th><th>スタックの内容</th></tr>
 </thead>
 <tbody>
-<tr><td>高いアドレス</td><td>…</td></tr>
 <tr><td>→</td><td>funcA のスタックフレーム</td></tr>
 <tr><td></td><td>main関数のスタックフレーム</td></tr>
-<tr><td>低いアドレス</td><td>空き領域</td></tr>
 </tbody>
 </table>
 </div>
 <p>この一連のプロセスから導き出される重要な結論は、「なぜ関数内のローカル変数が、その関数の外から使えないのか」というスコープの概念です。答えは、変数が属するスタックフレームが、関数の終了と共に物理的にメモリから消去されてしまうからです。</p>
+<h4 id="ステップ5-関数funcaの終了と解放"><a class="header" href="#ステップ5-関数funcaの終了と解放">ステップ5: 関数funcAの終了と解放</a></h4>
+<p>funcAの処理が完了すると、funcBのときと同様に、funcAのスタックフレームはスタックから自動的に取り除かれ(ローカル変数は完全に消滅し)、制御が呼び出し元のmainに戻ります。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>スタックの内容</th></tr>
+</thead>
+<tbody>
+<tr><td>→</td><td>main関数のスタックフレーム</td></tr>
+</tbody>
+</table>
+</div>
 <p>しかし、プログラムは一時的なデータだけで完結しません。関数の寿命を超えてデータを保持したい場合、スタックだけでは力不足です。そこで登場するのがヒープ領域であり、次の章では、スタックとヒープがどのように連携して動的なデータ管理を実現するのかを解説します。</p>
 <hr>
 <h2 id="4-スタックとヒープの連携動的メモリ確保の舞台裏"><a class="header" href="#4-スタックとヒープの連携動的メモリ確保の舞台裏">4. スタックとヒープの連携：動的メモリ確保の舞台裏</a></h2>
