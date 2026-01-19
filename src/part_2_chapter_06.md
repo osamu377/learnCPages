@@ -38,8 +38,11 @@
 ズバリ一言で言うと
 
 * `(pp + 1)` は、 「次の単語へ」進む（縦の移動）
+
 ![縦移動](img/p2c6-3-縦移動.jpg)
+
 * `(*pp + 1)` は、 「今の単語の次の文字へ」進む（横の移動）
+
 ![横移動](img/p2c6-4-横移動.jpg)
 
 **図解：縦移動と横移動**
@@ -83,6 +86,8 @@
 
 このプログラムは、実行時に渡されたコマンドライン引数を一つずつ順番に表示します。C言語の main 関数が受け取る char **argv（または char *argv[]）は、まさにこの「単語帳」モデルの典型例です。
 
+##### コード
+
 **args_test.c**
 
 ```
@@ -101,13 +106,31 @@ int main(int argc, char **argv) {
 }
 ```
 
-**コンパイルと実行**
+##### コンパイルと実行
+
+**Linux Terminal の場合**
+
+コンパイル
+
+>gcc args_test.c -o args_test
+
+実行
+
+> ./args_test apple banana
+
+
+**Windows/開発プロンプトの場合**
+
+コンパイル
 
 > cl args_test.c
-> ./args_test.exe apple banana
+
+実行
+
+> args_test.exe apple banana
 
 
-**実行結果と解説**
+##### 実行結果と解説
 
 引数の数 (argc): 3
 0番目の引数: ./args_test.exe
