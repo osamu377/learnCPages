@@ -196,33 +196,33 @@
 <li>bird</li>
 </ul>
 <p><code>char **pp</code> とは、このリストの <strong>「現在地」を指しているあなたの「指」</strong> だと考えます。最初は一番上の “cat” を指しています。</p>
-<p><img src="p2c6-2-指.jpg" alt="指す指のイメージ"></p>
+<p><img src="img/p2c6-2-指.jpg" alt="指す指のイメージ"></p>
 <p>このモデルを使うと、複雑なポインタ演算は2つのシンプルな動きに集約できます。</p>
 <p>ズバリ一言で言うと</p>
 <ul>
 <li><code>(pp + 1)</code> は、 「次の単語へ」進む（縦の移動）
-<img src="p2c6-3-縦移動.jpg" alt="縦移動"></li>
+<img src="img/p2c6-3-縦移動.jpg" alt="縦移動"></li>
 <li><code>(*pp + 1)</code> は、 「今の単語の次の文字へ」進む（横の移動）
-<img src="p2c6-4-横移動.jpg" alt="横移動"></li>
+<img src="img/p2c6-4-横移動.jpg" alt="横移動"></li>
 </ul>
 <p><strong>図解：縦移動と横移動</strong></p>
 <p>この「縦」と「横」の動きの違いを視覚的に整理しましょう。pp が指しているのは、「単語の先頭」です。</p>
 <p><strong>1. <code>(pp + 1)</code> の分析：縦の移動</strong></p>
-<p><img src="p2c6-5-pp.jpg" alt="ppが指すもの"></p>
+<p><img src="img/p2c6-5-pp.jpg" alt="ppが指すもの"></p>
 <ul>
 <li>操作: pp + 1 は、「指」そのものを1つ進める操作です。</li>
 <li>結果: “cat” という単語全体をスキップし、指は次の単語 “dog” の先頭を指すようになります。</li>
 <li>結論: これは、単語帳を縦に1行下りる動きです。</li>
 </ul>
-<p><img src="p2c6-6-pp1.jpg" alt="pp+1が指すもの"></p>
+<p><img src="img/p2c6-6-pp1.jpg" alt="pp+1が指すもの"></p>
 <p><strong>2. <code>(*pp + 1)</code> の分析：横の移動</strong></p>
-<p><img src="p2c6-7-astpp.jpg" alt="*ppが指すもの"></p>
+<p><img src="img/p2c6-7-astpp.jpg" alt="*ppが指すもの"></p>
 <ul>
 <li>操作: *pp でまず「指が指している先の中身」、つまり “cat” という単語そのものを取り出します。その結果に対して +1 をします。</li>
 <li>結果: “cat” という単語の中で、先頭の ‘c’ から隣の ‘a’ に移動します。</li>
 <li>結論: これは、今見ている単語の中で横に1文字ズレる動きです。</li>
 </ul>
-<p><img src="p2c6-8-astpp1.jpg" alt="(*pp+1)が指すもの"></p>
+<p><img src="img/p2c6-8-astpp1.jpg" alt="(*pp+1)が指すもの"></p>
 <p><strong>なぜそうなるのか？：データ型の観点から</strong></p>
 <p>この「縦横モデル」は、データ型に基づいた厳密なルールに裏付けられています。</p>
 <ul>
@@ -468,22 +468,6 @@ int main() {
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>
