@@ -86,8 +86,6 @@
 
 このプログラムは、実行時に渡されたコマンドライン引数を一つずつ順番に表示します。C言語の main 関数が受け取る char **argv（または char *argv[]）は、まさにこの「単語帳」モデルの典型例です。
 
-##### コード
-
 **args_test.c**
 
 ```
@@ -105,29 +103,6 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
-
-##### コンパイルと実行
-
-**Linux Terminal の場合**
-
-コンパイル
-
->gcc args_test.c -o args_test
-
-実行
-
-> ./args_test apple banana
-
-
-**Windows/開発プロンプトの場合**
-
-コンパイル
-
-> cl args_test.c
-
-実行
-
-> args_test.exe apple banana
 
 
 ##### 実行結果と解説

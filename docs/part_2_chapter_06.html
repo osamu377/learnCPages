@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-369b28ed.js";
+            window.path_to_searchindex_js = "searchindex-091356ac.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ead6770.js"></script>
@@ -236,7 +236,6 @@
 <p>前セクションで学んだ抽象的な「縦横モデル」が、単なる比喩ではなく、C言語の動作そのものであることを具体的なコードを通じて体験しましょう。理論を実践に結びつけることで、理解はより確かなものになります。</p>
 <h4 id="実践例1コマンドライン引数の表示-args_testc"><a class="header" href="#実践例1コマンドライン引数の表示-args_testc">実践例1：コマンドライン引数の表示 (args_test.c)</a></h4>
 <p>このプログラムは、実行時に渡されたコマンドライン引数を一つずつ順番に表示します。C言語の main 関数が受け取る char **argv（または char *argv[]）は、まさにこの「単語帳」モデルの典型例です。</p>
-<h5 id="コード"><a class="header" href="#コード">コード</a></h5>
 <p><strong>args_test.c</strong></p>
 <pre><code>#include &lt;stdio.h&gt;
 
@@ -252,25 +251,6 @@ int main(int argc, char **argv) {
     return 0;
 }
 </code></pre>
-<h5 id="コンパイルと実行"><a class="header" href="#コンパイルと実行">コンパイルと実行</a></h5>
-<p><strong>Linux Terminal の場合</strong></p>
-<p>コンパイル</p>
-<blockquote>
-<p>gcc args_test.c -o args_test</p>
-</blockquote>
-<p>実行</p>
-<blockquote>
-<p>./args_test apple banana</p>
-</blockquote>
-<p><strong>Windows/開発プロンプトの場合</strong></p>
-<p>コンパイル</p>
-<blockquote>
-<p>cl args_test.c</p>
-</blockquote>
-<p>実行</p>
-<blockquote>
-<p>args_test.exe apple banana</p>
-</blockquote>
 <h5 id="実行結果と解説"><a class="header" href="#実行結果と解説">実行結果と解説</a></h5>
 <p>引数の数 (argc): 3
 0番目の引数: ./args_test.exe
