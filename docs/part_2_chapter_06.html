@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-091356ac.js";
+            window.path_to_searchindex_js = "searchindex-540ee2d4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9ead6770.js"></script>
@@ -231,8 +231,221 @@
 <li>ppの正体： pp は char ** 型、つまり char * 型（文字列のアドレス）を指すポインタです。したがって、pp + 1 は sizeof(char *) 分だけアドレスを進め、次の「文字列のアドレス」を指します。これが「次の単語」への移動（縦移動）の正体です。</li>
 <li>*ppの正体： *pp は pp が指すアドレスの中身を取り出す操作です。その結果は char * 型、つまり “cat” という文字列の先頭アドレスそのものです。これに +1 すると、sizeof(char) (1バイト) 分だけアドレスが進むため、‘c’ の隣の ‘a’ を指します。これが「次の文字」への移動（横移動）の正体です。</li>
 </ul>
-<p>この「縦横モデル」が、コマンドライン引数の処理など、実際のプログラムでどのように機能するかを次のセクションで見ていきましょう。</p>
-<h2 id="2-実践コードで理解する縦移動と横移動"><a class="header" href="#2-実践コードで理解する縦移動と横移動">2. 実践：コードで理解する「縦移動」と「横移動」</a></h2>
+<h2 id="2-3つのアプローチ"><a class="header" href="#2-3つのアプローチ">2. 3つのアプローチ</a></h2>
+<p>上のような「縦横モデル」へのアクセスについて、ポインタのポインタ以外にも、2つのアプローチが考えられます。より深い理解のために、それらを比較してみましょう。</p>
+<p>今度は、少しだけ、実装に寄せた書き方をしてみます。下のような単語帳を考えます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left"></th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>0</strong></td><td style="text-align: left">T</td><td style="text-align: left">e</td><td style="text-align: left">a</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"><strong>1</strong></td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">f</td><td style="text-align: left">f</td><td style="text-align: left">e</td><td style="text-align: left">e</td></tr>
+<tr><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<p>これをC言語で、以下のような文字列の配列として、定義します。</p>
+<pre><code>char *Drink[] = ["Tea", "Coffee", "Cocoa"];
+</code></pre>
+<p>Drink中の文字にアクセスする方法が3通り考えられます。</p>
+<p><strong>アプローチ1: シングル・ポインタ</strong></p>
+<pre><code>char *p;
+
+p = Drink[2];
+printf("%c\n", (*p + 1))
+</code></pre>
+<p><strong>アプローチ2: ブラケット記法</strong></p>
+<pre><code>printf("%c\n", Drink[1][3]);
+</code></pre>
+<p><strong>アプローチ3: ダブル・ポインタ(ポインタのポインタ)</strong></p>
+<pre><code>char **pp;
+
+pp = Drink;
+printf("%c"\n", **(PP + 2));
+</code></pre>
+<p>3つのアプローチの違いと、それぞれの背後にある「考え方」を解説します。</p>
+<hr>
+<h3 id="0-前提メモリ構造のイメージ"><a class="header" href="#0-前提メモリ構造のイメージ">0. 前提：メモリ構造のイメージ</a></h3>
+<p>まず、<code>char *Drink[]</code> がメモリ上でどうなっているかをイメージしましょう。</p>
+<ul>
+<li><strong><code>Drink</code></strong> は「3つの部屋を持つ棚」です。</li>
+<li>各部屋には「文字列の先頭住所（ポインタ）」が入っています。</li>
+<li><code>Drink[0]</code> → “Tea” の ‘T’ の場所</li>
+<li><code>Drink[1]</code> → “Coffee” の ‘C’ の場所</li>
+<li><code>Drink[2]</code> → “Cocoa” の ‘C’ の場所</li>
+</ul>
+<p>イメージを表にしてみます。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">指している文字列</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>0</strong></td><td style="text-align: left">“Tea” の ‘T’ のアドレス</td><td style="text-align: left">Tea\0</td></tr>
+<tr><td style="text-align: left"><strong>1</strong></td><td style="text-align: left">“Coffee” の ‘C’ のアドレス</td><td style="text-align: left">Coffee\0</td></tr>
+<tr><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left">Cocoa\0</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="1-シングルポインタ-p--1"><a class="header" href="#1-シングルポインタ-p--1">1. シングル・ポインタ <code>*(p + 1)</code></a></h3>
+<pre><code>p = Drink[2]; 
+printf("%c\n", *(p + 1));
+</code></pre>
+<ul>
+<li><strong>動作:</strong> <code>"Cocoa"</code> の <strong>‘o’</strong> を表示します。</li>
+<li><strong>考え方（1次元的な操作）:</strong></li>
+</ul>
+<ol>
+<li>まず、特定の文字列（この場合は <code>Drink[2]</code> すなわち <code>"Cocoa"</code>）を普通の1次元のポインタ <code>p</code> に取り出します。</li>
+</ol>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th><th style="text-align: left"></th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td><td style="text-align: left"><strong>この行だけを取り出す！</strong></td></tr>
+</tbody>
+</table>
+</div>
+<ol start="2">
+<li>「特定の文字列（単語）の中」だけで、アドレスを <code>+1</code> して横に移動します。</li>
+</ol>
+<p><em>初期状態</em></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left">⬇</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<p><em>アドレス <code>+1</code> する</em></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left">⬇</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>アプローチ:</strong> 「今は一つの単語に集中したい」という時に使います。複雑な多次元構造を一度シンプルな1次元ポインタに落とし込むため、コードが読みやすくなります。</li>
+</ul>
+<hr>
+<h3 id="2-ブラケット記法-drink13"><a class="header" href="#2-ブラケット記法-drink13">2. ブラケット記法 <code>Drink[1][3]</code></a></h3>
+<pre><code>printf("%c\n", Drink[1][3]);
+</code></pre>
+<ul>
+<li><strong>動作:</strong> <code>"Coffee"</code> の <strong>‘f’</strong> を表示します。</li>
+<li><strong>考え方（2次元配列的な操作）:</strong></li>
+</ul>
+<ol>
+<li><code>Drink[1]</code> で「2番目の単語（Coffee）」を指定します。</li>
+<li><code>[3]</code> でその単語内の「4文字目（‘f’）」を直接指定します。</li>
+</ol>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left"></th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"><strong>0</strong></td><td style="text-align: left">T</td><td style="text-align: left">e</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"><strong>1</strong></td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">f</td><td style="text-align: left"><strong>f</strong></td><td style="text-align: left">e</td><td style="text-align: left">e</td><td style="text-align: left">\0</td></tr>
+<tr><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>アプローチ:</strong> C言語の「配列の配列」という性質を利用した、最も直感的でミスが少ない書き方です。インデックス（添字）がはっきりしているので、行列のような「表」としてデータを扱いたい時に適しています。</li>
+</ul>
+<hr>
+<h3 id="3-ダブルポインタ-pp--2"><a class="header" href="#3-ダブルポインタ-pp--2">3. ダブルポインタ <code>**(pp + 2)</code></a></h3>
+<pre><code>pp = Drink; 
+printf("%c\n", **(pp + 2));
+</code></pre>
+<ul>
+<li><strong>動作:</strong> <code>"Cocoa"</code> の <strong>‘C’</strong> を表示します。</li>
+<li><strong>考え方（ポインタのポインタとしての操作）:</strong></li>
+</ul>
+<ol>
+<li><code>pp</code> は「棚の先頭（Drink[0]）」を指しています。</li>
+</ol>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">pp</th><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left">➡</td><td style="text-align: left"><strong>0</strong></td><td style="text-align: left">“Tea” の ‘T’ のアドレス</td><td style="text-align: left">T</td><td style="text-align: left">e</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"><strong>1</strong></td><td style="text-align: left">“Coffee” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">f</td><td style="text-align: left">f</td><td style="text-align: left">e</td><td style="text-align: left">e</td><td style="text-align: left">\0</td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<ol start="2">
+<li><code>(pp + 2)</code> で「棚の3つ目の部屋（Drink[2]）」まで<strong>縦に移動</strong>します。</li>
+</ol>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">pp</th><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"></td><td style="text-align: left"><strong>0</strong></td><td style="text-align: left">“Tea” の ‘T’ のアドレス</td><td style="text-align: left">T</td><td style="text-align: left">e</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"><strong>1</strong></td><td style="text-align: left">“Coffee” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">f</td><td style="text-align: left">f</td><td style="text-align: left">e</td><td style="text-align: left">e</td><td style="text-align: left">\0</td></tr>
+<tr><td style="text-align: left">➡</td><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<ol start="3">
+<li>最初の <code>*</code> で「部屋の中にある住所（“Cocoa“の先頭アドレス）」を取り出します。</li>
+</ol>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th style="text-align: left">pp</th><th style="text-align: left">インデックス</th><th style="text-align: left">配列の中身</th><th style="text-align: left">0</th><th style="text-align: left">1</th><th style="text-align: left">2</th><th style="text-align: left">3</th><th style="text-align: left">4</th><th style="text-align: left">5</th><th style="text-align: left">6</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left">⬇</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"><strong>0</strong></td><td style="text-align: left">“Tea” の ‘T’ のアドレス</td><td style="text-align: left">T</td><td style="text-align: left">e</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td><td style="text-align: left"></td><td style="text-align: left"></td></tr>
+<tr><td style="text-align: left"></td><td style="text-align: left"><strong>1</strong></td><td style="text-align: left">“Coffee” の ‘C’ のアドレス</td><td style="text-align: left">C</td><td style="text-align: left">o</td><td style="text-align: left">f</td><td style="text-align: left">f</td><td style="text-align: left">e</td><td style="text-align: left">e</td><td style="text-align: left">\0</td></tr>
+<tr><td style="text-align: left">➡</td><td style="text-align: left"><strong>2</strong></td><td style="text-align: left">“Cocoa” の ‘C’ のアドレス</td><td style="text-align: left"><strong>C</strong></td><td style="text-align: left">o</td><td style="text-align: left">c</td><td style="text-align: left">o</td><td style="text-align: left">a</td><td style="text-align: left">\0</td><td style="text-align: left"></td></tr>
+</tbody>
+</table>
+</div>
+<ol start="4">
+<li>2つ目の <code>*</code> で、その住所にある「文字（‘C’）」を読み取ります。</li>
+</ol>
+<ul>
+<li><strong>アプローチ:</strong> 最も「低層（ハードウェア寄り）」な考え方です。ポインタ演算だけで移動するため、関数の引数で受け取ったデータを高速に走査したり、可変長のデータを扱ったりする際に強力な武器となります。</li>
+</ul>
+<hr>
+<h3 id="まとめアプローチの比較"><a class="header" href="#まとめアプローチの比較">まとめ：アプローチの比較</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>アクセス方法</th><th>イメージ</th><th>適したシーン</th></tr>
+</thead>
+<tbody>
+<tr><td>1. <strong>一旦ポインタへ</strong></td><td>単語を抜き出す</td><td>1つの文字列に対してループ処理等をする時</td></tr>
+<tr><td>2. <strong><code>[i][j]</code> 形式</strong></td><td>表のマス目</td><td>読みやすさ重視、特定の場所を狙い撃つ時</td></tr>
+<tr><td>3. <strong><code>**(pp + i)</code></strong></td><td>アドレスの計算</td><td>高度なメモリ操作、ポインタの仕組み自体を扱う時</td></tr>
+</tbody>
+</table>
+</div>
+<p>このように、<strong>「どの階層の住所を操作しているか」</strong>（棚の段数か、単語内の文字位置か）を意識するのがポインタ攻略のコツです。</p>
+<p>さて、この「縦横モデル」が、コマンドライン引数の処理など、実際のプログラムでどのように機能するかを次のセクションで見ていきましょう。</p>
+<h2 id="3-実践コードで理解する縦移動と横移動"><a class="header" href="#3-実践コードで理解する縦移動と横移動">3. 実践：コードで理解する「縦移動」と「横移動」</a></h2>
 <p>前セクションで学んだ抽象的な「縦横モデル」が、単なる比喩ではなく、C言語の動作そのものであることを具体的なコードを通じて体験しましょう。理論を実践に結びつけることで、理解はより確かなものになります。</p>
 <h4 id="実践例1コマンドライン引数の表示-args_testc"><a class="header" href="#実践例1コマンドライン引数の表示-args_testc">実践例1：コマンドライン引数の表示 (args_test.c)</a></h4>
 <p>このプログラムは、実行時に渡されたコマンドライン引数を一つずつ順番に表示します。C言語の main 関数が受け取る char **argv（または char *argv[]）は、まさにこの「単語帳」モデルの典型例です。</p>
@@ -296,7 +509,7 @@ int main(int argc, char **argv) {
 <li>これにより、ポインタは文字列の中を1文字ずつ正確に移動し、終端のヌル文字 \0 に到達するまで走査を続けます。これは、(*pp + 1) の概念と完全に一致する具体的な動作です。</li>
 </ol>
 <p>これらの実践的なコード例を通して、<code>char **</code> を用いたポインタ演算が、単なる理論ではなく、実用的なプログラムを構築するための強力なツールであることがお分かりいただけたでしょう。</p>
-<h2 id="3-よくある混乱char-a-配列-と-char-a-ポインタ-の決定的違い"><a class="header" href="#3-よくある混乱char-a-配列-と-char-a-ポインタ-の決定的違い">3. よくある混乱：char a[] (配列) と char *a (ポインタ) の決定的違い</a></h2>
+<h2 id="4-よくある混乱char-a-配列-と-char-a-ポインタ-の決定的違い"><a class="header" href="#4-よくある混乱char-a-配列-と-char-a-ポインタ-の決定的違い">4. よくある混乱：char a[] (配列) と char *a (ポインタ) の決定的違い</a></h2>
 <p>文字列を扱う際、<code>char a[] = "Hello";</code> という配列宣言と <code>char *a = "Hello";</code> というポインタ宣言は、一見よく似ていますが、メモリ上での振る舞いは全く異なります。この違いを正確に理解することは、予期せぬバグやセグメンテーション違反といった深刻なエラーを防ぐ上で極めて重要です。</p>
 <p><strong><code>char a[];</code> の正体：書き換え可能な「箱」の確保</strong></p>
 <p><code>char a[4];</code> のように配列を宣言すると、その瞬間に文字を入れるための「箱」が物理的にメモリ上に確保されます。この領域はプログラムの実行中に自由に変更が可能です。</p>
@@ -333,7 +546,7 @@ a[0] = 'b';       // OK! 中身は "bat" になる
 <li>後から内容を書き換えたい場合： 配列 char a[] を使用する。</li>
 <li>別の文字列を指すように切り替えたい、または書き換え不要な固定文字列を使いたい場合： ポインタ char *a を使用する。</li>
 </ul>
-<h2 id="4-応用動的メモリ確保とポインタ"><a class="header" href="#4-応用動的メモリ確保とポインタ">4. 応用：動的メモリ確保とポインタ</a></h2>
+<h2 id="5-応用動的メモリ確保とポインタ"><a class="header" href="#5-応用動的メモリ確保とポインタ">5. 応用：動的メモリ確保とポインタ</a></h2>
 <p>コンパイル時にサイズが決定される配列には、「実行時まで必要なサイズがわからない」という状況に対応できない限界があります。この問題を解決するのが、プログラム実行中に必要な分だけメモリを確保する動的メモリ確保であり、ポインタはこの技術の根幹をなす要素です。</p>
 <p><strong>malloc による1次元配列の確保</strong></p>
 <p>malloc 関数を使うと、指定したサイズのメモリブロックをヒープ領域から確保し、その先頭アドレスを返すことができます。このアドレスをポインタ変数に格納することで、確保した領域を配列のように利用できます。</p>
@@ -465,6 +678,22 @@ int main() {
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
         <script>
