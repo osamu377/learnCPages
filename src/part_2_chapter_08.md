@@ -1,5 +1,7 @@
 # auto と static
 
+## イラスト・ガイダンス
+
 ![auto vs heap](img/p2c8.jpg)
 
 ## イントロダクション:記憶クラス指定子
