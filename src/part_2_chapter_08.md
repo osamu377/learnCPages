@@ -1,6 +1,6 @@
 # auto と static
 
-## イラスト・ガイダンス
+
 
 ![auto vs heap](img/p2c8.jpg)
 

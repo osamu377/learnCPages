@@ -1,6 +1,6 @@
 # 共用体
 
-## イラスト・ガイダンス
+
 
 ![auto vs heap](img/p3c1.jpg)
 
